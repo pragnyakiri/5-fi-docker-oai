@@ -43,8 +43,7 @@ sudo make install
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 
 ```bash
-$ git clone https://github.com/free5gc/free5gc-compose.git
-$ cd free5gc-compose
+$ cd ~/5-fi-docker/free5gc-compose
 $ make base
 $ docker-compose build
 $ sudo docker-compose up # Recommend use with tmux to run in frontground
