@@ -1,0 +1,500 @@
+Attaching to mongodb, free5gc-compose_portainer_1, upf, nrf, webui, smf, nssf, amf, udr, udm, ausf, pcf, n3iwf, gnb1, ue1
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][App] [0mamf
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][App] [0mAMF version:  
+[36mamf              |[0m 	free5GC version: v3.0.5
+[36mamf              |[0m 	build time:      2021-06-17T12:51:45Z
+[36mamf              |[0m 	commit hash:     452f43a6
+[36mamf              |[0m 	commit time:     2021-01-30T15:33:15Z
+[36mamf              |[0m 	go version:      go1.14.4 linux/amd64
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][Init] [0mAMF Log level is set to [info] level
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][NAS] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][NAS] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][NGAP] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][NGAP] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][FSM] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][FSM] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Aper] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Aper] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][CFG] [0mconfig version [1.0.0]
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][Init] [0mServer started
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][Util] [0mamfconfig Info: Version[1.0.0] Description[AMF initial local configuration]
+[36mamf              |[0m 2021-06-17T14:16:29Z[36m [INFO][AMF][NGAP] [0mListen on 10.100.200.7:38412
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP] [0m[AMF] SCTP Accept from: 10.100.200.12/10.0.0.1:40895
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP] [0mCreate a new NG connection for: 10.100.200.12/10.0.0.1:40895
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP][10.100.200.12/10.0.0.1:40895] [0mHandle NG Setup request
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP][10.100.200.12/10.0.0.1:40895] [0mSend NG-Setup response
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP] [0m[AMF] SCTP Accept from: 10.100.200.13:47945
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP] [0mCreate a new NG connection for: 10.100.200.13:47945
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle NG Setup request
+[36mamf              |[0m 2021-06-17T14:16:30Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mSend NG-Setup response
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Initial UE Message
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1] [0mHandle Registration Request
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1] [0mAuthentication procedure
+[33mausf             |[0m ausf
+[33mausf             |[0m ausf context =  &{{{0 0} {<nil>} map[] 0} {{0 0} {<nil>} map[] 0} 6bf957c7-68e0-4f44-86e2-be1e8c88a010 ausfGroup001 8000 ausf.free5gc.org ausf.free5gc.org http://ausf.free5gc.org:8000 http http://nrf.free5gc.org:8000 map[nausf-auth:{6bf957c7-68e0-4f44-86e2-be1e8c88a010 nausf-auth 0xc000366180 http REGISTERED   0xc000366160  [] <nil> [] [] <nil> 0 0 0 <nil> <nil> }] [{208 93} {123 45}]  0xc000340fa0}
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][AUSF][App] [0mAUSF version:  
+[33mausf             |[0m 	free5GC version: v3.0.5
+[33mausf             |[0m 	build time:      2021-06-17T12:52:26Z
+[33mausf             |[0m 	commit hash:     048e447a
+[33mausf             |[0m 	commit time:     2021-01-30T15:36:12Z
+[33mausf             |[0m 	go version:      go1.14.4 linux/amd64
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][AUSF][Init] [0mAUSF Log level is set to [info] level
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][AUSF][CFG] [0mconfig version [1.0.0]
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][AUSF][Init] [0mServer started
+[33mausf             |[0m 2021-06-17T14:16:29Z[36m [INFO][AUSF][Init] [0mausfconfig Info: Version[1.0.0] Description[AUSF initial local configuration]
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][UeAuthPost] [0mHandleUeAuthPostRequest
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][UeAuthPost] [0mServing network authorized
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.551+00:00"},"s":"I",  "c":"CONTROL",  "id":23285,   "ctx":"main","msg":"Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'"}
+[32mportainer_1      |[0m 2021/06/17 14:16:27 Starting Portainer 2.5.1 on :9000
+[32mportainer_1      |[0m 2021/06/17 14:16:27 [DEBUG] [chisel, monitoring] [check_interval_seconds: 10.000000] [message: starting tunnel management process]
+[32mportainer_1      |[0m 2021/06/17 14:16:27 [DEBUG] [internal,init] [message: start initialization monitor ]
+[33;1mnrf              |[0m nrf
+[35mgnb1             |[0m Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: ueAMF_HOSTNAME:amf
+[35mgnb1             |[0m Host for gnb is :gnb1 has address 10.100.200.13
+[35mgnb1             |[0m Host for amf is :amf has address 10.100.200.7
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][App] [0mn3iwf
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][App] [0mN3IWF version:  
+[36;1mn3iwf            |[0m 	free5GC version: v3.0.5
+[36;1mn3iwf            |[0m 	build time:      2021-06-17T12:53:43Z
+[36;1mn3iwf            |[0m 	commit hash:     a1128106
+[36;1mn3iwf            |[0m 	commit time:     2021-01-30T16:37:23Z
+[36;1mn3iwf            |[0m 	go version:      go1.14.4 linux/amd64
+[32mportainer_1      |[0m 2021/06/17 14:16:27 server: Reverse tunnelling enabled
+[32mportainer_1      |[0m 2021/06/17 14:16:27 server: Fingerprint 86:7f:a9:4a:c9:1b:5f:da:14:33:9a:dd:cf:e6:30:f7
+[32mportainer_1      |[0m 2021/06/17 14:16:27 server: Listening on 0.0.0.0:8000...
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mN3IWF Log level is set to [info] level
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.557+00:00"},"s":"W",  "c":"ASIO",     "id":22601,   "ctx":"main","msg":"No TransportLayer configured during NetworkInterface startup"}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.557+00:00"},"s":"I",  "c":"NETWORK",  "id":4648601, "ctx":"main","msg":"Implicit TCP FastOpen unavailable. If TCP FastOpen is required, set tcpFastOpenServer, tcpFastOpenClient, and tcpFastOpenQueueSize."}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.558+00:00"},"s":"I",  "c":"STORAGE",  "id":4615611, "ctx":"initandlisten","msg":"MongoDB starting","attr":{"pid":1,"port":27017,"dbPath":"/data/db","architecture":"64-bit","host":"a6d4a1d62737"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.558+00:00"},"s":"I",  "c":"CONTROL",  "id":23403,   "ctx":"initandlisten","msg":"Build Info","attr":{"buildInfo":{"version":"4.4.3","gitVersion":"913d6b62acfbb344dde1b116f4161360acd8fd13","openSSLVersion":"OpenSSL 1.1.1  11 Sep 2018","modules":[],"allocator":"tcmalloc","environment":{"distmod":"ubuntu1804","distarch":"x86_64","target_arch":"x86_64"}}}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.558+00:00"},"s":"I",  "c":"CONTROL",  "id":51765,   "ctx":"initandlisten","msg":"Operating System","attr":{"os":{"name":"Ubuntu","version":"18.04"}}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.558+00:00"},"s":"I",  "c":"CONTROL",  "id":21951,   "ctx":"initandlisten","msg":"Options set by command line","attr":{"options":{"net":{"bindIp":"*","port":27017}}}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.560+00:00"},"s":"I",  "c":"STORAGE",  "id":22270,   "ctx":"initandlisten","msg":"Storage engine to use detected by data files","attr":{"dbpath":"/data/db","storageEngine":"wiredTiger"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.560+00:00"},"s":"I",  "c":"STORAGE",  "id":22297,   "ctx":"initandlisten","msg":"Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem","tags":["startupWarnings"]}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:26.560+00:00"},"s":"I",  "c":"STORAGE",  "id":22315,   "ctx":"initandlisten","msg":"Opening WiredTiger","attr":{"config":"create,cache_size=7432M,session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress,compact_progress],"}}
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][NSSF][App] [0mNSSF version:  
+[32;1mnssf             |[0m 	free5GC version: v3.0.5
+[32;1mnssf             |[0m 	build time:      2021-06-17T12:53:14Z
+[32;1mnssf             |[0m 	commit hash:     51759368
+[32;1mnssf             |[0m 	commit time:     2021-01-30T16:03:22Z
+[32;1mnssf             |[0m 	go version:      go1.14.4 linux/amd64
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][NSSF][Init] [0mNSSF Log level is set to [info] level
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][NSSF][CFG] [0mconfig version [1.0.0]
+[32;1mnssf             |[0m 2021-06-17T14:16:29Z[36m [INFO][NSSF][Init] [0mServer started
+[35mgnb1             |[0m UERANSIM v3.1.0
+[32;1mnssf             |[0m nssf
+[35;1mpcf              |[0m pcf
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][PCF][App] [0mPCF version:  
+[35;1mpcf              |[0m 	free5GC version: v3.0.5
+[35;1mpcf              |[0m 	build time:      2021-06-17T12:53:18Z
+[35;1mpcf              |[0m 	commit hash:     fed73727
+[35;1mpcf              |[0m 	commit time:     2021-01-30T16:47:50Z
+[35;1mpcf              |[0m 	go version:      go1.14.4 linux/amd64
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][PCF][Init] [0mPCF Log level is set to [info] level
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][PCF][CFG] [0mconfig version [1.0.0]
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][PCF][Init] [0mServer started
+[35;1mpcf              |[0m 2021-06-17T14:16:29Z[36m [INFO][PCF][Util] [0mpcfconfig Info: Version[1.0.0] Description[PCF initial local configuration]
+[35mgnb1             |[0m [2021-06-17 14:16:30.704] [sctp] [info] Trying to establish SCTP connection... (10.100.200.7:38412)
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.199+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:199120][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY_PROGRESS] Recovering log 24 through 25"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.240+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:240528][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY_PROGRESS] Recovering log 25 through 25"}}
+[35mgnb1             |[0m [2021-06-17 14:16:30.708] [sctp] [info] SCTP connection established (10.100.200.7:38412)
+[35mgnb1             |[0m [2021-06-17 14:16:30.709] [sctp] [debug] SCTP association setup ascId[21]
+[35mgnb1             |[0m [2021-06-17 14:16:30.713] [ngap] [debug] Sending NG Setup Request
+[35mgnb1             |[0m [2021-06-17 14:16:30.718] [ngap] [debug] NG Setup Response received
+[35mgnb1             |[0m [2021-06-17 14:16:30.718] [ngap] [info] NG Setup procedure is successful
+[35mgnb1             |[0m [2021-06-17 14:16:31.229] [mr] [info] New UE connected to gNB. Total number of UEs is now: 1
+[34;1msmf              |[0m smf
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.326+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:326532][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY | WT_VERB_RECOVERY_PROGRESS] Main recovery loop: starting at 24/25344 to 25/256"}}
+[35mgnb1             |[0m [2021-06-17 14:16:31.230] [rrc] [debug] Sending RRC Setup for UE[3]
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][App] [0mSMF version:  
+[34;1msmf              |[0m 	free5GC version: v3.0.5
+[34;1msmf              |[0m 	build time:      2021-06-17T12:53:25Z
+[34;1msmf              |[0m 	commit hash:     04c01ec5
+[34;1msmf              |[0m 	commit time:     2021-01-30T17:01:30Z
+[34;1msmf              |[0m 	go version:      go1.14.4 linux/amd64
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][Init] [0mSMF Log level is set to [info] level
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][NAS] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][NAS] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][NGAP] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][NGAP] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][Aper] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][Aper] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][Path] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][Path] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][PFCP] [0mset log level : info
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][LIB][PFCP] [0mset report call : false
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][CFG] [0mSMF config version [1.0.0]
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][CFG] [0mUE-Routing config version [1.0.0]
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][CTX] [0msmfconfig Info: Version[1.0.0] Description[SMF initial local configuration]
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][CTX] [0mEndpoints: [upf1.free5gc.org]
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:28Z[36m [INFO][SMF][Init] [0mServer started
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][App] [0mNRF version:  
+[33;1mnrf              |[0m 	free5GC version: v3.0.5
+[33;1mnrf              |[0m 	build time:      2021-06-17T12:52:38Z
+[33;1mnrf              |[0m 	commit hash:     386a6bdd
+[33;1mnrf              |[0m 	commit time:     2021-01-30T15:57:26Z
+[33;1mnrf              |[0m 	go version:      go1.14.4 linux/amd64
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.448+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:448292][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY_PROGRESS] Recovering log 24 through 25"}}
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][NGAP] [0mset log level : info
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][NGAP] [0mset report call : false
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][Aper] [0mset log level : info
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][Aper] [0mset report call : false
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][Path] [0mset log level : info
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][LIB][Path] [0mset report call : false
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][CFG] [0mconfig version [1.0.0]
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mServer started
+[35mgnb1             |[0m [2021-06-17 14:16:31.230] [ngap] [debug] Initial NAS message received from UE 3
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.530+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:529974][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY_PROGRESS] Recovering log 25 through 25"}}
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][Init] [0mSMF Registration to NRF {d7e25c1d-9d78-4c20-becd-f29d52190974 SMF REGISTERED 0 0xc00053e160 0xc00053e1a0 [] []   [smf.free5gc.org] [] <nil> [] [] <nil> 0 0 0  <nil> <nil> <nil> <nil> 0xc0004ae780 <nil> <nil> <nil> <nil> <nil> map[] <nil> false 0xc0004b9fe0 false false []}
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][PFCP] [0mListen on 10.100.200.5:8805
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.586+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:586888][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY | WT_VERB_RECOVERY_PROGRESS] Set global recovery timestamp: (0, 0)"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.586+00:00"},"s":"I",  "c":"STORAGE",  "id":22430,   "ctx":"initandlisten","msg":"WiredTiger message","attr":{"message":"[1623939387:586984][1:0x7f8c96506ac0], txn-recover: [WT_VERB_RECOVERY | WT_VERB_RECOVERY_PROGRESS] Set global oldest timestamp: (0, 0)"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.868+00:00"},"s":"I",  "c":"STORAGE",  "id":4795906, "ctx":"initandlisten","msg":"WiredTiger opened","attr":{"durationMillis":1308}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.868+00:00"},"s":"I",  "c":"RECOVERY", "id":23987,   "ctx":"initandlisten","msg":"WiredTiger recoveryTimestamp","attr":{"recoveryTimestamp":{"$timestamp":{"t":0,"i":0}}}}
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][App] [0mSend PFCP Association Request to UPF[upf1.free5gc.org](0.0.0.0)
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][PFCP] [0mReceive resend PFCP request
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][PFCP] [0mReceive resend PFCP request
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][SMF][PFCP] [0mReceive resend PFCP request
+[34;1msmf              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][PFCP] [0mRemove Request Transaction [1]
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.870+00:00"},"s":"I",  "c":"STORAGE",  "id":4366408, "ctx":"initandlisten","msg":"No table logging settings modifications are required for existing WiredTiger tables","attr":{"loggingEnabled":true}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.871+00:00"},"s":"I",  "c":"STORAGE",  "id":22262,   "ctx":"initandlisten","msg":"Timestamp monitor starting"}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.918+00:00"},"s":"W",  "c":"CONTROL",  "id":22120,   "ctx":"initandlisten","msg":"Access control is not enabled for the database. Read and write access to data and configuration is unrestricted","tags":["startupWarnings"]}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.921+00:00"},"s":"I",  "c":"STORAGE",  "id":20536,   "ctx":"initandlisten","msg":"Flow Control is enabled on this deployment"}
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[33m [WARN][N3IWF][Context] [0mNo private key file path specified, load default key file...
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[33m [WARN][N3IWF][Context] [0mParse PKCS8 private key failed: x509: failed to parse private key (use ParsePKCS1PrivateKey instead for this key format)
+[36mudm              |[0m udm
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.922+00:00"},"s":"I",  "c":"FTDC",     "id":20625,   "ctx":"initandlisten","msg":"Initializing full-time diagnostic data capture","attr":{"dataDirectory":"/data/db/diagnostic.data"}}
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][Init] [0mNRF Log level is set to [info] level
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][Path] [0mset log level : info
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][Path] [0mset report call : false
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.929+00:00"},"s":"I",  "c":"NETWORK",  "id":23015,   "ctx":"listener","msg":"Listening on","attr":{"address":"/tmp/mongodb-27017.sock"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.929+00:00"},"s":"I",  "c":"NETWORK",  "id":23015,   "ctx":"listener","msg":"Listening on","attr":{"address":"0.0.0.0"}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:27.929+00:00"},"s":"I",  "c":"NETWORK",  "id":23016,   "ctx":"listener","msg":"Waiting for connections","attr":{"port":27017,"ssl":"off"}}
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][App] [0mUDM version:  
+[36mudm              |[0m 	free5GC version: v3.0.5
+[36mudm              |[0m 	build time:      2021-06-17T12:53:32Z
+[36mudm              |[0m 	commit hash:     e89dcbf1
+[36mudm              |[0m 	commit time:     2021-01-30T17:09:19Z
+[36mudm              |[0m 	go version:      go1.14.4 linux/amd64
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:28.348+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.3:45186","connectionId":1,"connectionCount":1}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:28.348+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn1","msg":"client metadata","attr":{"remote":"10.100.200.3:45186","client":"conn1","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Context] [0mParse using PKCS1...
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[33m [WARN][N3IWF][Context] [0mNo certificate authority file path specified, load default CA certificate...
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[33m [WARN][N3IWF][Context] [0mNo certificate file path specified, load default certificate...
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][Init] [0mUDM Log level is set to [info] level
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[32mue1              |[0m Launching ue: nr-ue -c ue.yaml
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:28.349+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.3:45188","connectionId":2,"connectionCount":2}}
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][NGAP] [0m[N3IWF] Send NG Setup Request
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mNGAP service running.
+[32mue1              |[0m UERANSIM v3.1.0
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:28.352+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn2","msg":"client metadata","attr":{"remote":"10.100.200.3:45188","client":"conn2","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][CFG] [0mconfig version [1.0.0]
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][Init] [0mUDM Config Info: Version[1.0.0] Description[UDM initial local configuration]
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][Init] [0mServer started
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][MonDB] [0mset log level : info
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.000+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.4:51942","connectionId":3,"connectionCount":3}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.000+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn3","msg":"client metadata","attr":{"remote":"10.100.200.4:51942","client":"conn3","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][LIB][MonDB] [0mset report call : false
+[35mupf              |[0m sh: 1: ./upf-iptables.sh: not found
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][CFG] [0mconfig version [1.0.0]
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mNAS TCP server successfully started.
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][Init] [0mServer started
+[32mue1              |[0m [2021-06-17 14:16:31.229] [nas] [debug] NAS layer started
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mListening NWu user plane traffic
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][App] [0mudr
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][App] [0mUDR version:  
+[33mudr              |[0m 	free5GC version: v3.0.5
+[33mudr              |[0m 	build time:      2021-06-17T12:53:38Z
+[33mudr              |[0m 	commit hash:     d634e21e
+[33mudr              |[0m 	commit time:     2021-01-30T17:13:49Z
+[33mudr              |[0m 	go version:      go1.14.4 linux/amd64
+[36mudm              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDM][Util] [0mudmconfig Info: Version[1.0.0] Description[UDM initial local configuration]
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][Init] [0mnrfconfig Info: Version[1.0.0] Description[NRF initial local configuration]
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][Init] [0mUDR Log level is set to [info] level
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset log level : info
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][Path] [0mset report call : false
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset log level : info
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][OAPI] [0mset report call : false
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][MonDB] [0mset log level : info
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][LIB][MonDB] [0mset report call : false
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][CFG] [0mconfig version [1.0.0]
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][Init] [0mUDR Config Info: Version[1.0.0] Description[UDR initial local configuration]
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][Init] [0mServer started
+[33mudr              |[0m 2021-06-17T14:16:29Z[36m [INFO][UDR][Util] [0mudrconfig Info: Version[1.0.0] Description[UDR initial local configuration]
+[32mue1              |[0m [2021-06-17 14:16:31.229] [rrc] [debug] RRC layer started
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.009+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.4:51944","connectionId":4,"connectionCount":4}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.009+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn4","msg":"client metadata","attr":{"remote":"10.100.200.4:51944","client":"conn4","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mIKE service running.
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][Init] [0mN3IWF running...
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][UEAU] [0mHandle GenerateAuthDataRequest
+[36;1mn3iwf            |[0m 2021-06-17T14:16:30Z[36m [INFO][N3IWF][NGAP] [0m[N3IWF] Handle NG Setup Response
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.655+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.9:53072","connectionId":5,"connectionCount":5}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.655+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.9:53070","connectionId":6,"connectionCount":6}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.655+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn5","msg":"client metadata","attr":{"remote":"10.100.200.9:53072","client":"conn5","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:29.656+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn6","msg":"client metadata","attr":{"remote":"10.100.200.9:53070","client":"conn6","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][LIB][3GPP] [0msuciPart [suci 0 208 93 0000 0 0 0000000003]
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QueryAuthSubsData
+[35mupf exited with code 127
+[0m[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/authentication-data/authentication-subscription |
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:30.000+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.11:47110","connectionId":7,"connectionCount":7}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:30.000+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.11:47112","connectionId":8,"connectionCount":8}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:30.002+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn8","msg":"client metadata","attr":{"remote":"10.100.200.11:47112","client":"conn8","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[33;1mnrf              |[0m 2021-06-17T14:16:27Z[36m [INFO][NRF][Init] [0mBinding addr: [nrf.free5gc.org:8000]
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle ModifyAuthentication
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:30.009+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn7","msg":"client metadata","attr":{"remote":"10.100.200.11:47110","client":"conn7","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][UeAuthPost] [0mAdd SuciSupiPair (suci-0-208-93-0000-0-0-0000000003, imsi-208930000000003) to map.
+[34mwebui            |[0m 2021-06-17T14:16:27Z[36m [INFO][WebUI][App] [0mwebui
+[34mwebui            |[0m 2021-06-17T14:16:27Z[36m [INFO][WebUI][App] [0mwebconsole version:  
+[34mwebui            |[0m 	free5GC version: v3.0.5
+[34mwebui            |[0m 	build time:      2021-06-17T12:54:41Z
+[34mwebui            |[0m 	commit hash:     d176304c
+[34mwebui            |[0m 	commit time:     2021-01-31T17:55:01Z
+[34mwebui            |[0m 	go version:      go1.14.4 linux/amd64
+[34mwebui            |[0m 2021-06-17T14:16:27Z[33m [WARN][WebUI][Init] [0mWebconsole config without log level setting!!!
+[34mwebui            |[0m 2021-06-17T14:16:27Z[36m [INFO][WebUI][Init] [0mServer started
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1] [0mSend Authentication Request
+[32mue1              |[0m [2021-06-17 14:16:31.229] [nas] [info] UE switches to state: MM-DEREGISTERED/PLMN-SEARCH
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mSend Downlink Nas Transport
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Uplink Nas Transport
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:31.251+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.9:53100","connectionId":9,"connectionCount":9}}
+[33;1mnrf              |[0m 2021-06-17T14:16:28Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][UeAuthPost] [0mUse 5G AKA auth method
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][5gAkaAuth] [0mXresStar = 3564386164316561316164643832653762633635326665396566646338383230
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:31.252+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn9","msg":"client metadata","attr":{"remote":"10.100.200.9:53100","client":"conn9","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[32mue1              |[0m [2021-06-17 14:16:31.229] [nas] [info] UE connected to gNB
+[32mue1              |[0m [2021-06-17 14:16:31.229] [nas] [info] UE switches to state: MM-DEREGISTERED/NORMAL-SERVICE
+[32mue1              |[0m [2021-06-17 14:16:31.229] [nas] [info] UE switches to state: MM-REGISTERED-INITIATED/NA
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][GIN] [0m| 201 |    10.100.200.7 | POST    | /nausf-auth/v1/ue-authentications |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][LIB][3GPP] [0mscheme 0
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[32mue1              |[0m [2021-06-17 14:16:31.230] [rrc] [debug] Sending RRC Setup Request
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][5gAkaAuth] [0mAuth5gAkaComfirmRequest
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 204 |    10.100.200.8 | PATCH   | /nudr-dr/v1/subscription-data/imsi-208930000000003/authentication-data/authentication-subscription |
+[36mudm              |[0m http://nrf.free5gc.org:8000
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][5gAkaAuth] [0mres*: 3564386164316561316164643832653762633635326665396566646338383230
+[33mausf             |[0m Xres*: 3564386164316561316164643832653762633635326665396566646338383230
+[32mue1              |[0m [2021-06-17 14:16:31.230] [rrc] [info] RRC connection established
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mUplink NAS Transport (RAN UE NGAP ID: 1)
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1] [0mHandle Authentication Response
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][LIB][3GPP] [0mSUPI type is IMSI
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle CreateAuthenticationStatus
+[32mue1              |[0m [2021-06-17 14:16:31.230] [nas] [info] UE switches to state: CM-CONNECTED
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/d7e25c1d-9d78-4c20-becd-f29d52190974
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |    10.100.200.5 | PUT     | /nnrf-nfm/v1/nf-instances/d7e25c1d-9d78-4c20-becd-f29d52190974 |
+[32mue1              |[0m [2021-06-17 14:16:31.261] [nas] [debug] Received rand[18EE2C196A097F55CCA9F415166BADB7] autn[6EB9031D67B3800023DB0E133F5EA63D]
+[32mue1              |[0m [2021-06-17 14:16:31.261] [nas] [debug] Calculated res[EA0B58182E503845] ck[225B7B3E6CD938D68D7E1AB9E5642577] ik[53BAD19852F4559C88F891A62BC555A7] ak[784AB0EA686B] mac_a[23DB0E133F5EA63D]
+[32mue1              |[0m [2021-06-17 14:16:31.261] [nas] [debug] Used snn[5G:mnc093.mcc208.3gppnetwork.org] sqn[16F3B3F70FD8]
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][5gAkaAuth] [0m5G AKA confirmation succeeded
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mSend Security Mode Command
+[36mudm              |[0m 2021-06-17T14:16:31Z[31m [ERRO][UDM][UEAU] [0mopStr length is  0
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 204 |    10.100.200.8 | PUT     | /nudr-dr/v1/subscription-data/imsi-208930000000003/authentication-data/authentication-status |
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mSend Downlink Nas Transport
+[32mue1              |[0m [2021-06-17 14:16:31.261] [nas] [debug] Derived kSeaf[E06C3785B3833EBBB67E3638F22C474B57671D5E8C81A412FC080AB94AF4589B] kAusf[F3D0C2449F70ED5E9AF900D62905EE7D3EDFAA0D21CD406DD8844F40AE087D36] kAmf[B404593961A4BB5B2C30228673E4FD612E592D25CD15510021554F972EFE2345]
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Uplink Nas Transport
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mUplink NAS Transport (RAN UE NGAP ID: 1)
+[33mausf             |[0m 2021-06-17T14:16:31Z[36m [INFO][AUSF][GIN] [0m| 200 |    10.100.200.7 | PUT     | /nausf-auth/v1/ue-authentications/suci-0-208-93-0000-0-0-0000000003/5g-aka-confirmation |
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[36mudm              |[0m AUTN = 6eb9031d67b3800023db0e133f5ea63d
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mHandle Security Mode Complete
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |   10.100.200.10 | POST    | /nudm-ueau/v1/suci-0-208-93-0000-0-0-0000000003/security-information/generate-auth-data |
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/6fb1381f-4b65-4064-b1cd-7887b8c79d84
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |    10.100.200.6 | PUT     | /nnrf-nfm/v1/nf-instances/6fb1381f-4b65-4064-b1cd-7887b8c79d84 |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][UEAU] [0mHandle ConfirmAuthDataRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mHandle InitialRegistration
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/b3c54415-3868-487f-885c-bab67b8c187d
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |    10.100.200.7 | PUT     | /nnrf-nfm/v1/nf-instances/b3c54415-3868-487f-885c-bab67b8c187d |
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/d025c0c7-210a-4e83-ad02-19ca30092ba0
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |    10.100.200.9 | PUT     | /nnrf-nfm/v1/nf-instances/d025c0c7-210a-4e83-ad02-19ca30092ba0 |
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/216839e3-d233-4d36-b2ae-cb9782283340
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |    10.100.200.8 | PUT     | /nnrf-nfm/v1/nf-instances/216839e3-d233-4d36-b2ae-cb9782283340 |
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/6bf957c7-68e0-4f44-86e2-be1e8c88a010
+[33;1mnrf              |[0m 2021-06-17T14:16:29Z[36m [INFO][NRF][GIN] [0m| 201 |   10.100.200.10 | PUT     | /nnrf-nfm/v1/nf-instances/6bf957c7-68e0-4f44-86e2-be1e8c88a010 |
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][MGMT] [0mHandle NFRegisterRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][MGMT] [0murilist update
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][MGMT] [0mCreate NF Profile
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][MGMT] [0mLocation header:  http://nrf.free5gc.org:8000/nnrf-nfm/v1/nf-instances/c12ac916-345e-48e7-ba2e-5d76183f72ac
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][GIN] [0m| 201 |   10.100.200.11 | PUT     | /nnrf-nfm/v1/nf-instances/c12ac916-345e-48e7-ba2e-5d76183f72ac |
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:30Z[36m [INFO][NRF][GIN] [0m| 200 |   10.100.200.11 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=PCF&service-names=nudr-dr&target-nf-type=UDR |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AMF&target-nf-type=AUSF |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |   10.100.200.10 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AUSF&service-names=nudm-ueau&target-nf-type=UDM |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.8 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=UDM&target-nf-type=UDR |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 201 |   10.100.200.10 | POST    | /nudm-ueau/v1/imsi-208930000000003/auth-events |
+[32mue1              |[0m [2021-06-17 14:16:31.270] [nas] [debug] Derived kNasEnc[6B9B84D5824AF36CEF00D66CCE9CFF72] kNasInt[889F783EBB91AA48A0DDC7DFCFB22A0F]
+[32mue1              |[0m [2021-06-17 14:16:31.270] [nas] [debug] Selected integrity[2] ciphering[0]
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AMF&supi=imsi-208930000000003&target-nf-type=UDM |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle GetNssai
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QueryAmData
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/20893/provisioned-data/am-data?supported-features= |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |    10.100.200.7 | GET     | /nudm-sdm/v1/imsi-208930000000003/nssai?plmn-id=20893 |
+[36mamf              |[0m 2021-06-17T14:16:31Z[31m [ERRO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mRequestedNssai: [{ServingSnssai:0xc0004e0700 HomeSnssai:<nil>}]
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AMF&supi=imsi-208930000000003&target-nf-type=UDM |
+[36mudm              |[0m http://nrf.free5gc.org:8000
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][UECM] [0mHandle RegistrationAmf3gppAccess
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][UECM] [0mUEID: imsi-208930000000003
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.8 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=UDM&target-nf-type=UDR |
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle CreateAmfContext3gpp
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 204 |    10.100.200.8 | PUT     | /nudr-dr/v1/subscription-data/imsi-208930000000003/context-data/amf-3gpp-access |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 201 |    10.100.200.7 | PUT     | /nudm-uecm/v1/imsi-208930000000003/registrations/amf-3gpp-access |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle GetAmData
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QueryAmData
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/20893/provisioned-data/am-data?supported-features=20893 |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |    10.100.200.7 | GET     | /nudm-sdm/v1/imsi-208930000000003/am-data?plmn-id=20893 |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle GetSmfSelectData
+[36mudm              |[0m http://nrf.free5gc.org:8000
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.8 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=UDM&target-nf-type=UDR |
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QuerySmfSelectData
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/20893/provisioned-data/smf-selection-subscription-data?supported-features= |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |    10.100.200.7 | GET     | /nudm-sdm/v1/imsi-208930000000003/smf-select-data?plmn-id=20893 |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle GetUeContextInSmfData
+[36mudm              |[0m http://nrf.free5gc.org:8000
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.8 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=UDM&target-nf-type=UDR |
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QuerySmfRegList
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/context-data/smf-registrations?supported-features= |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |    10.100.200.7 | GET     | /nudm-sdm/v1/imsi-208930000000003/ue-context-in-smf-data |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[36mudm              |[0m http://nrf.free5gc.org:8000
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle Subscribe
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.8 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=UDM&target-nf-type=UDR |
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle CreateSdmSubscriptions
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 201 |    10.100.200.8 | POST    | /nudr-dr/v1/subscription-data/imsi-208930000000003/context-data/sdm-subscriptions |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 201 |    10.100.200.7 | POST    | /nudm-sdm/v1/imsi-208930000000003/sdm-subscriptions |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AMF&supi=imsi-208930000000003&target-nf-type=PCF |
+[35;1mpcf              |[0m 2021-06-17T14:16:31Z[36m [INFO][PCF][Ampolicy] [0mHandle AM Policy Create Request
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |   10.100.200.11 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=PCF&target-nf-type=UDR |
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle PolicyDataUesUeIdAmDataGet
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |   10.100.200.11 | GET     | /nudr-dr/v1/policy-data/ues/imsi-208930000000003/am-data |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |   10.100.200.11 | GET     | /nnrf-disc/v1/nf-instances?guami=%7B%22plmnId%22%3A%7B%22mcc%22%3A%22208%22%2C%22mnc%22%3A%2293%22%7D%2C%22amfId%22%3A%22cafe00%22%7D&requester-nf-type=PCF&target-nf-type=AMF |
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][Comm] [0mHandle AMF Status Change Subscribe Request
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][Comm] [0mnew AMF Status Subscription[1]
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GIN] [0m| 201 |   10.100.200.11 | POST    | /namf-comm/v1/subscriptions |
+[35;1mpcf              |[0m 2021-06-17T14:16:31Z[36m [INFO][PCF][GIN] [0m| 201 |    10.100.200.7 | POST    | /npcf-am-policy-control/v1/policies |
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mSend Registration Accept
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mSend Initial Context Setup Request
+[35mgnb1             |[0m [2021-06-17 14:16:31.347] [ngap] [debug] Initial Context Setup Request received
+[32mue1              |[0m [2021-06-17 14:16:31.348] [nas] [debug] T3512 started with int[3600]
+[32mue1              |[0m [2021-06-17 14:16:31.348] [nas] [info] UE switches to state: MM-REGISTERED/NORMAL-SERVICE
+[32mue1              |[0m [2021-06-17 14:16:31.348] [nas] [info] Initial Registration is successful
+[32mue1              |[0m [2021-06-17 14:16:31.348] [nas] [info] Initial PDU sessions are establishing [1#]
+[32mue1              |[0m [2021-06-17 14:16:31.348] [nas] [debug] Sending PDU session establishment request
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Initial Context Setup Response
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Uplink Nas Transport
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mUplink NAS Transport (RAN UE NGAP ID: 1)
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mHandle Registration Complete
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945] [0mHandle Uplink Nas Transport
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][NGAP][10.100.200.13:47945][AMF_UE_NGAP_ID:1] [0mUplink NAS Transport (RAN UE NGAP ID: 1)
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mHandle UL NAS Transport
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mTransport 5GSM Message to SMF
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mSelect SMF [snssai: {Sst:1 Sd:010203}, dnn: internet]
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=AMF&target-nf-type=NSSF |
+[32;1mnssf             |[0m 2021-06-17T14:16:31Z[36m [INFO][NSSF][NsSelect] [0mHandle NSSelectionGet
+[32;1mnssf             |[0m 2021-06-17T14:16:31Z[36m [INFO][NSSF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnssf-nsselection/v1/network-slice-information?nf-id=b3c54415-3868-487f-885c-bab67b8c187d&nf-type=AMF&slice-info-request-for-pdu-session=%7B%22sNssai%22%3A%7B%22sst%22%3A1%2C%22sd%22%3A%22010203%22%7D%2C%22roamingIndication%22%3A%22NON_ROAMING%22%7D |
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.7 | GET     | /nnrf-disc/v1/nf-instances?dnn=internet&requester-nf-type=AMF&service-names=nsmf-pdusession&snssais=%7B%22sst%22%3A1%2C%22sd%22%3A%22010203%22%7D&target-nf-type=SMF&target-plmn-list=%7B%22mcc%22%3A%22208%22%2C%22mnc%22%3A%2293%22%7D |
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][PduSess] [0mRecieve Create SM Context Request
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][PduSess] [0mIn HandlePDUSessionSMContextCreate
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.5 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=SMF&target-nf-type=UDM |
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][PduSess] [0mSend NF Discovery Serving UDM Successfully
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mHandle GetSmData
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][SDM] [0mgetSmDataProcedure: SUPI[imsi-208930000000003] PLMNID[20893] DNN[internet] SNssai[{"sst":1,"sd":"010203"}]
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle QuerySmData
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |    10.100.200.8 | GET     | /nudr-dr/v1/subscription-data/imsi-208930000000003/20893/provisioned-data/sm-data?single-nssai=%7B%22sst%22%3A1%2C%22sd%22%3A%22010203%22%7D |
+[36mudm              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDM][GIN] [0m| 200 |    10.100.200.5 | GET     | /nudm-sdm/v1/imsi-208930000000003/sm-data?dnn=internet&plmn-id=20893&single-nssai=%7B%22sst%22%3A1%2C%22sd%22%3A%22010203%22%7D |
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][GSM] [0mIn HandlePDUSessionEstablishmentRequest
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NAS][Convert] [0mProtocolOrContainerList:  [0xc0000acb60 0xc0000acba0]
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][GSM] [0mProtocol Configuration Options
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][GSM] [0m&{[0xc0000acb60 0xc0000acba0]}
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][GSM] [0mDidn't Implement container type IPAddressAllocationViaNASSignallingUL
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][PduSess] [0mPCF Selection for SMContext SUPI[imsi-208930000000003] PDUSessionID[1]
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.5 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=SMF&target-nf-type=PCF |
+[35;1mpcf              |[0m 2021-06-17T14:16:31Z[36m [INFO][PCF][SMpolicy] [0mHandle CreateSmPolicy
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][DRepo] [0mHandle PolicyDataUesUeIdSmDataGet
+[33mudr              |[0m 2021-06-17T14:16:31Z[36m [INFO][UDR][GIN] [0m| 200 |   10.100.200.11 | GET     | /nudr-dr/v1/policy-data/ues/imsi-208930000000003/sm-data?dnn=internet&snssai=%7B%22sst%22%3A1%2C%22sd%22%3A%22010203%22%7D |
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:31.597+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.11:47198","connectionId":10,"connectionCount":10}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:31.597+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn10","msg":"client metadata","attr":{"remote":"10.100.200.11:47198","client":"conn10","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[35;1mpcf              |[0m 2021-06-17T14:16:31Z[36m [INFO][PCF][GIN] [0m| 201 |    10.100.200.5 | POST    | /npcf-smpolicycontrol/v1/sm-policies |
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][PduSess] [0mSUPI[imsi-208930000000003] has no pre-config route
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[33m [WARN][LIB][PFCP] [0mHost lookup failed: lookup upf1.free5gc.org on 127.0.0.11:53: no such host
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[31m [ERRO][SMF][CTX] [0mIn ActivateUpLinkTunnel UPF IP:  0.0.0.0
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[31m [ERRO][SMF][CTX] [0mAllocate PDR Error:  this upf do not associate with smf
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[33m [WARN][SMF][CTX] [0mAdd PDR failed: this upf do not associate with smf
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][DSCV] [0mHandle NFDiscoveryRequest
+[33;1mnrf              |[0m 2021-06-17T14:16:31Z[36m [INFO][NRF][GIN] [0m| 200 |    10.100.200.5 | GET     | /nnrf-disc/v1/nf-instances?requester-nf-type=SMF&target-nf-instance-id=b3c54415-3868-487f-885c-bab67b8c187d&target-nf-type=AMF |
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][Consumer] [0mSendNFDiscoveryServingAMF ok
+[34;1msmf              |[0m 2021-06-17T14:16:31Z[36m [INFO][SMF][GIN] [0m| 201 |    10.100.200.7 | POST    | /nsmf-pdusession/v1/sm-contexts |
+[36mamf              |[0m 2021-06-17T14:16:31Z[36m [INFO][AMF][GMM][AMF_UE_NGAP_ID:1][SUPI:imsi-208930000000003] [0mcreate smContext[pduSessionID: 1] Success
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:37.725+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.4:52054","connectionId":11,"connectionCount":11}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:37.726+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn11","msg":"client metadata","attr":{"remote":"10.100.200.4:52054","client":"conn11","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:37.840+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"10.100.200.3:45306","connectionId":12,"connectionCount":12}}
+[34mmongodb          |[0m {"t":{"$date":"2021-06-17T14:16:37.841+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn12","msg":"client metadata","attr":{"remote":"10.100.200.3:45306","client":"conn12","doc":{"driver":{"name":"mongo-go-driver","version":"v1.4.4"},"os":{"type":"linux","architecture":"amd64"},"platform":"go1.14.4"}}}
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: Invalid JWT token (err=Invalid JWT token) (code=401)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: Invalid JWT token (err=Invalid JWT token) (code=401)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: Invalid JWT token (err=Invalid JWT token) (code=401)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: Invalid JWT token (err=Invalid JWT token) (code=401)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: Invalid JWT token (err=Invalid JWT token) (code=401)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: No administrator account found inside the database (err=Object not found inside the database) (code=404)
+[32mportainer_1      |[0m 2021/06/17 14:17:06 http error: No administrator account found inside the database (err=Object not found inside the database) (code=404)
+[36;1mupf              |[0m sh: 1: ./upf-iptables.sh: not found
+[36;1mupf              |[0m sh: 1: ./upf-iptables.sh: not found
+[36;1mupf exited with code 127
+[0mGracefully stopping... (press Ctrl+C again to force)
