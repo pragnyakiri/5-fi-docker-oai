@@ -38,7 +38,7 @@ sudo make install
 - Engine: to install docker on your favorite OS, you can follow instruction here: https://docs.docker.com/engine/install/
 - Compose: you also need to install docker compose as detailed here: https://docs.docker.com/compose/install/
 
-## Start Free5gc
+## Build free5gc and Start Free5gc + UERANSIM
 
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 
@@ -72,10 +72,6 @@ Another way to drop DB data is just remove db data. Outside your container, run:
 ```bash
 $ rm -rf ./mongodb
 ```
-
-## Vagrant Box Option
-
-You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
 
 
 ## NF dependencies and ports
