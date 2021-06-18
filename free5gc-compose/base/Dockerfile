@@ -47,4 +47,9 @@ COPY --from=builder /go/src/free5gc/NFs/upf/build/config/* ./config/
 # Copy default certificates (not used for now)
 COPY --from=builder /go/src/free5gc/support/TLS/* ./support/TLS/
 
+# Install entry point dependencies
+RUN apt-get update \
+    && apt-get -y install python expect tshark
+#packet capture entrypoint
+ENTRYPOINT [ "! unbuffer tshark -i any -T fields -e _ws.col.Protocol -e frame.time_epoch -e ip.src -e ip.dst -e _ws.col.Info -E separator=$ | python ../packetshark/database.py" ]
 
