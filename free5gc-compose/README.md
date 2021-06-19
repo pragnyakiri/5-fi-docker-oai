@@ -44,7 +44,7 @@ Because we need to create tunnel interface, we need to use privileged container 
 
 ```bash
 $ cd ~/5-fi-docker/free5gc-compose
-$ sudo make base
+$ make base
 $ docker-compose build
 $ sudo docker-compose up # Recommend use with tmux to run in frontground
 $ sudo docker-compose up -d # Run in backbround if needed

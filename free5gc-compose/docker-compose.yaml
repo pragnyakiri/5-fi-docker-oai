@@ -12,7 +12,7 @@ services:
       - ./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
       - ./config/pcap.sh:/free5gc/free5gc-upfd/pcap.sh
-      - /data/5-fi-packetdata:/free5gc/pcapdata
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     cap_add:
       - NET_ADMIN
     networks:
