@@ -7,7 +7,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: sh -c "chmod +x pcap.sh && ./pcap.sh & chmod +x upf-iptables.sh && ./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh upf & chmod +x upf-iptables.sh && ./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
