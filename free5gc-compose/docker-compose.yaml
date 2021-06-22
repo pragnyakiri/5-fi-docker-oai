@@ -1,6 +1,25 @@
 version: '3.8'
 
 services:
+  free5gc-upf-3:
+    container_name: branching-upf
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh branching-upf & chmod +x upf-iptables.sh && ./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
+    volumes:
+      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
+      - ./config/pcap.sh:/free5gc/free5gc-upfd/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upfb.free5gc.org
+
   free5gc-upf-1:
     container_name: anchor-upf1
     build:
@@ -28,7 +47,7 @@ services:
         DEBUG_TOOLS: "false"
     command: sh -c "chmod +x pcap.sh && ./pcap.sh anchor-upf2 & chmod +x upf-iptables.sh && ./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
     volumes:
-      - ./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
       - ./config/pcap.sh:/free5gc/free5gc-upfd/pcap.sh
       - ../../5-fi-packetdata:/free5gc/pcapdata
@@ -39,25 +58,6 @@ services:
         aliases:
           - upf2.free5gc.org
         
-  free5gc-upf-3:
-    container_name: branching-upf
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: sh -c "chmod +x pcap.sh && ./pcap.sh branching-upf & chmod +x upf-iptables.sh && ./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
-    volumes:
-      - ./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml
-      - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
-      - ./config/pcap.sh:/free5gc/free5gc-upfd/pcap.sh
-      - ../../5-fi-packetdata:/free5gc/pcapdata
-    cap_add:
-      - NET_ADMIN
-    networks:
-      privnet:
-        aliases:
-          - upfb.free5gc.org
-
   db:
     container_name: mongodb
     image: mongo
