@@ -38,6 +38,8 @@ services:
       privnet:
         aliases:
           - upf1.free5gc.org
+    depends_on:
+      - free5gc-upf-3
 
   free5gc-upf-2:
     container_name: anchor-upf2
@@ -57,7 +59,10 @@ services:
       privnet:
         aliases:
           - upf2.free5gc.org
-        
+    depends_on:
+      - free5gc-upf-3 
+      - free5gc-upf-1
+
   db:
     container_name: mongodb
     image: mongo
@@ -193,7 +198,8 @@ services:
     depends_on:
       - free5gc-nrf
       - free5gc-upf-1
-
+      - free5gc-upf-2
+      - free5gc-upf-3
 
   free5gc-udm:
     container_name: udm
@@ -306,6 +312,8 @@ services:
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf-1
+      - free5gc-upf-2
+      - free5gc-upf-3
   ue1:
     image: ueransim:3.1.6
     container_name: ue1
@@ -331,7 +339,33 @@ services:
           - ue
     depends_on:
       - gnb1
-      
+  ue2:
+    image: ueransim:3.1.6
+    container_name: ue2
+    command: 
+      - ue
+    cap_add:
+      - all
+    privileged: true
+    environment:
+      GNB_HOSTNAME: gnb1
+      APN: internet
+      MSISDN: '0000000004'
+      KEY: '8baf473f2f8fd09487cccbd7097c6862'
+      OP_TYPE: OPC
+      OP: '8e27b6af0e692e750f32667a3b14605d'
+      MCC: '208'
+      MNC: '93'
+      SST: 0x01
+      SD: 0x010203
+    networks:
+      privnet:
+        aliases:
+          - ue
+    depends_on:
+      - gnb1
+      - ue1
+          
 networks:
   privnet:
     ipam:
