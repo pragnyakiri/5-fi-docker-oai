@@ -34,6 +34,23 @@ def get_network_stats(d):
 
 ####################################
 
+def get_db():
+    conn=sqlite3.connect('db_for_flask.db',isolation_level=None)
+    #conn.execute('pragma synchronous = 0')
+    #conn.execute('pragma journal_mode=wal')
+    return conn
+
+
+def init_db(cursor):
+    """Clear existing data and create new tables."""
+    sql = "DROP TABLE IF EXISTS stats"
+    cursor.execute(sql)
+    sql="CREATE TABLE stats (nf_name TEXT NOT NULL, id TEXT , time_stamp TEXT NOT NULL, CPU_percent_usage REAL, Mem_percent_usage REAL, Tx_bytes REAL, Rx_bytes REAL)"
+    cursor.execute(sql)
+
+
+
+##################################################################################
 
 def save_stats_in_DB(): 
     global stop
@@ -51,6 +68,7 @@ def save_stats_in_DB():
                 cursor.execute("INSERT INTO stats (nf_name,id,time_stamp,CPU_percent_usage,Mem_percent_usage,Tx_bytes,Rx_bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, ct, res[0], res[1], res[2], res[3]) )
             except:
                 print ("insert not executing")
+            #print (datetime.datetime.now()-ct)
         if stop==1:
             stop =0
             break
@@ -97,36 +115,19 @@ def num_servedUEs(client,id):
             return logs[res+21]
 
 def get_stats(client,id):
-    for container in client.containers.list():
-        if id in str(container.id):
-            #print(container.name)
-            stats=container.stats(stream=False)
-            #print(stats)
-            cpu_st = calculate_cpu_percent(stats)
-            #print(cpu_st)
-            mem_st = calculate_mem_percent(stats)
-            #print(mem_st)
-            result=get_network_stats(stats)
-            #print(result[0])
-            #print(result[1])
-            return cpu_st, mem_st, result[0], result[1]
+    #ct=datetime.datetime.now()
+    container=client.containers.list(filters={"id":id})[0]
+    #print(container.name)
+    #client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
+    #stats=client_lowlevel.stats(container=container.name,decode=False, stream=False)
+    stats=container.stats(stream=False)
+    #print (datetime.datetime.now()-ct)
+    cpu_st = calculate_cpu_percent(stats)
+    mem_st = calculate_mem_percent(stats)
+    result=get_network_stats(stats)
+    return cpu_st, mem_st, result[0], result[1]
 #################################################
 
-def get_db():
-    conn=sqlite3.connect('db_for_flask.db',isolation_level=None)
-    return conn
-
-
-def init_db(cursor):
-    """Clear existing data and create new tables."""
-    sql = "DROP TABLE IF EXISTS stats"
-    cursor.execute(sql)
-    sql="CREATE TABLE stats (nf_name TEXT NOT NULL, id TEXT , time_stamp TEXT NOT NULL, CPU_percent_usage REAL, Mem_percent_usage REAL, Tx_bytes REAL, Rx_bytes REAL)"
-    cursor.execute(sql)
-
-
-
-##################################################################################
 
 
 @app.route('/monitor_home')
@@ -164,11 +165,6 @@ def monitor_home():
 @app.route('/monitor_nf/<id>')
 def monitor_nf(id):
 #dictionaries for json
-    packet_data={"time": 0.00,
-    'type':'',
-    'source':'',
-    'destination':'',
-    'detail':''}
     stats_data={ "time_stamp":'',
     "cpu_percent_usage":0,
     "mem_percent_usage":0,
@@ -181,8 +177,7 @@ def monitor_nf(id):
     "Health":'',
     "DNN":'',
     "NF_stats":[],
-    "NF_Logs":'',
-    "NF_Packets":[packet_data]}
+    "NF_Logs":''}
     ct = datetime.datetime.now()
     #print("current time:-", ct)
     container=client.containers.list(filters={"id":id})
@@ -230,8 +225,13 @@ def stop_loop():
     global stop
     stop=1
     return "successfuly stopped the loop"
+@app.route("/handover/<id>")
+#run nr-cli <gnb-id> and run list ues that we will give back
+@app.route("handover-prepare/<gnb-containerid and gnb-id and ueid>")
+# run handover prepare command
 
-
+@app.route("path-switch/<gnb-containerid and gnb-id and ueid>")
+# run path switch
 
 # start a thread to dump packet data and stats data into db
 import threading
@@ -241,4 +241,4 @@ stats_thread.start()
 #start flask app
 
 if __name__=='__main__':
-    app.run()
+    app.run(port=5001)
