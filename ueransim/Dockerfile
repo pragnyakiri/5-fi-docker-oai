@@ -1,6 +1,6 @@
 FROM debian:latest as builder
 
-ARG version=v3.1.0
+ARG version=v3.2.2
 
 ENV VERSION=$version
 
@@ -24,8 +24,10 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3
 RUN file="$(cmake --version)" && echo $file
 
 
-RUN cd /tmp && git clone https://github.com/aligungr/UERANSIM.git && \
-    cd UERANSIM && git checkout tags/$VERSION 
+RUN cd /tmp && git clone https://github.com/pragnyakiri/UERANSIM-Handover && \
+    mv UERANSIM-Handover/ UERANSIM/ && \
+    cd UERANSIM 
+    #&& git checkout tags/$VERSION 
 RUN cd /tmp/UERANSIM && echo "cmake --version" && make
 
 FROM debian:stable-slim
@@ -65,5 +67,3 @@ ENV ENB_ID=0x19B \
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/bin/sh"]
-
-

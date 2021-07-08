@@ -293,7 +293,7 @@ services:
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   gnb1:
-    image: ueransim:3.1.6
+    image: ueransim:3.2.2
     container_name: gnb1
     command: 
       - gnb
@@ -304,6 +304,7 @@ services:
       MNC: '93'
       SST: 0x01
       SD: 0x010203
+      NCI: '0x0000000100'
     networks:
       privnet:
         aliases:
@@ -314,8 +315,31 @@ services:
       - free5gc-upf-1
       - free5gc-upf-2
       - free5gc-upf-3
+  gnb2:
+    image: ueransim:3.2.2
+    container_name: gnb2
+    command: 
+      - gnb
+    environment:
+      AMF_HOSTNAME: amf
+      GNB_HOSTNAME: gnb2
+      MCC: '208'
+      MNC: '93'
+      SST: 0x01
+      SD: 0x010203
+      NCI: '0x0000000101'
+    networks:
+      privnet:
+        aliases:
+          - gnb
+    depends_on:
+      - free5gc-amf
+      - free5gc-smf
+      - free5gc-upf-1
+      - free5gc-upf-2
+      - free5gc-upf-3 
   ue1:
-    image: ueransim:3.1.6
+    image: ueransim:3.2.2
     container_name: ue1
     command: 
       - ue
@@ -340,7 +364,7 @@ services:
     depends_on:
       - gnb1
   ue2:
-    image: ueransim:3.1.6
+    image: ueransim:3.2.2
     container_name: ue2
     command: 
       - ue
