@@ -315,29 +315,30 @@ services:
       - free5gc-upf-1
       - free5gc-upf-2
       - free5gc-upf-3
-  gnb2:
-    image: ueransim:3.2.2
-    container_name: gnb2
-    command: 
-      - gnb
-    environment:
-      AMF_HOSTNAME: amf
-      GNB_HOSTNAME: gnb2
-      MCC: '208'
-      MNC: '93'
-      SST: 0x01
-      SD: 0x010203
-      NCI: '0x0000000101'
-    networks:
-      privnet:
-        aliases:
-          - gnb
-    depends_on:
-      - free5gc-amf
-      - free5gc-smf
-      - free5gc-upf-1
-      - free5gc-upf-2
-      - free5gc-upf-3 
+#  gnb2:
+#    image: ueransim:3.2.2
+#    container_name: gnb2
+#    command: 
+#   - gnb
+# environment:
+#   AMF_HOSTNAME: amf
+#   GNB_HOSTNAME: gnb2
+#   MCC: '208'
+#   MNC: '93'
+#   SST: 0x01
+#   SD: 0x010203
+#   NCI: '0x0000000101'
+# networks:
+#   privnet:
+#     aliases:
+#       - gnb
+# depends_on:
+#   - free5gc-amf
+#   - free5gc-smf
+#   - free5gc-upf-1
+#   - free5gc-upf-2
+#   - free5gc-upf-3 
+#   - gnb1
   ue1:
     image: ueransim:3.2.2
     container_name: ue1

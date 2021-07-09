@@ -220,22 +220,35 @@ def monitor_nf(id):
         stats_data={}
 
     return json.dumps(monitor_nf)
+
 @app.route("/stop")
 def stop_loop():
     global stop
     stop=1
     return "successfuly stopped the loop"
-@app.route("/handover/<id>")
+
+#@app.route("/handover/<id>")#Give gNB container id
 #run nr-cli <gnb-id> and run list ues that we will give back
-@app.route("handover-prepare/<gnb-containerid and gnb-id and ueid>")
+def get_handover_ue(client,id):
+    container=client.containers.list(filters={"id":id})[0]
+    print(container.name)
+    run=container.exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    gnb_id=temp1[0]
+    temp1=container.exec_run('nr-cli ' + gnb_id + ' -e info')
+    #print(type(temp1))
+    print(temp1)
+    #temp2=(temp1.output.decode("utf-8")).split("pdu-sessions:")
+
+#@app.route("handover-prepare/<gnb-containerid and gnb-id and ueid>")
 # run handover prepare command
 
-@app.route("path-switch/<gnb-containerid and gnb-id and ueid>")
+#@app.route("path-switch/<gnb-containerid and gnb-id and ueid>")
 # run path switch
 
 # start a thread to dump packet data and stats data into db
 import threading
-stats_thread= threading.Thread(target=save_stats_in_DB, name="docker_stats")
+stats_thread=threading.Thread(target=save_stats_in_DB, name="docker_stats")
 stats_thread.start()
 
 #start flask app
