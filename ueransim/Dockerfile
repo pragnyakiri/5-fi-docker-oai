@@ -24,8 +24,7 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3
 RUN file="$(cmake --version)" && echo $file
 
 
-RUN cd /tmp && git clone https://github.com/pragnyakiri/UERANSIM-Handover && \
-    mv UERANSIM-Handover/ UERANSIM/ && \
+RUN cd /tmp && git clone https://github.com/manoj1919/UERANSIM && \
     cd UERANSIM 
     #&& git checkout tags/$VERSION 
 RUN cd /tmp/UERANSIM && echo "cmake --version" && make

@@ -1,10 +1,11 @@
 import docker
 import json
 import datetime
-import sqlite3
-from flask import Flask, request
-import requests
+import multiprocessing as mp
+from flask import Flask, request, jsonify
 import stats
+import threading
+import time
 app= Flask(__name__)
 client=docker.from_env()
 stop=0
@@ -75,7 +76,7 @@ def monitor_home():
     monitor_home_page["counts_in_topo"]=counts_details
     monitor_home_page["count_active_cells"]=counts_details["gnbs"]
     monitor_home_page["count_available_cells"]=counts_details['gnbs']
-    return (json.dumps(monitor_home_page))
+    return (jsonify(monitor_home_page))
 
 
 @app.route('/monitor_nf/<id>')
@@ -152,24 +153,67 @@ def get_handover_ue(client,id):
     #print(type(temp1))
     print(temp1)
     #temp2=(temp1.output.decode("utf-8")).split("pdu-sessions:")
-
-@app.route("/handover_prepare") #handover-prepare/<gnb-containerid and gnb-id and ueid>
+@app.route("/uelist/<id>")
+def list_ues(id):
+    container=client.containers.list(filters={"id":id})[0]
+    run=container.exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    gnb_id=temp1[0]
+    run=container.exec_run('nr-cli ' + gnb_id + ' -e ue-list')
+    temp1=run.output.decode("utf-8").split("\n")
+    ue_list=[]
+    ue_details={}
+    for item in temp1:
+        print(item)
+        if "ue-id" in item:
+            if len(ue_details.keys())>0:
+                ue_list.append(ue_details)
+            ue_details={}
+        try:
+            ue_details[item.split(':')[0]]= item.split(':')[1]
+        except IndexError:
+            continue
+    ue_list.append(ue_details)
+    return json.dumps({'UElist':ue_list})
+    
+def container_exec_run(container,cmd):
+    container.exec_run(cmd)
+    return
+@app.route("/handover_prepare/<id>") #handover-prepare/<gnb-containerid and gnb-id and ueid>
 # run handover prepare command
-def handover_prepare():
+def handover_prepare(id):
     url_params=request.args
-    print (url_params)
-    return json.dumps(url_params)
+    #print (id, url_params)
+    container=client.containers.list(filters={"id":id})[0]
+    run=container.exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    gnb_id=temp1[0]
+    cmd='nr-cli ' + gnb_id + ' -e "handover-prepare ' + url_params['ueid']+'"'
+    run=container.exec_run(cmd)
+    temp1=run.output.decode("utf-8")
+    print (temp1)
+    details={}
+    if 'copy for handover' in temp1:
+        details={}
+        raw_str=temp1.split('copy for')[-1]
+        for item in raw_str.split('\n'):
+            if ':' in item:
+                if '[debug]' in item:
+                    item=item.split('[debug]')[-1]
+                details[item.split(':')[0].strip()]= item.split(':')[1].strip()
+    #handover_thread.join()
+    return json.dumps({'handover details':details})
 
 
 #@app.route("path-switch/<gnb-containerid and gnb-id and ueid>")
 # run path switch
 
 # start a thread to dump packet data and stats data into db
-import threading
+
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 
 #start flask app
 
 if __name__=='__main__':
-    app.run(port=5002)
+    app.run(port=5001)
