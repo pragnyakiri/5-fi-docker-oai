@@ -103,11 +103,13 @@ services:
       context: ./nf_amf
       args:
         DEBUG_TOOLS: "false"
-    command: ./amf -amfcfg ../config/amfcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh amf &./amf -amfcfg ../config/amfcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
+      - ./config/pcap.sh:/free5gc/amf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
