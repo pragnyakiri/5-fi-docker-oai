@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify
 import stats
 import threading
 import time
+import handover_db
 app= Flask(__name__)
 client=docker.from_env()
 stop=0
@@ -63,6 +64,7 @@ def monitor_home():
         match = next((x for x in list_nfs if x in container.name), False)
         NF_details["type"] = match#remove_numbers(container.name)
         NF_details["containerid"]=container.id
+        NF_details["shortid"]=container.short_id
         NF_details["count"] =len(client.containers.list(filters={'name':NF_details['type']+'.*'}))
         NF_details["internet"] = 'yes'
         monitor_home_page["List_NFs"].append(NF_details)
@@ -76,7 +78,7 @@ def monitor_home():
     monitor_home_page["counts_in_topo"]=counts_details
     monitor_home_page["count_active_cells"]=counts_details["gnbs"]
     monitor_home_page["count_available_cells"]=counts_details['gnbs']
-    return (jsonify(monitor_home_page))
+    return jsonify(monitor_home_page),200
 
 
 @app.route('/monitor_nf/<id>')
@@ -92,6 +94,8 @@ def monitor_nf(id):
     "no_UEsserved":0,
     "State":'',
     "Health":'',
+    "Handover-prepare_button":'False',
+    "Path_sw_req_button":'False',
     "DNN":'',
     "NF_stats":[],
     "NF_Logs":''}
@@ -114,6 +118,8 @@ def monitor_nf(id):
         no_PDUsessions = num_PDUsessions(client,container[0].id)
     if 'gnb' in container[0].name:
         no_servedUEs = num_servedUEs(client,container[0].id)
+        monitor_nf["Handover-prepare_button"]='True'
+        monitor_nf["Path_sw_req_button"]='True'
     
     # res = get_stats(client,container[0].id)
     monitor_nf["no_PDUsessions"]=no_PDUsessions
@@ -134,25 +140,15 @@ def monitor_nf(id):
         print (stats_data)
         stats_data={}
 
-    return json.dumps(monitor_nf)
+    return jsonify(monitor_nf),200
 
 @app.route("/stop")
 def stop_loop():
     stats.kill_stats_collection()
-    return "successfuly stopped the loop"
+    return "successfuly stopped the loop",200
 
-#@app.route("/handover/<id>")#Give gNB container id
+
 #run nr-cli <gnb-id> and run list ues that we will give back
-def get_handover_ue(client,id):
-    container=client.containers.list(filters={"id":id})[0]
-    print(container.name)
-    run=container.exec_run('nr-cli --dump')
-    temp1=(run.output.decode("utf-8")).split("\n")
-    gnb_id=temp1[0]
-    temp1=container.exec_run('nr-cli ' + gnb_id + ' -e info')
-    #print(type(temp1))
-    print(temp1)
-    #temp2=(temp1.output.decode("utf-8")).split("pdu-sessions:")
 @app.route("/uelist/<id>")
 def list_ues(id):
     container=client.containers.list(filters={"id":id})[0]
@@ -174,7 +170,7 @@ def list_ues(id):
         except IndexError:
             continue
     ue_list.append(ue_details)
-    return json.dumps({'UElist':ue_list})
+    return jsonify({'UElist':ue_list}),200
     
 def container_exec_run(container,cmd):
     container.exec_run(cmd)
@@ -202,16 +198,38 @@ def handover_prepare(id):
                     item=item.split('[debug]')[-1]
                 details[item.split(':')[0].strip()]= item.split(':')[1].strip()
     #handover_thread.join()
-    return json.dumps({'handover details':details})
+    
+    return jsonify({'handover details':handover_db.push(details[list(details.keys())[0]])}),200
 
 
-#@app.route("path-switch/<gnb-containerid and gnb-id and ueid>")
-# run path switch
+@app.route("/list_pathsw")
+def list_path_switch():
+    return jsonify({"list of all path swith requests" :handover_db.read_contents()})
+
+
+# run path switch    
+@app.route("/pathsw/<gnb_containerid>")
+def path_switch(gnb_containerid):
+    url_params=request.args
+    #print (url_params)
+    handover_text=handover_db.pop(url_params['id'])
+    print (handover_text)
+    container=client.containers.list(filters={"id":gnb_containerid})[0]
+    run=container.exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    gnb_id=temp1[0]
+    cmd='nr-cli ' + gnb_id + ' -e "handover ' + handover_text+'"'
+    run=container.exec_run(cmd)
+    temp1=run.output.decode("utf-8")
+    return "Handover success",200
+
+
 
 # start a thread to dump packet data and stats data into db
 
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
+handover_db.drop_db()
 
 #start flask app
 
