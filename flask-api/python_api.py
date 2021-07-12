@@ -7,6 +7,7 @@ import stats
 import threading
 import time
 import handover_db
+import packets
 app= Flask(__name__)
 client=docker.from_env()
 stop=0
@@ -98,7 +99,8 @@ def monitor_nf(id):
     "Path_sw_req_button":'False',
     "DNN":'',
     "NF_stats":[],
-    "NF_Logs":''}
+    "NF_Logs":'',
+    "NF_packets":''}
     ct = datetime.datetime.now()
     #print("current time:-", ct)
     container=client.containers.list(filters={"id":id})
@@ -129,7 +131,7 @@ def monitor_nf(id):
     monitor_nf["DNN"]=DNN
     monitor_nf["NF_Logs"]=get_logs(client,id)
     raw_stats=stats.read_stats_db(id)
-    print ("raw stats are", raw_stats)
+    #print ("raw stats are", raw_stats)
     for row in raw_stats:
         stats_data["time_stamp"]=row[2]
         stats_data["cpu_percent_usage"]=row[3]
@@ -137,9 +139,9 @@ def monitor_nf(id):
         stats_data["Received_bytes"]=row[6]
         stats_data["Transmit_bytes"]=row[5]
         monitor_nf["NF_stats"].append(stats_data)
-        print (stats_data)
+        #print (stats_data)
         stats_data={}
-
+    monitor_nf["NF_packets"]=packets.get_packets(container[0].name)
     return jsonify(monitor_nf),200
 
 @app.route("/stop")

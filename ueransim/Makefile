@@ -5,7 +5,9 @@ IMAGE=ueransim
 TAG=3.2.2
 
 build:
-	docker build -t ${IMAGE}:${TAG} --build-arg version=v${TAG} . 
+	docker build -t ${IMAGE}:${TAG} --build-arg version=v${TAG} .
+buildclean:
+	docker build -t ${IMAGE}:${TAG} --no-cache --build-arg version=v${TAG} .
 
 push:
 	echo "Pushing the images ${IMAGE} to ${REGISTRY}"; \
@@ -16,3 +18,5 @@ push:
 	rm -r .docker
 
 all: build push
+
+allclean: buildclean push
