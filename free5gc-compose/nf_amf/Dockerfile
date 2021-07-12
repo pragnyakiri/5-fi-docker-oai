@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
-RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y -U vim strace net-tools curl netcat-openbsd ; fi
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y vim strace net-tools curl netcat-openbsd ; fi
 
 RUN apt-get update && apt-get install -y tcpdump && apt-get clean
 # Set working dir

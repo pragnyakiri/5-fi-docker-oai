@@ -82,11 +82,13 @@ services:
       context: ./nf_nrf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nrf -nrfcfg ../config/nrfcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh nrf & ./nrf -nrfcfg ../config/nrfcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+      - ./config/pcap.sh:/free5gc/nrf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -125,11 +127,13 @@ services:
       context: ./nf_ausf
       args:
         DEBUG_TOOLS: "false"
-    command: ./ausf -ausfcfg ../config/ausfcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh ausf & ./ausf -ausfcfg ../config/ausfcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml
+      - ./config/pcap.sh:/free5gc/ausf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
@@ -145,11 +149,13 @@ services:
       context: ./nf_nssf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nssf -nssfcfg ../config/nssfcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh nssf &./nssf -nssfcfg ../config/nssfcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml
+      - ./config/pcap.sh:/free5gc/nssf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
@@ -165,11 +171,13 @@ services:
       context: ./nf_pcf
       args:
         DEBUG_TOOLS: "false"
-    command: ./pcf -pcfcfg ../config/pcfcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh pcf & ./pcf -pcfcfg ../config/pcfcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml
+      - ./config/pcap.sh:/free5gc/pcf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
@@ -185,12 +193,14 @@ services:
       context: ./nf_smf
       args:
         DEBUG_TOOLS: "false"
-    command: ./smf -smfcfg ../config/smfcfg.yaml -uerouting ../config/uerouting.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh smf & ./smf -smfcfg ../config/smfcfg.yaml -uerouting ../config/uerouting.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/smfcfg.yaml:/free5gc/config/smfcfg.yaml
       - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./config/pcap.sh:/free5gc/smf/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
@@ -209,11 +219,13 @@ services:
       context: ./nf_udm
       args:
         DEBUG_TOOLS: "false"
-    command: ./udm -udmcfg ../config/udmcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh udm &./udm -udmcfg ../config/udmcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml
+      - ./config/pcap.sh:/free5gc/udm/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       GIN_MODE: release
     networks:
@@ -230,11 +242,13 @@ services:
       context: ./nf_udr
       args:
         DEBUG_TOOLS: "false"
-    command: ./udr -udrcfg ../config/udrcfg.yaml
+    command: sh -c "chmod +x pcap.sh && ./pcap.sh udr & ./udr -udrcfg ../config/udrcfg.yaml"
     expose:
       - "8000"
     volumes:
       - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+      - ./config/pcap.sh:/free5gc/udr/pcap.sh
+      - ../../5-fi-packetdata:/free5gc/pcapdata
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -311,6 +325,9 @@ services:
       privnet:
         aliases:
           - gnb
+    volumes: 
+      - ./config/pcap.sh:/pcap.sh
+      - ../../5-fi-packetdata:/pcapdata
     depends_on:
       - free5gc-amf
       - free5gc-smf
@@ -322,6 +339,9 @@ services:
     container_name: gnb2
     command: 
       - gnb
+    volumes: 
+      - ./config/pcap.sh:/pcap.sh
+      - ../../5-fi-packetdata:/pcapdata
     environment:
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb2
@@ -348,6 +368,9 @@ services:
       - ue
     cap_add:
       - all
+    volumes: 
+      - ./config/pcap.sh:/pcap.sh
+      - ../../5-fi-packetdata:/pcapdata
     privileged: true
     environment:
       GNB_HOSTNAME: gnb1
@@ -373,6 +396,9 @@ services:
       - ue
     cap_add:
       - all
+    volumes: 
+      - ./config/pcap.sh:/pcap.sh
+      - ../../5-fi-packetdata:/pcapdata
     privileged: true
     environment:
       GNB_HOSTNAME: gnb1

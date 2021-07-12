@@ -1,15 +1,18 @@
 FROM free5gc/base:latest AS builder
-FROM alpine:3.13
+FROM bitnami/minideb:stretch
 
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"
 
 ENV F5GC_MODULE nrf
+ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
-RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl netcat-openbsd ; fi
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y vim strace net-tools curl netcat-openbsd ; fi
 
+
+RUN apt-get update && apt-get install -y tcpdump && apt-get clean
 # Set working dir
 WORKDIR /free5gc
 RUN mkdir -p config/ log/ support/TLS/ ${F5GC_MODULE}/

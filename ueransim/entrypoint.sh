@@ -17,7 +17,7 @@ ue)  echo "Launching ue: nr-ue -c ue.yaml"
         export GNB_ADDR="$(host -4 $GNB_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
     fi
     envsubst < /etc/ueransim/ue.yaml > ue.yaml
-    nr-ue -c ue.yaml
+    sh -c "chmod +x pcap.sh && ./pcap.sh & nr-ue -c ue.yaml"
     ;;
 gnb)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_HOSTNAME:"${AMF_HOSTNAME}
     if [[ ! -z "${UE_HOSTNAME}" ]] ; then
@@ -31,7 +31,7 @@ gnb)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_H
     fi
 
     envsubst < /etc/ueransim/gnb.yaml > gnb.yaml
-    nr-gnb -c gnb.yaml
+    sh -c "chmod +x pcap.sh && ./pcap.sh & nr-gnb -c gnb.yaml"
     ;;
 *) echo "unknown component $1 is not a component (gnb or ue). Running $@ as command"
    $@
