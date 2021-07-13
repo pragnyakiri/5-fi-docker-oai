@@ -1,7 +1,5 @@
 import docker
-import os
 import datetime
-import multiprocessing as mp
 from flask import Flask, request, jsonify
 import stats
 import threading
@@ -174,9 +172,6 @@ def list_ues(id):
     ue_list.append(ue_details)
     return jsonify({'UElist':ue_list}),200
     
-def container_exec_run(container,cmd):
-    container.exec_run(cmd)
-    return
 @app.route("/handover_prepare/<id>") #handover-prepare/<gnb-containerid and gnb-id and ueid>
 # run handover prepare command
 def handover_prepare(id):
@@ -199,14 +194,13 @@ def handover_prepare(id):
                 if '[debug]' in item:
                     item=item.split('[debug]')[-1]
                 details[item.split(':')[0].strip()]= item.split(':')[1].strip()
-    #handover_thread.join()
     
     return jsonify({'handover details':handover_db.push(details[list(details.keys())[0]])}),200
 
 
 @app.route("/list_pathsw")
 def list_path_switch():
-    return jsonify({"list of all path swith requests" :handover_db.read_contents()})
+    return jsonify({"list of all path swith requests" :handover_db.read_contents()}),200
 
 
 # run path switch    
@@ -225,7 +219,30 @@ def path_switch(gnb_containerid):
     temp1=run.output.decode("utf-8")
     return "Handover success",200
 
-
+#manage ran-list RAN nodes
+@app.route('/manage_ran/list_ran_nodes')
+def list_ran():
+    list_nodes={}
+    for container in client.containers.list():
+        if 'gnb' in container.name:
+            node_attrs={"Availability":"Green",
+            "cloud connectivity":"Online",
+            "Site name": "Local",
+            "Site Role": "Macro cell",
+            "Device Model": "UERANSIM-gNB",
+            "Serial number": "",
+            "Bandwidth Tier": 500,
+            "Management IP":""}
+            run=container.exec_run('nr-cli --dump')
+            temp1=(run.output.decode("utf-8")).split("\n")
+            gnb_id=temp1[0]
+            node_attrs["Serial number"] = gnb_id
+            ip_add = container.attrs['NetworkSettings']['Networks']['free5gc-compose_privnet']['IPAddress']
+            node_attrs["Management IP"] = ip_add
+            list_nodes[container.name] = node_attrs
+            node_attrs={}
+    return jsonify (list_nodes),200
+        
 
 # start a thread to dump packet data and stats data into db
 
