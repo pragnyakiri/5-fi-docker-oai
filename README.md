@@ -56,5 +56,5 @@ The steps in the process of handover in the demo and corresponding url calls:
  
  6. select one of the items in the popup, that should call following url:
  
- `<ip.address>:<port>/pathsw/<target_gnb_container_id>?id=2`
+ `<ip.address>:<port>/pathsw/<target_gnb_container_id>?id=<id of selected entry in the popup>`
   
