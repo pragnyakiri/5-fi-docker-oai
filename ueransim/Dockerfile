@@ -25,8 +25,8 @@ RUN file="$(cmake --version)" && echo $file
 
 
 RUN cd /tmp && git clone https://github.com/manoj1919/UERANSIM && \
-    cd UERANSIM 
-    #&& git checkout tags/$VERSION 
+    cd UERANSIM &&\ 
+    git pull
 RUN cd /tmp/UERANSIM && echo "cmake --version" && make
 
 FROM debian:stable-slim
