@@ -312,7 +312,7 @@ services:
     image: ueransim:3.2.2
     container_name: gnb1
     command: 
-      - gnb
+      - gnb1
     environment:
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb1
@@ -338,7 +338,7 @@ services:
     image: ueransim:3.2.2
     container_name: gnb2
     command: 
-      - gnb
+      - gnb2
     volumes: 
       - ./config/pcap.sh:/pcap.sh
       - ../../5-fi-packetdata:/pcapdata
@@ -365,7 +365,7 @@ services:
     image: ueransim:3.2.2
     container_name: ue1
     command: 
-      - ue
+      - ue1
     cap_add:
       - all
     volumes: 
@@ -393,7 +393,7 @@ services:
     image: ueransim:3.2.2
     container_name: ue2
     command: 
-      - ue
+      - ue2
     cap_add:
       - all
     volumes: 

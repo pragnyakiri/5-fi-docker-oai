@@ -39,6 +39,7 @@ RUN apt-get update && \
     iproute2 \
     iputils-ping \
     libsctp1 \
+    tcpdump \
     traceroute  && \
     rm -rf /var/lib/apt/lists/*
 

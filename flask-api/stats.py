@@ -47,15 +47,20 @@ def stats(container,cursor):
         return  
     #print(container.name + " " + container.id)
     ct = datetime.datetime.now()
-    client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
-    client_stats=client_lowlevel.stats(container=container.name, stream=False)
-    cpu_st = calculate_cpu_percent(client_stats)
-    mem_st = calculate_mem_percent(client_stats)
-    result=get_network_stats(client_stats)
+    try:
+        client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
+        client_stats=client_lowlevel.stats(container=container.name, stream=False)
+        cpu_st = calculate_cpu_percent(client_stats)
+        mem_st = calculate_mem_percent(client_stats)
+        result=get_network_stats(client_stats)
+    except:
+        print("stats are not being collected")
+        return
     try:
         cursor.execute("INSERT INTO stats (nf_name,id,time_stamp,CPU_percent_usage,Mem_percent_usage,Tx_bytes,Rx_bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, ct, cpu_st, mem_st, result[0], result[1]) )
     except:
         print ("insert not executing")
+    return
 
 
 def get_stats(client):
