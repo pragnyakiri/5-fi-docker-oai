@@ -23,11 +23,14 @@ go to flask-api folder and run python_api.py like below
 
 The following are the url calls you can make:
  
- 1.<ip.address>:<port>/monitor_home
+ 1. List all containers:
+ `<ip.address>:<port>/monitor_home`
  
- 2.<ip.address>:<port>/monitor_nf/<container_id>
+ 2. Display container stats:
+ `<ip.address>:<port>/monitor_nf/<container_id>`
  
- 3.<ip.address>:<port>/manage_ran/list_nodes
+ 3. List all gNBs:
+` <ip.address>:<port>/manage_ran/list_nodes`
   
 The steps in the process of handover in the demo and corresponding url calls:
   
