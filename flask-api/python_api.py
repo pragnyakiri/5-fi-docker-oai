@@ -25,10 +25,10 @@ def num_PDUsessions(client,id):
             run=container.exec_run('nr-cli --dump')
             temp1=(run.output.decode("utf-8")).split("\n")
             ue_imsi=temp1[0]
-            temp1=container.exec_run('nr-cli ' + ue_imsi + ' -e status')
-            temp2=(temp1.output.decode("utf-8")).split("pdu-sessions:")
-            st = "id:"
-            res = [i for i in range(len(temp2[1])) if temp2[1].startswith(st, i)]
+            temp1=container.exec_run('nr-cli ' + ue_imsi + ' -e ps-list')
+            temp2=(temp1.output.decode("utf-8")).split("PDU Session")
+            st = "state: PS-ACTIVE"
+            res = [i for i in temp2 if st in i]
             return len(res)
 
 def num_servedUEs(client,id):

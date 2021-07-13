@@ -17,7 +17,7 @@ ue1)  echo "Launching ue: nr-ue -c ue.yaml"
         export GNB_ADDR="$(host -4 $GNB_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
     fi
     envsubst < /etc/ueransim/ue.yaml > ue.yaml
-    sh -c "chmod +x pcap.sh && ./pcap.sh ue1 & sleep 5 &&nr-ue -c ue.yaml"
+    sh -c "chmod +x pcap.sh && ./pcap.sh ue1 & sleep 10 &&nr-ue -c ue.yaml"
     ;;
 
 ue2)  echo "Launching ue: nr-ue -c ue.yaml"
@@ -25,7 +25,7 @@ ue2)  echo "Launching ue: nr-ue -c ue.yaml"
         export GNB_ADDR="$(host -4 $GNB_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
     fi
     envsubst < /etc/ueransim/ue.yaml > ue.yaml
-    sh -c "chmod +x pcap.sh && ./pcap.sh ue2 & sleep 5 && nr-ue -c ue.yaml"
+    sh -c "chmod +x pcap.sh && ./pcap.sh ue2 & sleep 10 && nr-ue -c ue.yaml"
     ;;
 gnb1)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_HOSTNAME:"${AMF_HOSTNAME}
     if [[ ! -z "${UE_HOSTNAME}" ]] ; then
@@ -39,7 +39,7 @@ gnb1)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_
     fi
 
     envsubst < /etc/ueransim/gnb.yaml > gnb.yaml
-    sh -c "chmod +x pcap.sh && ./pcap.sh gnb1 & sleep 5 && nr-gnb -c gnb.yaml"
+    sh -c "chmod +x pcap.sh && ./pcap.sh gnb1 & sleep 10 && nr-gnb -c gnb.yaml"
     ;;
 gnb2)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_HOSTNAME:"${AMF_HOSTNAME}
     if [[ ! -z "${UE_HOSTNAME}" ]] ; then
@@ -53,7 +53,7 @@ gnb2)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_
     fi
 
     envsubst < /etc/ueransim/gnb.yaml > gnb.yaml
-    sh -c "chmod +x pcap.sh && ./pcap.sh gnb2 & sleep 5 && nr-gnb -c gnb.yaml"
+    sh -c "chmod +x pcap.sh && ./pcap.sh gnb2 & sleep 10 && nr-gnb -c gnb.yaml"
     ;;
 *) echo "unknown component $1 is not a component (gnb or ue). Running $@ as command"
    $@
