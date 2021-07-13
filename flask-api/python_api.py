@@ -5,7 +5,7 @@ import multiprocessing as mp
 from flask import Flask, request, jsonify
 import stats
 import threading
-import time
+import sys
 import handover_db
 import packets
 app= Flask(__name__)
@@ -232,8 +232,12 @@ def path_switch(gnb_containerid):
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 handover_db.drop_db()
+if len(sys.argv) !=2:
+    print("Provide port number properly")
+    stop=1
+    exit()
 
 #start flask app
 
 if __name__=='__main__':
-    app.run(port=5001)
+    app.run(port=sys.argv[1])
