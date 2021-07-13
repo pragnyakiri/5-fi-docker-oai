@@ -30,15 +30,21 @@ The following are the url calls you can make:
 The steps in the process of handover in the demo and corresponding url calls:
   
   1. Go to source gNB monitor page by following url:
-`<ip.address>:<port>/monitor_nf/<source_gnb_container_id>`
+
+ `<ip.address>:<port>/monitor_nf/<source_gnb_container_id>`
   2. Click on handover-prepare button that opens a popup of avaialble ues to handover. The url to get available ues to populate in popup:
-  '<ip.address>:<port>/uelist/<source_gnb_container_id>`
+  
+ `<ip.address>:<port>/uelist/<source_gnb_container_id>`
   3. select one of the ues in the popup and click ok. this should call following url:
-  `<ip.address>:<port>/handover_prepare/<source_gnb_container_id>?ueid: <ueid of selected ue in the popup>`
+ 
+ `<ip.address>:<port>/handover_prepare/<source_gnb_container_id>?ueid: <ueid of selected ue in the popup>`
   4. Go to target gNB monitor page by follwoing url:
-  `<ip.address>:<port>/monitor_nf/<target_gnb_container_id>`
+ 
+ `<ip.address>:<port>/monitor_nf/<target_gnb_container_id>`
   5. click on path switch request button. A popup will appear.That should call following url to populate popup:
-  `<ip.address>:<port>/list_pathsw`
+ 
+ `<ip.address>:<port>/list_pathsw`
   6. select one of the items in the popup, that should call following url:
-  `<ip.address>:<port>/pathsw/<target_gnb_container_id>?id=2`
+ 
+ `<ip.address>:<port>/pathsw/<target_gnb_container_id>?id=2`
   
