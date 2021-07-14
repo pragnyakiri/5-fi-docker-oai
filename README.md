@@ -30,7 +30,7 @@ The following are the url calls you can make:
  `<ip.address>:<port>/monitor_nf/<container_id>`
  
  3. List all gNBs:
-` <ip.address>:<port>/manage_ran/list_nodes`
+` <ip.address>:<port>/manage_ran/list_ran_nodes`
   
 The steps in the process of handover in the demo and corresponding url calls:
   
