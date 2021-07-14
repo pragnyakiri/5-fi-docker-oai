@@ -260,28 +260,6 @@ services:
       - db
       - free5gc-nrf
 
-#  free5gc-n3iwf:
-#    container_name: n3iwf
-#    build:
-#      context: ./nf_n3iwf
-#      args:
-#        DEBUG_TOOLS: "false"
-#    command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.yaml"
-#    volumes:
-#      - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
-#      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
-#    environment:
-#      GIN_MODE: release
-#    cap_add:
-#      - NET_ADMIN
-#    networks:
-#      privnet:
-#        aliases:
-#          - n3iwf.free5gc.org
-#    depends_on:
-#      - free5gc-amf
-#      - free5gc-smf
-
 
   free5gc-webui:
     container_name: webui
@@ -312,8 +290,9 @@ services:
     image: ueransim:3.2.2
     container_name: gnb1
     command: 
-      - gnb1
+      - gnb
     environment:
+      PCAP_NAME: gnb1
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb1
       MCC: '208'
@@ -338,11 +317,12 @@ services:
     image: ueransim:3.2.2
     container_name: gnb2
     command: 
-      - gnb2
+      - gnb
     volumes: 
       - ./config/pcap.sh:/pcap.sh
       - ../../5-fi-packetdata:/pcapdata
     environment:
+      PCAP_NAME: gnb1
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb2
       MCC: '208'
@@ -365,7 +345,7 @@ services:
     image: ueransim:3.2.2
     container_name: ue1
     command: 
-      - ue1
+      - ue
     cap_add:
       - all
     volumes: 
@@ -373,6 +353,7 @@ services:
       - ../../5-fi-packetdata:/pcapdata
     privileged: true
     environment:
+      PCAP_NAME: ue1
       GNB_HOSTNAME: gnb1
       APN: internet
       MSISDN: '0000000003'
@@ -393,7 +374,7 @@ services:
     image: ueransim:3.2.2
     container_name: ue2
     command: 
-      - ue2
+      - ue
     cap_add:
       - all
     volumes: 
@@ -401,6 +382,7 @@ services:
       - ../../5-fi-packetdata:/pcapdata
     privileged: true
     environment:
+      PCAP_NAME: ue2
       GNB_HOSTNAME: gnb1
       APN: internet
       MSISDN: '0000000004'
