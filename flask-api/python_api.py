@@ -271,7 +271,9 @@ def delete_subscriber(ueId):
 @app.route('/manage_ran/uemeasurements')
 def UE_measurements():
     #dictionaries for json
-    measurements_data={ "name":'',
+    Meas_Data={"name_of_nf":'',
+    "all_data":[]}
+    measurements_data={ "container_name":'',
     "time_stamp":'',
     "dl_thp":0,
     "ul_thp":0,
@@ -279,13 +281,16 @@ def UE_measurements():
     }
     result = measurements.read()  
     for row in result:
-        measurements_data["name"]=row[0]
+        measurements_data["container_name"]=row[0]
+        #measurements_data["id"]=row[1]
         measurements_data["time_stamp"]=row[2]
         measurements_data["dl_thp"]=row[3]
         measurements_data["ul_thp"]=row[4]
-        measurements_data["latency"]=row[5]
-        #measurements_data["id"]=row[5]
-    return jsonify(measurements_data),200
+        measurements_data["latency"]=row[5] 
+        Meas_Data["all_data"].append(measurements_data)
+        Meas_Data["name_of_nf"] = row[0]
+        measurements_data={}
+    return jsonify(Meas_Data),200
 
     
 # start a thread to dump packet data and stats data into db

@@ -76,13 +76,17 @@ def write(client):
             str1 = 'docker exec -it' + container.name + '/bin/bash'
             container.exec_run(str1)
             str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 40'
-            run=container.exec_run(str2)
-            temp1=(run.output.decode("utf-8"))
-            temp2=json.loads(temp1)
-            dl_thp = temp2['download'] # bits per second
-            ul_thp = temp2['upload']
-            ts = temp2['timestamp']
-            latency = temp2['server']['latency']
+            try:
+                run=container.exec_run(str2)
+                temp1=(run.output.decode("utf-8"))
+                print(temp1)
+                temp2=json.loads(temp1)
+                dl_thp = temp2['download'] # bits per second
+                ul_thp = temp2['upload']
+                ts = temp2['timestamp']
+                latency = temp2['server']['latency']
+            except:
+                print ("Error in running speedtest")
             try:
                 cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency) VALUES ( ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency) )
             except:
@@ -101,12 +105,14 @@ def read():
         print("No data exists")
     cursor.close()
     conn.close()
+    print(args)
     return args
 
 
 #client=docker.from_env()
-#id = "7f4c89c095e7040ff0e7d05b6a0c20de40ff406f6cda8415c2e705fd0bb94ce6"
+#id = "b840504ac9a7984ab2fbf6fca067363e1ba4038a3a522acb52b60ae623bc10e7"
 #get_num_ActiveUEs(client)
 #write(client)
 #res=read()
 #print(res)
+#get_IPaddress(client,id)
