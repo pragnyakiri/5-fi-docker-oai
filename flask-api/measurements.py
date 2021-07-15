@@ -79,7 +79,6 @@ def write(client):
             try:
                 run=container.exec_run(str2)
                 temp1=(run.output.decode("utf-8"))
-                print(temp1)
                 temp2=json.loads(temp1)
                 dl_thp = temp2['download'] # bits per second
                 ul_thp = temp2['upload']
