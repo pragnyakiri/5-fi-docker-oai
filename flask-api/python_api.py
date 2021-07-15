@@ -243,33 +243,32 @@ def list_ran():
             list_nodes[container.name] = node_attrs
             node_attrs={}
     return jsonify (list_nodes),200
+    
 #subscriber management -insert and view subscribers
-@app.route('/manage_ran/subscribers',methods = ['GET', 'POST'])
+@app.route('/manage_ran/subscribers',methods = ['GET', 'POST','DELETE'])
 def manage_subscribers():
     import subscribers_db
     if request.method=='GET':
         return jsonify(subscribers_db.view_subscribers()), 200
+    data=request.form
     if request.method=='POST':
-        data=request.form
         subscribers_db.insert_subscriber(data)
         return jsonify(subscribers_db.view_subscribers()), 201
-@app.route('/manage_ran/subscribers/<ueId>',methods = ['DELETE','PUT'])
+    if request.method=='DELETE':
+        subscribers_db.delete_subscriber({'ueId':data['ueId']})
+        return jsonify(subscribers_db.view_subscribers()),200
+@app.route('/manage_ran/subscribers/<ueId>',methods = ['PUT'])
 def delete_subscriber(ueId):
     import subscribers_db
-    if request.method=='DELETE':
-        subscribers_db.delete_subscriber({'ueId':ueId})
-        return jsonify(subscribers_db.view_subscribers()),200
     if request.method=='PUT':
         new_data=request.form
-        for subs in subscribers_db.view_subscribers():
-            if subs['ueId'] == ueId:
-                subscribers_db.modify_subscriber({'ueId':ueId},new_data)
-                return jsonify(subscribers_db.view_subscribers()),200
-        subscribers_db.insert_subscriber(new_data['ueId'])
+        subscribers_db.modify_subscriber({'ueId':ueId},new_data)
         return jsonify(subscribers_db.view_subscribers()),200
+    else:
+        return "Bad request",400
         
 #List measurements for a UE
-@app.route('/UE/measurements')
+@app.route('/manage_ran/uemeasurements')
 def UE_measurements():
     #dictionaries for json
     measurements_data={ "name":'',
@@ -280,11 +279,11 @@ def UE_measurements():
     }
     result = measurements.read()  
     for row in result:
-        measurements_data["name"]=row[1]
-        measurements_data["time_stamp"]=row[3]
-        measurements_data["dl_thp"]=row[4]
-        measurements_data["ul_thp"]=row[5]
-        measurements_data["latency"]=row[6]
+        measurements_data["name"]=row[0]
+        measurements_data["time_stamp"]=row[2]
+        measurements_data["dl_thp"]=row[3]
+        measurements_data["ul_thp"]=row[4]
+        measurements_data["latency"]=row[5]
         #measurements_data["id"]=row[5]
     return jsonify(measurements_data),200
 
@@ -294,7 +293,9 @@ def UE_measurements():
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 handover_db.drop_db()
-measurements.write(client)
+measurements_thread=threading.Thread(target=measurements.write, args=(client,), name="docker_measurements")
+measurements_thread.start()
+
 if len(sys.argv) !=2:
     print("Provide port number properly")
     stop=1

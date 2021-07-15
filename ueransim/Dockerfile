@@ -11,7 +11,13 @@ RUN apt-get update && \
     wget \
     g++ \
     libssl-dev \
-    libsctp-dev 
+    libsctp-dev \
+    curl
+
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+RUN apt-get update &&\
+    apt-get install speedtest
+
     
 # requires cmake >=3.17
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3.tar.gz && \

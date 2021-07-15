@@ -59,24 +59,25 @@ def get_IPaddress(client,id):
     if len(container)==0:
         print ("no container running with given id")
         return
-    name=container[0].name
-    res=name.split("ue")
-    strs="60.60.0."+res[1]
-    return strs
+    run=container[0].exec_run('ip -j a')
+    ipraw= run.output.decode("utf-8")
+    ipjson=json.loads(ipraw)
+    for dicts in ipjson:
+        if dicts['ifname']=='uesimtun0':
+            for subdicts in dicts['addr_info']: 
+                if  subdicts['label']=='uesimtun0':
+                    return subdicts['local']
 
 def write(client):
     cursor = make_meas_table()
     for container in client.containers.list():
         if 'ue' in str(container.name):
-            print(container.name)
             IPaddr = get_IPaddress(client,container.id)
-            print(IPaddr)
             str1 = 'docker exec -it' + container.name + '/bin/bash'
             container.exec_run(str1)
             str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 40'
             run=container.exec_run(str2)
             temp1=(run.output.decode("utf-8"))
-            print(temp1)
             temp2=json.loads(temp1)
             dl_thp = temp2['download'] # bits per second
             ul_thp = temp2['upload']
@@ -85,7 +86,7 @@ def write(client):
             try:
                 cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency) VALUES ( ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency) )
             except:
-                print ("insert not executing")
+                print ("measurements insert not executing")
 
 
 def read():
