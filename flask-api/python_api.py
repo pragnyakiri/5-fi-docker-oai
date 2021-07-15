@@ -243,7 +243,31 @@ def list_ran():
             list_nodes[container.name] = node_attrs
             node_attrs={}
     return jsonify (list_nodes),200
-
+#subscriber management -insert and view subscribers
+@app.route('/manage_ran/subscribers',methods = ['GET', 'POST'])
+def manage_subscribers():
+    import subscribers_db
+    if request.method=='GET':
+        return jsonify(subscribers_db.view_subscribers()), 200
+    if request.method=='POST':
+        data=request.form
+        subscribers_db.insert_subscriber(data)
+        return jsonify(subscribers_db.view_subscribers()), 201
+@app.route('/manage_ran/subscribers/<ueId>',methods = ['DELETE','PUT'])
+def delete_subscriber(ueId):
+    import subscribers_db
+    if request.method=='DELETE':
+        subscribers_db.delete_subscriber({'ueId':ueId})
+        return jsonify(subscribers_db.view_subscribers()),200
+    if request.method=='PUT':
+        new_data=request.form
+        for subs in subscribers_db.view_subscribers():
+            if subs['ueId'] == ueId:
+                subscribers_db.modify_subscriber({'ueId':ueId},new_data)
+                return jsonify(subscribers_db.view_subscribers()),200
+        subscribers_db.insert_subscriber(new_data['ueId'])
+        return jsonify(subscribers_db.view_subscribers()),200
+        
 #List measurements for a UE
 @app.route('/UE/measurements')
 def UE_measurements():

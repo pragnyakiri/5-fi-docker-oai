@@ -69,6 +69,8 @@ services:
     command: mongod --port 27017
     expose:
       - "27017"
+    ports:
+      - 27018:27017
     volumes:
       - dbdata:/data/db
     networks:
@@ -322,7 +324,7 @@ services:
       - ./config/pcap.sh:/pcap.sh
       - ../../5-fi-packetdata:/pcapdata
     environment:
-      PCAP_NAME: gnb1
+      PCAP_NAME: gnb2
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb2
       MCC: '208'
