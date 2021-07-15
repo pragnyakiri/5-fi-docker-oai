@@ -2,6 +2,7 @@ import docker
 import datetime
 from flask import Flask, request, jsonify
 import stats
+import measurements
 import threading
 import sys
 import handover_db
@@ -37,7 +38,7 @@ def num_servedUEs(client,id):
             #print(logs)
             st = 'Total number of UEs'
             res = logs.rfind(st) 
-            #print("The Number of UEs served is : " + logs[res+21])
+            #print("The Number of UEs served by this gNB is : " + logs[res+21])
             return logs[res+21]
 
 
@@ -242,13 +243,34 @@ def list_ran():
             list_nodes[container.name] = node_attrs
             node_attrs={}
     return jsonify (list_nodes),200
-        
 
+#List measurements for a UE
+@app.route('/UE/measurements')
+def UE_measurements():
+    #dictionaries for json
+    measurements_data={ "name":'',
+    "time_stamp":'',
+    "dl_thp":0,
+    "ul_thp":0,
+    "latency":0,
+    }
+    result = measurements.read()  
+    for row in result:
+        measurements_data["name"]=row[1]
+        measurements_data["time_stamp"]=row[3]
+        measurements_data["dl_thp"]=row[4]
+        measurements_data["ul_thp"]=row[5]
+        measurements_data["latency"]=row[6]
+        #measurements_data["id"]=row[5]
+    return jsonify(measurements_data),200
+
+    
 # start a thread to dump packet data and stats data into db
 
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 handover_db.drop_db()
+measurements.write(client)
 if len(sys.argv) !=2:
     print("Provide port number properly")
     stop=1

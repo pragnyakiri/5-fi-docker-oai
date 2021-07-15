@@ -31,6 +31,8 @@ RUN cd /tmp/UERANSIM && echo "cmake --version" && make
 
 FROM debian:stable-slim
 
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+
 RUN apt-get update && \
     apt-get install -y  \
     curl \
@@ -40,6 +42,7 @@ RUN apt-get update && \
     iputils-ping \
     libsctp1 \
     tcpdump \
+    speedtest-cli \
     traceroute  && \
     rm -rf /var/lib/apt/lists/*
 
