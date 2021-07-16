@@ -39,13 +39,10 @@ def init_db(cursor):
     cursor.execute(sql)
 
 
-#client=docker.from_env()
-
 def stats(container,cursor):
     global stop
     if 'port' in str(container) or 'mongo' in str(container) or 'webui' in str(container) or 'mytb' in str(container):
-        return  
-    #print(container.name + " " + container.id)
+        return
     ct = datetime.datetime.now()
     try:
         client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')

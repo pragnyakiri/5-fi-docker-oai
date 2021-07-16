@@ -8,23 +8,34 @@ import sqlite3
 # 4. Packet Loss rate measurement, separately for DL and UL per QCI per UE, by the eNB
 # 5. Number of active UEs in RRC_CONNECTED
 
-def get_num_ActiveUEs(client):
+def get_num_servedUEs(client,id):
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return
+    logs = container[0].logs().decode("utf-8")
+    st = 'Total number of UEs'
+    res = logs.rfind(st)
+    return logs[res+21]
+
+
+def get_num_ActiveUEs(client,id):
     Num_ActiveUEs=[]
-    for container in client.containers.list():
-        if 'gnb' in str(container.name):
-            run=container.exec_run('nr-cli --dump')
-            temp1=(run.output.decode("utf-8")).split("\n")
-            gnb_id=temp1[0]
-            temp1=container.exec_run('nr-cli ' + gnb_id + ' -e ue-list')
-            temp2=temp1.output.decode("utf-8")
-            st = "ue-id:"
-            res = [i for i in range(len(temp2)) if temp2.startswith(st, i)]
-            Num_ActiveUEs.append(len(res)) 
-    #print(Num_ActiveUEs)
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return
+    run=container[0].exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    gnb_id=temp1[0]
+    temp1=container[0].exec_run('nr-cli ' + gnb_id + ' -e ue-list')
+    temp2=temp1.output.decode("utf-8")
+    st = "ue-id:"
+    res = [i for i in range(len(temp2)) if temp2.startswith(st, i)]
+    Num_ActiveUEs.append(len(res)) 
     sum=0
     for i in Num_ActiveUEs:
-        sum = sum + i      
-    #print(sum)
+        sum = sum + i
     return(sum)  
 
 def get_db():
@@ -37,7 +48,7 @@ def make_meas_table():
     """Clear existing data and create new table for measurements"""
     sql = "DROP TABLE IF EXISTS measurements"
     cursor.execute(sql)
-    sql="CREATE TABLE measurements (nf_name TEXT NOT NULL, id TEXT NOT NULL, time_stamp TEXT NOT NULL, DL_Thp REAL, UL_Thp REAL, Latency REAL)"
+    sql="CREATE TABLE measurements (nf_name TEXT NOT NULL, id TEXT NOT NULL, time_stamp TEXT NOT NULL, DL_Thp REAL, UL_Thp REAL, Latency REAL, Tx_Bytes REAL, Rx_Bytes REAL)"
     cursor.execute(sql)
     return cursor
     
@@ -78,46 +89,50 @@ def write(client,ts):
                 dl_thp = temp2['download'] # bits per second
                 ul_thp = temp2['upload']
                 latency = temp2['server']['latency']
+                tx_byte,rx_byte=get_TxRx_Bytes(client,container.name)
             except:
                 print ("Error in running speedtest")
             try:
-                cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency) VALUES ( ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency) )
+                cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
             except:
                 print ("measurements insert not executing")
 
+def get_gNB(client):
+    docker info --format '{{json .}}'
 
-def read():
+def read(name):
     conn=get_db()
     cursor=conn.cursor()
-    sql="SELECT * FROM measurements"
+    sql="SELECT * FROM measurements WHERE nf_name='"+name+"'; "
     if if_table_exists(cursor,'measurements'):
         cursor.execute(sql)
         args=cursor.fetchall()
     else:
         args=0
-        print("No data exists")
+        print("No data exists in database table measurements")
     cursor.close()
     conn.close()
     return args
 
-def get_RxTx_Bytes(client):
-    for container in client.containers.list():
-        if 'ue' in str(container.name):
-            #print(container.name)
-            try:
-                run=container.exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep RX'])
-                temp1=(run.output.decode("utf-8")).split('bytes ')
-                m = temp1[1].split(' ')
-                rx_bytes=m[0]
-                run=container.exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep TX'])
-                temp2=(run.output.decode("utf-8")).split('bytes ')
-                m = temp2[1].split(' ')
-                tx_bytes=m[0]
-                #print(rx_bytes)
-                #print(tx_bytes)
-            except: 
-                print ("Error in running exec_run")
-
+def get_TxRx_Bytes(client,name):
+    container=client.containers.list(filters={"name":name})
+    if len(container)==0:
+        print ("no container running with given id")
+        return
+    try:
+        run=container[0].exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep RX'])
+        temp1=(run.output.decode("utf-8")).split('bytes ')
+        m = temp1[1].split(' ')
+        rx_bytes=m[0]
+        run=container[0].exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep TX'])
+        temp2=(run.output.decode("utf-8")).split('bytes ')
+        n = temp2[1].split(' ')
+        tx_bytes=n[0]
+    except: 
+        rx_bytes=0
+        tx_bytes=0
+        print ("Error in running exec_run")
+    return tx_bytes,rx_bytes
 
 
 
@@ -128,4 +143,4 @@ def get_RxTx_Bytes(client):
 #res=read()
 #print(res)
 #get_IPaddress(client,id)
-#get_RxTx_Bytes(client)
+#read('ue2')

@@ -31,18 +31,6 @@ def num_PDUsessions(client,id):
             res = [i for i in temp2 if st in i]
             return len(res)
 
-def num_servedUEs(client,id):
-    for container in client.containers.list():
-        if id in str(container.id):
-            #print(container.name)
-            logs = container.logs().decode("utf-8")
-            #print(logs)
-            st = 'Total number of UEs'
-            res = logs.rfind(st) 
-            #print("The Number of UEs served by this gNB is : " + logs[res+21])
-            return logs[res+21]
-
-
 #################################################
 
 
@@ -108,6 +96,7 @@ def monitor_nf(id):
     monitor_nf={"name_of_nf":'',
     "no_PDUsessions":0,
     "no_UEsserved":0,
+    "no_ActiveUEs":0,
     "State":'',
     "Health":'',
     "Handover-prepare_button":'False',
@@ -128,13 +117,15 @@ def monitor_nf(id):
     DNN=''
     no_PDUsessions=0
     no_servedUEs=0
+    no_ActiveUEs=0
     monitor_nf["name_of_nf"]=container[0].name
     if 'upf' in container[0].name:
         DNN = 'internet'
     if 'ue' in container[0].name:
         no_PDUsessions = num_PDUsessions(client,container[0].id)
     if 'gnb' in container[0].name:
-        no_servedUEs = num_servedUEs(client,container[0].id)
+        no_servedUEs = measurements.get_num_servedUEs(client,container[0].id)
+        no_ActiveUEs = measurements.get_num_ActiveUEs(client,container[0].id)
         monitor_nf["Handover-prepare_button"]='True'
         monitor_nf["Path_sw_req_button"]='True'
         chart1_dict["title"] = "Average DL throughput of connected UEs"
@@ -150,6 +141,7 @@ def monitor_nf(id):
     # res = get_stats(client,container[0].id)
     monitor_nf["no_PDUsessions"]=no_PDUsessions
     monitor_nf["no_UEsserved"]=no_servedUEs
+    monitor_nf["no_ActiveUEs"]=no_ActiveUEs
     monitor_nf["State"]=state
     monitor_nf["Health"]=health
     monitor_nf["DNN"]=DNN
@@ -307,31 +299,36 @@ def delete_subscriber(ueId):
         return "Bad request",400
         
 #List measurements for a UE
-@app.route('/manage_ran/uemeasurements')
-def UE_measurements():
+@app.route('/manage_ran/uemeasurements/<id>')
+def UE_measurements(id):
     #dictionaries for json
     Meas_Data={"name_of_nf":'',
     "all_data":[]}
-    measurements_data={ "container_name":'',
+    measurements_data={
     "time_stamp":'',
     "dl_thp":0,
     "ul_thp":0,
     "latency":0,
+    "tx_bytes":0,
+    "rx_bytes":0,
     }
-    result = measurements.read()  
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return    
+    result = measurements.read(container[0].name)
     for row in result:
-        measurements_data["container_name"]=row[0]
-        #measurements_data["id"]=row[1]
         measurements_data["time_stamp"]=row[2]
         measurements_data["dl_thp"]=row[3]
         measurements_data["ul_thp"]=row[4]
         measurements_data["latency"]=row[5] 
+        measurements_data["tx_bytes"]=row[6] 
+        measurements_data["rx_bytes"]=row[7] 
         Meas_Data["all_data"].append(measurements_data)
         Meas_Data["name_of_nf"] = row[0]
         measurements_data={}
     return jsonify(Meas_Data),200
 
-    
 # start a thread to dump packet data and stats data into db
 
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
