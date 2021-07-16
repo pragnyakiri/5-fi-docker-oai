@@ -7,6 +7,7 @@ import threading
 import sys
 import handover_db
 import packets
+import copy
 app= Flask(__name__)
 client=docker.from_env()
 stop=0
@@ -75,6 +76,7 @@ def monitor_home():
     counts_details["gnbs"]= len(client.containers.list(filters={'name':'gnb.*'}))
     counts_details["rrhs"]= len(client.containers.list(filters={'name':'gnb.*'}))
     counts_details["ues"]= len(client.containers.list(filters={'name':'ue.*'}))
+    counts_details["edges"]= 0
     monitor_home_page["counts_in_topo"]=counts_details
     monitor_home_page["count_active_cells"]=counts_details["gnbs"]
     monitor_home_page["count_available_cells"]=counts_details['gnbs']
@@ -84,6 +86,20 @@ def monitor_home():
 @app.route('/monitor_nf/<id>')
 def monitor_nf(id):
 #dictionaries for json
+
+    chart_dict={"title":'','x-axis_title':'','y-axis_title':'','data':[]}
+    chart1_dict=copy.deepcopy(chart_dict)
+    chart2_dict=copy.deepcopy(chart_dict)
+    chart3_dict=copy.deepcopy(chart_dict)
+    chart1_dict["title"] = "CPU Usage"
+    chart1_dict["x-axis_title"]= "Time"
+    chart1_dict["y-axis_title"]= "Percentage used"
+    chart2_dict["title"] = "Memory Usage"
+    chart2_dict["x-axis_title"]= "Time"
+    chart2_dict["y-axis_title"]= "Percentage used"
+    chart3_dict["title"] = "Network Usage"
+    chart3_dict["x-axis_title"]= "Time"
+    chart3_dict["y-axis_title"]= "MB"
     stats_data={ "time_stamp":'',
     "cpu_percent_usage":0,
     "mem_percent_usage":0,
@@ -97,7 +113,7 @@ def monitor_nf(id):
     "Handover-prepare_button":'False',
     "Path_sw_req_button":'False',
     "DNN":'',
-    "NF_stats":[],
+    "NF_stats":{"chart1":chart_dict},
     "NF_Logs":'',
     "NF_packets":''}
     ct = datetime.datetime.now()
@@ -121,6 +137,15 @@ def monitor_nf(id):
         no_servedUEs = num_servedUEs(client,container[0].id)
         monitor_nf["Handover-prepare_button"]='True'
         monitor_nf["Path_sw_req_button"]='True'
+        chart1_dict["title"] = "Average DL throughput of connected UEs"
+        chart1_dict["x-axis_title"]= "Time"
+        chart1_dict["y-axis_title"]= "MB/sec"
+        chart2_dict["title"] = "Average UL throughput of connected UEs"
+        chart2_dict["x-axis_title"]= "Time"
+        chart2_dict["y-axis_title"]= "MB/sec"
+        chart3_dict["title"] = "Average Latency of connected UEs"
+        chart3_dict["x-axis_title"]= "Time"
+        chart3_dict["y-axis_title"]= "milliseconds"
     
     # res = get_stats(client,container[0].id)
     monitor_nf["no_PDUsessions"]=no_PDUsessions
@@ -129,17 +154,31 @@ def monitor_nf(id):
     monitor_nf["Health"]=health
     monitor_nf["DNN"]=DNN
     monitor_nf["NF_Logs"]=get_logs(client,id)
-    raw_stats=stats.read_stats_db(id)
-    #print ("raw stats are", raw_stats)
-    for row in raw_stats:
-        stats_data["time_stamp"]=row[2]
-        stats_data["cpu_percent_usage"]=row[3]
-        stats_data["mem_percent_usage"]=row[4]
-        stats_data["Received_bytes"]=row[6]
-        stats_data["Transmit_bytes"]=row[5]
-        monitor_nf["NF_stats"].append(stats_data)
-        #print (stats_data)
-        stats_data={}
+    if 'gnb' not in container[0].name:
+        raw_stats=stats.read_stats_db(id)    
+        for row in raw_stats:
+            chart1_dict["data"].append({row[2]:row[3]})
+            chart2_dict["data"].append({row[2]:row[4]})
+            chart3_dict["data"].append({row[2]:[row[5],row[6]]})
+    if 'gnb' in container[0].name:
+        meas=measurements.read(container[0].name)
+        ul_dict={}
+        dl_dict={}
+        lat_dict={}
+        for row in meas:
+            if row[2] not in ul_dict.keys():
+                ul_dict[row[2]]=[row[3]]
+                dl_dict[row[2]]=[row[4]]
+                lat_dict[row[2]]=[row[5]]
+            else:
+                ul_dict[row[2]].append(row[3])
+                dl_dict[row[2]].append(row[4])
+                lat_dict[row[2]].append(row[5])
+        for key in ul_dict.keys():
+            chart1_dict["data"].append({key:(sum(ul_dict[key])/len(ul_dict[key]))})
+            chart2_dict["data"].append({key:(sum(dl_dict[key])/len(dl_dict[key]))})
+            chart3_dict["data"].append({key:(sum(lat_dict[key])/len(lat_dict[key]))})
+    monitor_nf["NF_stats"]={"chart1":chart1_dict,"chart2":chart2_dict,"chart3":chart3_dict}
     monitor_nf["NF_packets"]=packets.get_packets(container[0].name)
     return jsonify(monitor_nf),200
 
@@ -298,7 +337,7 @@ def UE_measurements():
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 handover_db.drop_db()
-measurements_thread=threading.Thread(target=measurements.write, args=(client,), name="docker_measurements")
+measurements_thread=threading.Thread(target=measurements.write, args=(client,str(datetime.datetime.now())), name="docker_measurements")
 measurements_thread.start()
 
 if len(sys.argv) !=2:
