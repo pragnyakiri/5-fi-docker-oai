@@ -16,8 +16,8 @@ RUN apt-get update && \
 
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
 RUN apt-get update &&\
-    apt-get install speedtest-cli &&\
-    apt-get install net-tools
+    apt-get install -y speedtest-cli &&\
+    apt-get install -y net-tools
     
 # requires cmake >=3.17
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3.tar.gz && \
