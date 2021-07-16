@@ -103,7 +103,7 @@ def read():
 def get_RxTx_Bytes(client):
     for container in client.containers.list():
         if 'ue' in str(container.name):
-            print(container.name)
+            #print(container.name)
             try:
                 run=container.exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep RX'])
                 temp1=(run.output.decode("utf-8")).split('bytes ')
@@ -113,19 +113,19 @@ def get_RxTx_Bytes(client):
                 temp2=(run.output.decode("utf-8")).split('bytes ')
                 m = temp2[1].split(' ')
                 tx_bytes=m[0]
-                print(rx_bytes)
-                print(tx_bytes)
+                #print(rx_bytes)
+                #print(tx_bytes)
             except: 
                 print ("Error in running exec_run")
 
 
 
 
-client=docker.from_env()
+#client=docker.from_env()
 #id = "b840504ac9a7984ab2fbf6fca067363e1ba4038a3a522acb52b60ae623bc10e7"
 #get_num_ActiveUEs(client)
 #write(client)
 #res=read()
 #print(res)
 #get_IPaddress(client,id)
-get_RxTx_Bytes(client)
+#get_RxTx_Bytes(client)
