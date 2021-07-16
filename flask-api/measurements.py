@@ -12,24 +12,19 @@ def get_num_ActiveUEs(client):
     Num_ActiveUEs=[]
     for container in client.containers.list():
         if 'gnb' in str(container.name):
-            print(container.name)
             run=container.exec_run('nr-cli --dump')
             temp1=(run.output.decode("utf-8")).split("\n")
             gnb_id=temp1[0]
             temp1=container.exec_run('nr-cli ' + gnb_id + ' -e ue-list')
-            #print(type(temp1))
-            #print(temp1)
             temp2=temp1.output.decode("utf-8")
             st = "ue-id:"
             res = [i for i in range(len(temp2)) if temp2.startswith(st, i)]
-            #print(len(res))
             Num_ActiveUEs.append(len(res)) 
-            #return len(res)
-    print(Num_ActiveUEs)
+    #print(Num_ActiveUEs)
     sum=0
     for i in Num_ActiveUEs:
         sum = sum + i      
-    print(sum)
+    #print(sum)
     return(sum)  
 
 def get_db():
@@ -68,7 +63,7 @@ def get_IPaddress(client,id):
                 if  subdicts['label']=='uesimtun0':
                     return subdicts['local']
 
-def write(client):
+def write(client,ts):
     cursor = make_meas_table()
     for container in client.containers.list():
         if 'ue' in str(container.name):
@@ -82,7 +77,6 @@ def write(client):
                 temp2=json.loads(temp1)
                 dl_thp = temp2['download'] # bits per second
                 ul_thp = temp2['upload']
-                ts = temp2['timestamp']
                 latency = temp2['server']['latency']
             except:
                 print ("Error in running speedtest")
@@ -104,7 +98,6 @@ def read():
         print("No data exists")
     cursor.close()
     conn.close()
-    print(args)
     return args
 
 def get_RxTx_Bytes(client):
@@ -113,11 +106,19 @@ def get_RxTx_Bytes(client):
             print(container.name)
             try:
                 run=container.exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep RX'])
-                temp1=(run.output.decode("utf-8"))
-                print(temp1)
-                print(type(temp1))
+                temp1=(run.output.decode("utf-8")).split('bytes ')
+                m = temp1[1].split(' ')
+                rx_bytes=m[0]
+                run=container.exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep TX'])
+                temp2=(run.output.decode("utf-8")).split('bytes ')
+                m = temp2[1].split(' ')
+                tx_bytes=m[0]
+                print(rx_bytes)
+                print(tx_bytes)
             except: 
                 print ("Error in running exec_run")
+
+
 
 
 client=docker.from_env()

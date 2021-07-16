@@ -13,11 +13,6 @@ RUN apt-get update && \
     libssl-dev \
     libsctp-dev \
     curl
-
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
-RUN apt-get update &&\
-    apt-get install -y speedtest-cli &&\
-    apt-get install -y net-tools
     
 # requires cmake >=3.17
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3.tar.gz && \
@@ -46,9 +41,14 @@ RUN apt-get update && \
     iputils-ping \
     libsctp1 \
     tcpdump \
-    traceroute  && \
-    rm -rf /var/lib/apt/lists/*
+    traceroute
 
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+RUN apt-get update &&\
+    apt-get install -y speedtest-cli &&\
+    apt-get update &&\
+    apt-get install -y net-tools &&\
+    rm -rf /var/lib/apt/lists/*
     
 COPY --from=builder /tmp/UERANSIM/build/* /usr/local/bin/
 
