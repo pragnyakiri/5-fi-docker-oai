@@ -29,9 +29,9 @@ def push(text,ueid,sourcegnb):
     conn=get_db()
     cursor=conn.cursor()
     init_db(cursor)
-    sql = "INSERT into " + "handover" + " (handover_text, ueid, source_gnb) VALUES (?,?,?)", (text, ueid,sourcegnb)
+    sql = "INSERT into " + "handover" + " (handover_text, ueid, source_gnb) VALUES (?,?,?)"
     try:
-        cursor.execute(sql)
+        cursor.execute(sql, (text, ueid,sourcegnb))
     except sqlite3.IntegrityError:
         return "UE is already prepped for handover"
     cursor.close()
