@@ -101,7 +101,7 @@ def monitor_nf(id):
     "Health":'',
     "Handover-prepare_button":'False',
     "Path_sw_req_button":'False',
-    "DNN":'',
+    "DNN":'internet',
     "NF_stats":{"chart1":chart_dict},
     "NF_Logs":'',
     "NF_packets":''}
@@ -232,7 +232,7 @@ def handover_prepare(id):
 
 @app.route("/list_pathsw")
 def list_path_switch():
-    return jsonify({"list of all path swith requests" :handover_db.read_contents()}),200
+    return jsonify(handover_db.read_contents()),200
 
 
 # run path switch    

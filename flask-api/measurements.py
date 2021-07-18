@@ -97,9 +97,6 @@ def write(client,ts):
             except:
                 print ("measurements insert not executing")
 
-def get_gNB(client):
-    docker info --format '{{json .}}'
-
 def read(name):
     conn=get_db()
     cursor=conn.cursor()

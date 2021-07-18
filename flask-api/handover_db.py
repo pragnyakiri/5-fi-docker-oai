@@ -12,7 +12,8 @@ def drop_db():
     return
 
 def init_db(cursor):
-    sql="CREATE TABLE IF NOT EXISTS handover (handover_key INTEGER PRIMARY KEY AUTOINCREMENT, handover_text TEXT UNIQUE NOT NULL)"
+    sql="CREATE TABLE IF NOT EXISTS handover (handover_key INTEGER PRIMARY KEY AUTOINCREMENT,\
+         handover_text TEXT UNIQUE NOT NULL, ueid TEXT NOT NULL, source_gnb TEXT NOT NULL)"
     cursor.execute(sql)
     return
 
@@ -24,26 +25,34 @@ def if_table_exists(cursor,table_name):
     else:
         return True
 
-def push(text):
+def push(text,ueid,sourcegnb):
     conn=get_db()
     cursor=conn.cursor()
     init_db(cursor)
-    sql = "INSERT into " + "handover" + " (handover_text) VALUES ('" + text + "')"
+    sql = "INSERT into " + "handover" + " (handover_text, ueid, source_gnb) VALUES (?,?,?)", (text, ueid,sourcegnb)
     try:
         cursor.execute(sql)
     except sqlite3.IntegrityError:
         return "UE is already prepped for handover"
     cursor.close()
     conn.close()
-    return text
+    return {"ueid":ueid,"status":"Connected"}
 
 def read_contents():
     conn=get_db()
     cursor=conn.cursor()
+    return_list=[]
     sql="SELECT * FROM handover"
     if if_table_exists(cursor,'handover'):
         cursor.execute(sql)
         args=cursor.fetchall()
+        columns=[i[0] for i in cursor.description]
+        for row in args:
+            ret=[]
+            for i,data in enumerate(row):
+                ret.append({columns[i]:data})
+            return_list.append(ret)
+        return return_list 
     else:
         args= "No UEs ready for handover"
     cursor.close()
