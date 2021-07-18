@@ -227,7 +227,7 @@ def handover_prepare(id):
                     item=item.split('[debug]')[-1]
                 details[item.split(':')[0].strip()]= item.split(':')[1].strip()
     
-    return jsonify({'handover details':handover_db.push(details[list(details.keys())[0]])},url_params['ueid'],container.name),200
+    return jsonify({'handover details':handover_db.push(details[list(details.keys())[0]],url_params['ueid'],container.name)}),200
 
 
 @app.route("/list_pathsw")
