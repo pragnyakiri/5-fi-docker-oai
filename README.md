@@ -44,7 +44,7 @@ The steps in the process of handover in the demo and corresponding url calls:
  
  3. select one of the ues in the popup and click ok. this should call following url:
  
- `<ip.address>:<port>/handover_prepare/<source_gnb_container_id>?ueid: <ueid of selected ue in the popup>`
+ `<ip.address>:<port>/handover_prepare/<source_gnb_container_id>?ueid= <ueid of selected ue in the popup>`
  
  4. Go to target gNB monitor page by follwoing url:
  
