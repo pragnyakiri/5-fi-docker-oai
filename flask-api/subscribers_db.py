@@ -31,8 +31,9 @@ def view_subscribers():
 
 def insert_into_coll(data_dict,coll):
     check=coll.find({"ueId":data_dict["ueId"]})
-    print (check)
-    if len(check)==0:
+    outs=list(check)
+    print (outs)
+    if len(outs)==0:
         auth_temp=coll.find_one()
         del auth_temp["_id"]
         auth_temp['ueId'] = data_dict['ueId']
