@@ -283,6 +283,10 @@ def manage_subscribers():
         return jsonify(subscribers_db.view_subscribers()), 200
     data=request.form
     if request.method=='POST':
+        list_imsis=subscribers_db.view_subscribers()
+        for key in list_imsis:
+            if data["ueId"]==list_imsis[key]["ueId"]:
+                return "User already exists"
         subscribers_db.insert_subscriber(data)
         return jsonify(subscribers_db.view_subscribers()), 201
     if request.method=='DELETE':
