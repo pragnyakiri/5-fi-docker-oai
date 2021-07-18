@@ -33,11 +33,10 @@ def insert_into_coll(data_dict,coll):
     check=coll.find({"ueId":data_dict["ueId"]})
     outs=list(check)
     print (outs)
-    if len(outs)==0:
-        auth_temp=coll.find_one()
-        del auth_temp["_id"]
-        auth_temp['ueId'] = data_dict['ueId']
-        coll.insert_one(auth_temp)
+    auth_temp=coll.find_one()
+    del auth_temp["_id"]
+    auth_temp['ueId'] = data_dict['ueId']
+    coll.insert_one(auth_temp)
     return
 
 
