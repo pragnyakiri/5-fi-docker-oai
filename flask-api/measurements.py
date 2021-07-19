@@ -82,6 +82,11 @@ def write(client,ts):
             str1 = 'docker exec -it' + container.name + '/bin/bash'
             container.exec_run(str1)
             str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 40'
+            gnb_name = get_gNB(client,container.name)
+            gnb_Container = client.containers.list(filters={"name":gnb_name})
+            if len(gnb_Container)==0:
+                print ("gNB container not found with given name")
+                return
             try:
                 run=container.exec_run(str2)
                 temp1=(run.output.decode("utf-8"))
@@ -94,8 +99,23 @@ def write(client,ts):
                 print ("Error in running speedtest")
             try:
                 cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
+                cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", (gnb_Container[0].name, gnb_Container[0].id, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
             except:
                 print ("measurements insert not executing")
+
+def get_gNB(client,name):
+    container=client.containers.list(filters={"name":name})
+    if len(container)==0:
+        print ("no container running with given name")
+        return
+    try:
+        run=container[0].exec_run(['sh', '-c', 'echo "$GNB_HOSTNAME"'])
+        tmp=run.output.decode("utf-8")
+    except:
+        print ("Bash script not executing")  
+        tmp=''
+    return tmp      
+    
 
 def read(name):
     conn=get_db()
@@ -114,7 +134,7 @@ def read(name):
 def get_TxRx_Bytes(client,name):
     container=client.containers.list(filters={"name":name})
     if len(container)==0:
-        print ("no container running with given id")
+        print ("no container running with given name")
         return
     try:
         run=container[0].exec_run(['sh', '-c', 'ifconfig uesimtun0 | grep RX'])
@@ -133,7 +153,7 @@ def get_TxRx_Bytes(client,name):
 
 
 
-#client=docker.from_env()
+client=docker.from_env()
 #id = "b840504ac9a7984ab2fbf6fca067363e1ba4038a3a522acb52b60ae623bc10e7"
 #get_num_ActiveUEs(client)
 #write(client)
