@@ -52,8 +52,8 @@ def start_demo():
 @app.route('/restart_demo')
 def restart_demo():
     os.chdir("~/5-fi-docker/free5gc-compose")
-    os.popen("docker compose down")
-    os.popen("docker compose up -d")
+    os.popen("docker-compose down")
+    os.popen("docker-compose up -d")
 
 list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']    
 
