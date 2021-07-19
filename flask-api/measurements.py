@@ -1,6 +1,7 @@
 import docker
 import json
 import sqlite3
+import datetime
 
 # 1. Data Volume measurement separately for DL and UL, per QCI per UE, by eNB
 # 2. Throughput separately for DL and UL, per RAB per UE and per UE for the DL, per UE for the UL, by eNB
@@ -83,7 +84,7 @@ def write(client,ts):
             container.exec_run(str1)
             str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 40'
             gnb_name = get_gNB(client,container.name)
-            gnb_Container = client.containers.list(filters={"name":gnb_name})
+            gnb_Container = client.containers.list(filters={"name":gnb_name.strip()})
             if len(gnb_Container)==0:
                 print ("gNB container not found with given name")
                 return
@@ -152,12 +153,15 @@ def get_TxRx_Bytes(client,name):
     return tx_bytes,rx_bytes
 
 
+#def get_Health(client,id):
+#os.popen('docker ps ')
 
-client=docker.from_env()
+#client=docker.from_env()
 #id = "b840504ac9a7984ab2fbf6fca067363e1ba4038a3a522acb52b60ae623bc10e7"
 #get_num_ActiveUEs(client)
-#write(client)
 #res=read()
 #print(res)
 #get_IPaddress(client,id)
 #read('ue2')
+#get_TxRx_Bytes(client,'ue1')
+#write(client,str(datetime.datetime.now()))
