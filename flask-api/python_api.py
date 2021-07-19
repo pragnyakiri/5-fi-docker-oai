@@ -42,18 +42,6 @@ def ues_served(client, id):
 
 #################################################
 
-@app.route('/start_demo')
-def start_demo():
-    cwd=os.getcwd()
-    os.chdir("/home/dolcera/5-fi-docker/free5gc-compose")
-    os.popen("docker compose up -d")
-    os.chdir(cwd)
-@app.route('/restart_demo')
-def restart_demo():
-    os.chdir("~/5-fi-docker/free5gc-compose")
-    os.popen("docker-compose down")
-    os.popen("docker-compose up -d")
-
 list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']    
 
 @app.route('/monitor_home')
@@ -373,8 +361,5 @@ if len(sys.argv) !=2:
     exit()
 
 #start flask app
-if os.geteuid() != 0:
-    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
-
 if __name__=='__main__':
     app.run(host = '0.0.0.0',port=sys.argv[1])
