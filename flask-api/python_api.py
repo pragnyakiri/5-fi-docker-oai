@@ -30,7 +30,7 @@ def num_PDUsessions(client,id):
             st = "state: PS-ACTIVE"
             res = [i for i in temp2 if st in i]
             return len(res)
-def ues_served(client, container):
+def ues_served(client, id):
     list_ue_containers=[]
     for container in client.containers.list():
         if 'ue' in container.name:
@@ -166,7 +166,7 @@ def monitor_nf(id):
         chart3_dict["x-axis_title"]= "Time"
         chart3_dict["y-axis_title"]= "milliseconds"
         no_PDUsessions = 0
-        for ue in ues_served(client,container[0]):
+        for ue in ues_served(client,container[0].id):
             no_PDUsessions += num_PDUsessions(client,ue.id)
 
     
