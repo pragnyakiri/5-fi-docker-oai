@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 import stats
 import measurements
 import threading
-import sys
+import sys, os
 import handover_db
 import packets
 import copy
@@ -30,21 +30,39 @@ def num_PDUsessions(client,id):
             st = "state: PS-ACTIVE"
             res = [i for i in temp2 if st in i]
             return len(res)
+def ues_served(client, id):
+    list_ue_containers=[]
+    for container in client.containers.list():
+        if 'ue' in container.name:
+            run = container.exec_run('echo "$GNB_HOSTNAME')
+            out=run.output.decode("utf-8")
+            if id.name in str(out):
+                list_ue_containers.append(container)
+    return list_ue_containers
+
 
 #################################################
 
+@app.route('/start_demo')
+def start_demo():
+    os.chdir("~/5-fi-docker/free5gc-compose")
+    os.popen("docker compose up -d")
+@app.route('/restart_demo')
+def restart_demo():
+    os.chdir("~/5-fi-docker/free5gc-compose")
+    os.popen("docker compose down")
+    os.popen("docker compose up -d")
 
 list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']    
 
 @app.route('/monitor_home')
 def monitor_home():
 
-    monitor_home_page={"count_active_cells":0,
-    "count_available_cells":0,
-    "List_NFs":[],
-    "counts_in_topo":{}}
+    monitor_home_page={"count_active_cells":0,"count_available_cells":0,"List_NFs":[],"counts_in_topo":{},"traffic_data": { \
+    'title': 'Trafic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
     #NF_details={"type":'',"name":'', 'count': 0, "containerid":"", "internet":""}
     counts_details={"nfs":0,"upfs":0, 'gnbs': 0, "rrhs":0, "ues":0}
+    bytesdata={}
     for container in client.containers.list():
         NF_details={}
         if 'port' in str(container.name) or 'mongo' in str(container.name) or 'webui' in str(container.name) or 'mytb' in str(container.name):
@@ -59,7 +77,15 @@ def monitor_home():
         monitor_home_page["List_NFs"].append(NF_details)
         if "free5gc" in str(container.image):
             counts_details["nfs"]+=1
-        
+        if 'ue' in str(container.name):
+            data=measurements.read(container.name)
+            for row in data:
+                if row[1] in bytesdata.keys():
+                    bytesdata[row[1]].append(int(row[-1].strip())+int(row[-2].strip()))
+                else:
+                    bytesdata[row[1]]=[(int(row[-1].strip())+int(row[-2].strip()))]
+    for key in bytesdata.keys():
+        monitor_home["traffic_data"]["data"].append({key:bytesdata[key]})
     counts_details["upfs"]= len(client.containers.list(filters={'name':'upf.*'}))
     counts_details["gnbs"]= len(client.containers.list(filters={'name':'gnb.*'}))
     counts_details["rrhs"]= len(client.containers.list(filters={'name':'gnb.*'}))
@@ -124,7 +150,7 @@ def monitor_nf(id):
     if 'ue' in container[0].name:
         no_PDUsessions = num_PDUsessions(client,container[0].id)
     if 'gnb' in container[0].name:
-        no_servedUEs = measurements.get_num_servedUEs(client,container[0].id)
+        no_servedUEs = measurements.get_num_ActiveUEs(client,container[0].id)
         no_ActiveUEs = measurements.get_num_ActiveUEs(client,container[0].id)
         monitor_nf["Handover-prepare_button"]='True'
         monitor_nf["Path_sw_req_button"]='True'
@@ -137,6 +163,10 @@ def monitor_nf(id):
         chart3_dict["title"] = "Average Latency of connected UEs"
         chart3_dict["x-axis_title"]= "Time"
         chart3_dict["y-axis_title"]= "milliseconds"
+        no_PDUsessions = 0
+        for ue in ues_served(client,container[0].id):
+            no_PDUsessions += num_PDUsessions(client,ue.id)
+
     
     # res = get_stats(client,container[0].id)
     monitor_nf["no_PDUsessions"]=no_PDUsessions
@@ -347,6 +377,8 @@ if len(sys.argv) !=2:
     exit()
 
 #start flask app
+if os.geteuid() != 0:
+    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
 
 if __name__=='__main__':
     app.run(host = '0.0.0.0',port=sys.argv[1])
