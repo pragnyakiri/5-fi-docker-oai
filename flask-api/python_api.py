@@ -166,7 +166,7 @@ def monitor_nf(id):
         chart3_dict["x-axis_title"]= "Time"
         chart3_dict["y-axis_title"]= "milliseconds"
         no_PDUsessions = 0
-        for ue in ues_served(client,container[0].id):
+        for ue in ues_served(client,container[0]):
             no_PDUsessions += num_PDUsessions(client,ue.id)
 
     
