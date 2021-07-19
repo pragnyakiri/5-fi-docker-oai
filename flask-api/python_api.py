@@ -16,7 +16,6 @@ def get_logs(client,id):
     for container in client.containers.list():
         if id in str(container.id):
             logs = container.logs().decode("utf-8")
-            #print(logs)
             return logs
 
 def num_PDUsessions(client,id):
@@ -60,8 +59,8 @@ list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']
 @app.route('/monitor_home')
 def monitor_home():
 
-    monitor_home_page={"count_active_cells":0,"count_available_cells":0,"List_NFs":[],"counts_in_topo":{},"traffic_data": { \
-    'title': 'Trafic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
+    monitor_home_page={"count_active_cells":0,"count_available_cells":0,"List_NFs":[],"counts_in_topo":{},"traffic_data": {\
+        'title': 'Trafic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
     #NF_details={"type":'',"name":'', 'count': 0, "containerid":"", "internet":""}
     counts_details={"nfs":0,"upfs":0, 'gnbs': 0, "rrhs":0, "ues":0}
     bytesdata={}
@@ -71,6 +70,8 @@ def monitor_home():
             continue
         NF_details["name"]=container.name
         match = next((x for x in list_nfs if x in container.name), False)
+        if match==False:
+            continue
         NF_details["type"] = match#remove_numbers(container.name)
         NF_details["containerid"]=container.id
         NF_details["shortid"]=container.short_id
@@ -82,12 +83,12 @@ def monitor_home():
         if 'ue' in str(container.name):
             data=measurements.read(container.name)
             for row in data:
-                if row[1] in bytesdata.keys():
-                    bytesdata[row[1]].append(int(row[-1].strip())+int(row[-2].strip()))
+                if row[0] in bytesdata.keys():
+                    bytesdata[row[2]].append(int(row[-1].strip())+int(row[-2].strip()))
                 else:
-                    bytesdata[row[1]]=[(int(row[-1].strip())+int(row[-2].strip()))]
+                    bytesdata[row[2]]=[(int(row[-1])+int(row[-2]))]
     for key in bytesdata.keys():
-        monitor_home["traffic_data"]["data"].append({key:bytesdata[key]})
+        monitor_home_page["traffic_data"]["data"].append({key:bytesdata[key]})
     counts_details["upfs"]= len(client.containers.list(filters={'name':'upf.*'}))
     counts_details["gnbs"]= len(client.containers.list(filters={'name':'gnb.*'}))
     counts_details["rrhs"]= len(client.containers.list(filters={'name':'gnb.*'}))
@@ -134,12 +135,10 @@ def monitor_nf(id):
     "NF_Logs":'',
     "NF_packets":''}
     ct = datetime.datetime.now()
-    #print("current time:-", ct)
     container=client.containers.list(filters={"id":id})
     if len(container)==0:
         print ("no container running with given id")
-        return
-    #print(container)    
+        return   
     state= 'active' 
     health= 'good'
     DNN=''
@@ -224,7 +223,6 @@ def list_ues(id):
     ue_list=[]
     ue_details={}
     for item in temp1:
-        print(item)
         if "ue-id" in item:
             if len(ue_details.keys())>0:
                 ue_list.append(ue_details)
@@ -240,7 +238,6 @@ def list_ues(id):
 # run handover prepare command
 def handover_prepare(id):
     url_params=request.args
-    #print (id, url_params)
     container=client.containers.list(filters={"id":id})[0]
     run=container.exec_run('nr-cli --dump')
     temp1=(run.output.decode("utf-8")).split("\n")
@@ -248,7 +245,6 @@ def handover_prepare(id):
     cmd='nr-cli ' + gnb_id + ' -e "handover-prepare ' + url_params['ueid']+'"'
     run=container.exec_run(cmd)
     temp1=run.output.decode("utf-8")
-    print (temp1)
     details={}
     if 'copy for handover' in temp1:
         details={}
@@ -271,9 +267,7 @@ def list_path_switch():
 @app.route("/pathsw/<gnb_containerid>")
 def path_switch(gnb_containerid):
     url_params=request.args
-    #print (url_params)
     handover_text=handover_db.pop(url_params['id'])
-    print (handover_text)
     container=client.containers.list(filters={"id":gnb_containerid})[0]
     run=container.exec_run('nr-cli --dump')
     temp1=(run.output.decode("utf-8")).split("\n")

@@ -1,7 +1,8 @@
 import docker
 import json
 import sqlite3
-import datetime
+#import datetime
+import os
 
 # 1. Data Volume measurement separately for DL and UL, per QCI per UE, by eNB
 # 2. Throughput separately for DL and UL, per RAB per UE and per UE for the DL, per UE for the UL, by eNB
@@ -153,15 +154,20 @@ def get_TxRx_Bytes(client,name):
     return tx_bytes,rx_bytes
 
 
-#def get_Health(client,id):
-#os.popen('docker ps ')
+"""def get_Health(client,id):
+    run=os.system('docker ps -q')
+    print(run)
+    res = run.find(id)
+    print(res)"""
 
 #client=docker.from_env()
-#id = "b840504ac9a7984ab2fbf6fca067363e1ba4038a3a522acb52b60ae623bc10e7"
+#id = "ef39c36edb67c8e23745356b2f0b31cad5bec1caddb9d51304e5f75349a68cf9"
 #get_num_ActiveUEs(client)
 #res=read()
 #print(res)
 #get_IPaddress(client,id)
-#read('ue2')
 #get_TxRx_Bytes(client,'ue1')
 #write(client,str(datetime.datetime.now()))
+#read('ue2')
+#read('ue1')
+#get_Health(client,id)
