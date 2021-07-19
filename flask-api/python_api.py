@@ -45,8 +45,10 @@ def ues_served(client, id):
 
 @app.route('/start_demo')
 def start_demo():
-    os.chdir("~/5-fi-docker/free5gc-compose")
+    cwd=os.getcwd()
+    os.chdir("/home/dolcera/5-fi-docker/free5gc-compose")
     os.popen("docker compose up -d")
+    os.chdir(cwd)
 @app.route('/restart_demo')
 def restart_demo():
     os.chdir("~/5-fi-docker/free5gc-compose")
