@@ -44,13 +44,12 @@ gnbz)  echo "Launching gnb: nr-gnb -c gnb.yaml UE_HOSTNAME: "${UE_HOSTNAME}"AMF_
     export SD="0x010203"
     export NCI="'0x0000000122'"
     if [[ ! -z "${UE_HOSTNAME}" ]] ; then
-    	echo "Host for gnb is :"$(host -4 $GNB_HOSTNAME)
-        export GNB_ADDR="$(host -4 $GNB_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    	echo "Host for gnb is :$GNB_HOSTNAME"
+        export GNB_ADDR="10.100.200.22"
     fi
     if [[ ! -z "${AMF_HOSTNAME}" ]] ; then
-    	echo "Host for amf is :"$(host -4 $AMF_HOSTNAME)
-        #export AMF_ADDR="10.100.200.11"
-        export AMF_ADDR="$(host -4 $AMF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    	echo "Host for amf is :$AMF_ADDR"
+        #export AMF_ADDR="$(host -4 $AMF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
     fi
 
     envsubst < /etc/ueransim/gnb.yaml > gnb.yaml
