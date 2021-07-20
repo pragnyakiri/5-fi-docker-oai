@@ -284,6 +284,7 @@ services:
       - db
   portainer:
     image: portainer/portainer-ce
+    restart: always
     ports:
     - 9000:9000
     volumes:

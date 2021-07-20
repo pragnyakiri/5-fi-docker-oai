@@ -46,8 +46,7 @@ list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']
 
 @app.route('/monitor_home')
 def monitor_home():
-
-    monitor_home_page={"count_active_cells":0,"count_available_cells":0,"List_NFs":[],"counts_in_topo":{},"traffic_data": {\
+    monitor_home_page={"count_active_cells":0,"count_available_cells":0,"malfunction":"Everything is working fine","List_NFs":[],"counts_in_topo":{},"traffic_data": {\
         'title': 'Trafic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
     #NF_details={"type":'',"name":'', 'count': 0, "containerid":"", "internet":""}
     counts_details={"nfs":0,"upfs":0, 'gnbs': 0, "rrhs":0, "ues":0}
