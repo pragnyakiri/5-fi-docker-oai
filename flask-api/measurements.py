@@ -154,14 +154,18 @@ def get_TxRx_Bytes(client,name):
     return tx_bytes,rx_bytes
 
 
-"""def get_Health(client,id):
-    run=os.system('docker ps -q')
-    print(run)
-    res = run.find(id)
-    print(res)"""
+def get_Health(id):
+    run=os.popen("docker ps -q ")
+    r = run.read().replace('\n','')
+    flag=0
+    if id in r:
+        flag=1
+    return flag
 
-#client=docker.from_env()
-#id = "ef39c36edb67c8e23745356b2f0b31cad5bec1caddb9d51304e5f75349a68cf9"
+
+client=docker.from_env()
+#id = "1c89f93ffd598b2d7e173b71372e300bd4fee119090e86d67cf63050d32324ff"
+id = "1c89f93ffd59"
 #get_num_ActiveUEs(client)
 #res=read()
 #print(res)
@@ -170,4 +174,4 @@ def get_TxRx_Bytes(client,name):
 #write(client,str(datetime.datetime.now()))
 #read('ue2')
 #read('ue1')
-#get_Health(client,id)
+get_Health(client,id)
