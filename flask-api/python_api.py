@@ -29,6 +29,17 @@ def num_PDUsessions(client,id):
             st = "state: PS-ACTIVE"
             res = [i for i in temp2 if st in i]
             return len(res)
+
+def get_IPaddress(client,id):
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return
+    try:
+        ip_add = container[0].attrs["NetworkSettings"]["Networks"]["free5gc-compose_privnet"]["IPAddress"]
+    except: 
+        print ("Error in getting IP address")
+
 def ues_served(client, id):
     list_ue_containers=[]
     for container in client.containers.list():
@@ -129,14 +140,15 @@ def monitor_nf(id):
     state= 'active' 
     health= 'good'
     DNN=''
-    no_PDUsessions=0
+    #no_PDUsessions=0
+    Management_IP=''
     no_servedUEs=0
     no_ActiveUEs=0
     monitor_nf["name_of_nf"]=container[0].name
     if 'upf' in container[0].name:
         DNN = 'internet'
-    if 'ue' in container[0].name:
-        no_PDUsessions = num_PDUsessions(client,container[0].id)
+    #if 'ue' in container[0].name:
+        #no_PDUsessions = num_PDUsessions(client,container[0].id)
     if 'gnb' in container[0].name:
         no_servedUEs = measurements.get_num_ActiveUEs(client,container[0].id)
         no_ActiveUEs = measurements.get_num_ActiveUEs(client,container[0].id)
@@ -154,10 +166,11 @@ def monitor_nf(id):
         no_PDUsessions = 0
         for ue in ues_served(client,container[0]):
             no_PDUsessions += num_PDUsessions(client,ue.id)
-
+    Management_IP = get_IPaddress(client,container[0].id)
     
     # res = get_stats(client,container[0].id)
-    monitor_nf["no_PDUsessions"]=no_PDUsessions
+    #monitor_nf["no_PDUsessions"]=no_PDUsessions
+    monitor_nf["Management_IP"]=Management_IP
     monitor_nf["no_UEsserved"]=no_servedUEs
     monitor_nf["no_ActiveUEs"]=no_ActiveUEs
     monitor_nf["State"]=state

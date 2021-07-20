@@ -154,17 +154,18 @@ def get_TxRx_Bytes(client,name):
     return tx_bytes,rx_bytes
 
 
-def get_Health(id):
+def get_Health(shortid):
     run=os.popen("docker ps -q ")
     r = run.read().replace('\n','')
     flag=0
-    if id in r:
+    if shortid in r:
         flag=1
     return flag
 
 
+
 #client=docker.from_env()
-#id = "1c89f93ffd598b2d7e173b71372e300bd4fee119090e86d67cf63050d32324ff"
+#id = "19f0f29cfbc11fd4464d5dde07d8c68882e4ad41b55ed1f228ce383ebc85072a"
 #id = "1c89f93ffd59"
 #get_num_ActiveUEs(client)
 #res=read()
@@ -175,3 +176,4 @@ def get_Health(id):
 #read('ue2')
 #read('ue1')
 #get_Health(client,id)
+#get_IPaddress(client,id)
