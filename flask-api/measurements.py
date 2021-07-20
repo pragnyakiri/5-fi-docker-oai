@@ -79,15 +79,15 @@ def get_IPaddressOfUE(client,id):
                 if  subdicts['label']=='uesimtun0':
                     return subdicts['local']
 
-def get_measurements(client,ts):
+def get_measurements(client):
     global stop
     cursor = make_meas_table()
     while True:
         if stop ==1:
             stop=0
             break
-
-        processes =[ mp.Process(target=write_measurements, args=(client,server,cursor,ts)) for server in client.containers.list() if 'ue' in server.name]
+        ts = datetime.datetime.now()
+        processes =[ mp.Process(target=write_measurements, args=(client,server,cursor,str(ts))) for server in client.containers.list() if 'ue' in server.name]
         # Run processes
         for p in processes:
             p.start()
