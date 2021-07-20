@@ -163,9 +163,9 @@ def get_Health(id):
     return flag
 
 
-client=docker.from_env()
+#client=docker.from_env()
 #id = "1c89f93ffd598b2d7e173b71372e300bd4fee119090e86d67cf63050d32324ff"
-id = "1c89f93ffd59"
+#id = "1c89f93ffd59"
 #get_num_ActiveUEs(client)
 #res=read()
 #print(res)
@@ -174,4 +174,4 @@ id = "1c89f93ffd59"
 #write(client,str(datetime.datetime.now()))
 #read('ue2')
 #read('ue1')
-get_Health(client,id)
+#get_Health(client,id)
