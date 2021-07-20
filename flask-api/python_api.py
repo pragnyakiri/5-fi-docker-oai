@@ -198,9 +198,9 @@ def monitor_nf(id):
                 dl_dict[row[3]].append(row[5])
                 lat_dict[row[3]].append(row[6])
         for key in ul_dict.keys():
-            chart1_dict["data"].append({key:(sum(ul_dict[key])/len(ul_dict[key]))})
-            chart2_dict["data"].append({key:(sum(dl_dict[key])/len(dl_dict[key]))})
-            chart3_dict["data"].append({key:(sum(lat_dict[key])/len(lat_dict[key]))})
+            chart1_dict["data"].append({key:((sum(ul_dict[key])/len(ul_dict[key]))/100000)})
+            chart2_dict["data"].append({key:((sum(dl_dict[key])/len(dl_dict[key]))/100000)})
+            chart3_dict["data"].append({key:((sum(lat_dict[key])/len(lat_dict[key]))/100000)})
     monitor_nf["NF_stats"]={"chart1":chart1_dict,"chart2":chart2_dict,"chart3":chart3_dict}
     monitor_nf["NF_packets"]=packets.get_packets(container[0].name)
     return jsonify(monitor_nf),200
