@@ -101,8 +101,7 @@ def monitor_home():
 
 @app.route('/monitor_nf/<id>')
 def monitor_nf(id):
-#dictionaries for json
-
+    #dictionaries for json
     chart_dict={"title":'','x-axis_title':'','y-axis_title':'','data':[]}
     chart1_dict=copy.deepcopy(chart_dict)
     chart2_dict=copy.deepcopy(chart_dict)
@@ -203,6 +202,128 @@ def monitor_nf(id):
             chart2_dict["data"].append({key:(sum(dl_dict[key])/len(dl_dict[key]))})
             chart3_dict["data"].append({key:(sum(lat_dict[key])/len(lat_dict[key]))})
     monitor_nf["NF_stats"]={"chart1":chart1_dict,"chart2":chart2_dict,"chart3":chart3_dict}
+    monitor_nf["NF_packets"]=packets.get_packets(container[0].name)
+    return jsonify(monitor_nf),200
+
+@app.route('/monitor_nf_basic/<id>')
+def monitor_nf_basic(id):
+    #dictionaries for json
+    monitor_nf={"name_of_nf":'',
+    "no_PDUsessions":0,
+    "no_UEsserved":0,
+    "no_ActiveUEs":0,
+    "State":'',
+    "Health":'',
+    "Handover-prepare_button":'False',
+    "Path_sw_req_button":'False',
+    "DNN":'internet',
+    "Management_IP":''
+    }
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return   
+    state= 'active' 
+    health= 'good'
+    #no_PDUsessions=0
+    Management_IP=''
+    no_servedUEs=0
+    no_ActiveUEs=0
+    monitor_nf["name_of_nf"]=container[0].name
+    if 'gnb' in container[0].name:
+        no_servedUEs = measurements.get_num_ActiveUEs(client,container[0].id)
+        no_ActiveUEs = measurements.get_num_ActiveUEs(client,container[0].id)
+        monitor_nf["Handover-prepare_button"]='True'
+        monitor_nf["Path_sw_req_button"]='True'
+        no_PDUsessions = 0
+        for ue in ues_served(client,container[0]):
+            no_PDUsessions += num_PDUsessions(client,ue.id)
+    Management_IP = get_IPaddress(client,container[0].id)
+    monitor_nf["Management_IP"]=Management_IP
+    monitor_nf["no_UEsserved"]=no_servedUEs
+    monitor_nf["no_ActiveUEs"]=no_ActiveUEs
+    monitor_nf["State"]=state
+    monitor_nf["Health"]=health
+    return jsonify(monitor_nf),200
+
+@app.route('/monitor_nf_logs/<id>')
+def monitor_nf_logs(id):
+    #dictionaries for json
+    
+    monitor_nf={ "NF_Logs":''
+   }
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return   
+    monitor_nf["NF_Logs"]=get_logs(client,id)
+    return jsonify(monitor_nf),200
+
+@app.route('/monitor_nf_stats/<id>')
+def monitor_nf_stats(id):
+    #dictionaries for json
+    chart_dict={"title":'','x-axis_title':'','y-axis_title':'','data':[]}
+    chart1_dict=copy.deepcopy(chart_dict)
+    chart2_dict=copy.deepcopy(chart_dict)
+    chart3_dict=copy.deepcopy(chart_dict)
+    chart1_dict["title"] = "CPU Usage"
+    chart1_dict["x-axis_title"]= "Time"
+    chart1_dict["y-axis_title"]= "Percentage used"
+    chart2_dict["title"] = "Memory Usage"
+    chart2_dict["x-axis_title"]= "Time"
+    chart2_dict["y-axis_title"]= "Percentage used"
+    chart3_dict["title"] = "Network Usage"
+    chart3_dict["x-axis_title"]= "Time"
+    chart3_dict["y-axis_title"]= "MB"
+    monitor_nf={
+    "NF_stats":{"chart1":chart_dict}
+    }
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return  
+    if 'gnb' in container[0].name:
+        chart1_dict["title"] = "Average DL throughput of connected UEs"
+        chart1_dict["x-axis_title"]= "Time"
+        chart1_dict["y-axis_title"]= "MB/sec"
+        chart2_dict["title"] = "Average UL throughput of connected UEs"
+        chart2_dict["x-axis_title"]= "Time"
+        chart2_dict["y-axis_title"]= "MB/sec"
+        chart3_dict["title"] = "Average Latency of connected UEs"
+        chart3_dict["x-axis_title"]= "Time"
+        chart3_dict["y-axis_title"]= "milliseconds"
+    if 'gnb' not in container[0].name:
+        raw_stats=stats.read_stats_db(id)    
+        for row in raw_stats:
+            chart1_dict["data"].append({row[2]:row[3]})
+            chart2_dict["data"].append({row[2]:row[4]})
+            chart3_dict["data"].append({row[2]:[row[5],row[6]]})
+    if 'gnb' in container[0].name:
+        meas=measurements.read(container[0].name)
+        ul_dict={}
+        dl_dict={}
+        lat_dict={}
+        for row in meas:
+            if row[3] not in ul_dict.keys():
+                ul_dict[row[3]]=[row[4]]
+                dl_dict[row[3]]=[row[5]]
+                lat_dict[row[3]]=[row[6]]
+            else:
+                ul_dict[row[3]].append(row[4])
+                dl_dict[row[3]].append(row[5])
+                lat_dict[row[3]].append(row[6])
+        for key in ul_dict.keys():
+            chart1_dict["data"].append({key:(sum(ul_dict[key])/len(ul_dict[key]))})
+            chart2_dict["data"].append({key:(sum(dl_dict[key])/len(dl_dict[key]))})
+            chart3_dict["data"].append({key:(sum(lat_dict[key])/len(lat_dict[key]))})
+    monitor_nf["NF_stats"]={"chart1":chart1_dict,"chart2":chart2_dict,"chart3":chart3_dict}
+    return jsonify(monitor_nf),200
+
+@app.route('/monitor_nf_packets/<id>')
+def monitor_nf_packets(id):
+    #dictionaries for json
+    monitor_nf={"NF_packets":''}
+    container=client.containers.list(filters={"id":id})
     monitor_nf["NF_packets"]=packets.get_packets(container[0].name)
     return jsonify(monitor_nf),200
 
