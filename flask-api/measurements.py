@@ -1,8 +1,11 @@
 import docker
 import json
 import sqlite3
-#import datetime
+import multiprocessing as mp
+import datetime
 import os
+import time 
+stop=0
 
 # 1. Data Volume measurement separately for DL and UL, per QCI per UE, by eNB
 # 2. Throughput separately for DL and UL, per RAB per UE and per UE for the DL, per UE for the UL, by eNB
@@ -50,7 +53,7 @@ def make_meas_table():
     """Clear existing data and create new table for measurements"""
     sql = "DROP TABLE IF EXISTS measurements"
     cursor.execute(sql)
-    sql="CREATE TABLE measurements (nf_name TEXT NOT NULL, id TEXT NOT NULL, time_stamp TEXT NOT NULL, DL_Thp REAL, UL_Thp REAL, Latency REAL, Tx_Bytes REAL, Rx_Bytes REAL)"
+    sql="CREATE TABLE measurements (ue_name TEXT NOT NULL, id TEXT NOT NULL, gnb_name TEXT NOT NULL, time_stamp TEXT NOT NULL, DL_Thp REAL, UL_Thp REAL, Latency REAL, Tx_Bytes REAL, Rx_Bytes REAL)"
     cursor.execute(sql)
     return cursor
     
@@ -62,7 +65,7 @@ def if_table_exists(cursor,table_name):
     else:
         return True
 
-def get_IPaddress(client,id):
+def get_IPaddressOfUE(client,id):
     container=client.containers.list(filters={"id":id})
     if len(container)==0:
         print ("no container running with given id")
@@ -76,34 +79,48 @@ def get_IPaddress(client,id):
                 if  subdicts['label']=='uesimtun0':
                     return subdicts['local']
 
-def write(client,ts):
+def get_measurements(client,ts):
+    global stop
     cursor = make_meas_table()
-    for container in client.containers.list():
-        if 'ue' in str(container.name):
-            IPaddr = get_IPaddress(client,container.id)
-            str1 = 'docker exec -it' + container.name + '/bin/bash'
-            container.exec_run(str1)
-            str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 40'
-            gnb_name = get_gNB(client,container.name)
-            gnb_Container = client.containers.list(filters={"name":gnb_name.strip()})
-            if len(gnb_Container)==0:
-                print ("gNB container not found with given name")
-                return
-            try:
-                run=container.exec_run(str2)
-                temp1=(run.output.decode("utf-8"))
-                temp2=json.loads(temp1)
-                dl_thp = temp2['download'] # bits per second
-                ul_thp = temp2['upload']
-                latency = temp2['server']['latency']
-                tx_byte,rx_byte=get_TxRx_Bytes(client,container.name)
-            except:
-                print ("Error in running speedtest")
-            try:
-                cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
-                cursor.execute("INSERT INTO measurements (nf_name,id,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", (gnb_Container[0].name, gnb_Container[0].id, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
-            except:
-                print ("measurements insert not executing")
+    while True:
+        if stop ==1:
+            stop=0
+            break
+
+        processes =[ mp.Process(target=write_measurements, args=(client,server,cursor,ts)) for server in client.containers.list() if 'ue' in server.name]
+        # Run processes
+        for p in processes:
+            p.start()
+            time.sleep(90)
+
+        # Exit the completed processes
+        for p in processes:
+            p.join()
+
+
+def write_measurements(client,container,cursor,ts):
+    IPaddr = get_IPaddressOfUE(client,container.id)
+    str2 = 'speedtest-cli --source ' + IPaddr + ' --json --timeout 45'
+    gnb_name = get_gNB(client,container.name)
+    gnb_Container = client.containers.list(filters={"name":gnb_name.strip()})
+    if len(gnb_Container)==0:
+        print ("gNB container not found with given name")
+        return
+    try:
+        run=container.exec_run(['sh', '-c', str2])
+        temp1=(run.output.decode("utf-8"))
+        temp2=json.loads(temp1)
+        dl_thp = temp2['download'] # bits per second
+        ul_thp = temp2['upload']
+        latency = temp2['server']['latency']
+        tx_byte,rx_byte=get_TxRx_Bytes(client,container.name)
+    except Exception as e:
+        print ("Error in running speedtest "+str(e))
+    try:
+        cursor.execute("INSERT INTO measurements (ue_name,id,gnb_name,time_stamp,DL_Thp,UL_Thp,latency,Tx_Bytes,Rx_Bytes) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)", (container.name, container.id, gnb_Container[0].name, ts, dl_thp, ul_thp, latency,tx_byte,rx_byte) )
+    except :
+        print ("measurements insert not executing")
+    time.sleep(90)
 
 def get_gNB(client,name):
     container=client.containers.list(filters={"name":name})
@@ -122,7 +139,7 @@ def get_gNB(client,name):
 def read(name):
     conn=get_db()
     cursor=conn.cursor()
-    sql="SELECT * FROM measurements WHERE nf_name='"+name+"'; "
+    sql="SELECT * FROM measurements WHERE gnb_name='"+name+"'; "
     if if_table_exists(cursor,'measurements'):
         cursor.execute(sql)
         args=cursor.fetchall()
@@ -169,7 +186,7 @@ def get_Health(shortid):
 #get_num_ActiveUEs(client)
 #res=read()
 #print(res)
-#get_IPaddress(client,id)
+#get_IPaddressOfUE(client,id)
 #get_TxRx_Bytes(client,'ue1')
 #write(client,str(datetime.datetime.now()))
 #read('ue2')

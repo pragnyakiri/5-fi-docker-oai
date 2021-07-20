@@ -39,6 +39,7 @@ def get_IPaddress(client,id):
         ip_add = container[0].attrs["NetworkSettings"]["Networks"]["free5gc-compose_privnet"]["IPAddress"]
     except: 
         print ("Error in getting IP address")
+    return ip_add    
 
 def ues_served(client, id):
     list_ue_containers=[]
@@ -58,7 +59,7 @@ list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']
 @app.route('/monitor_home')
 def monitor_home():
     monitor_home_page={"count_active_cells":0,"count_available_cells":0,"malfunction":"Everything is working fine","List_NFs":[],"counts_in_topo":{},"traffic_data": {\
-        'title': 'Trafic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
+        'title': 'Traffic served over-time','x-title':'Time','y-title':'User traffic served ','data':[]}}
     #NF_details={"type":'',"name":'', 'count': 0, "containerid":"", "internet":""}
     counts_details={"nfs":0,"upfs":0, 'gnbs': 0, "rrhs":0, "ues":0}
     bytesdata={}
@@ -82,9 +83,9 @@ def monitor_home():
             data=measurements.read(container.name)
             for row in data:
                 if row[0] in bytesdata.keys():
-                    bytesdata[row[2]].append(int(row[-1].strip())+int(row[-2].strip()))
+                    bytesdata[row[3]].append(int(row[-1].strip())+int(row[-2].strip()))
                 else:
-                    bytesdata[row[2]]=[(int(row[-1])+int(row[-2]))]
+                    bytesdata[row[3]]=[(int(row[-1])+int(row[-2]))]
     for key in bytesdata.keys():
         monitor_home_page["traffic_data"]["data"].append({key:bytesdata[key]})
     counts_details["upfs"]= len(client.containers.list(filters={'name':'upf.*'}))
@@ -189,14 +190,14 @@ def monitor_nf(id):
         dl_dict={}
         lat_dict={}
         for row in meas:
-            if row[2] not in ul_dict.keys():
-                ul_dict[row[2]]=[row[3]]
-                dl_dict[row[2]]=[row[4]]
-                lat_dict[row[2]]=[row[5]]
+            if row[3] not in ul_dict.keys():
+                ul_dict[row[3]]=[row[4]]
+                dl_dict[row[3]]=[row[5]]
+                lat_dict[row[3]]=[row[6]]
             else:
-                ul_dict[row[2]].append(row[3])
-                dl_dict[row[2]].append(row[4])
-                lat_dict[row[2]].append(row[5])
+                ul_dict[row[3]].append(row[4])
+                dl_dict[row[3]].append(row[5])
+                lat_dict[row[3]].append(row[6])
         for key in ul_dict.keys():
             chart1_dict["data"].append({key:(sum(ul_dict[key])/len(ul_dict[key]))})
             chart2_dict["data"].append({key:(sum(dl_dict[key])/len(dl_dict[key]))})
@@ -348,12 +349,12 @@ def UE_measurements(id):
         return    
     result = measurements.read(container[0].name)
     for row in result:
-        measurements_data["time_stamp"]=row[2]
-        measurements_data["dl_thp"]=row[3]
-        measurements_data["ul_thp"]=row[4]
-        measurements_data["latency"]=row[5] 
-        measurements_data["tx_bytes"]=row[6] 
-        measurements_data["rx_bytes"]=row[7] 
+        measurements_data["time_stamp"]=row[3]
+        measurements_data["dl_thp"]=row[4]
+        measurements_data["ul_thp"]=row[5]
+        measurements_data["latency"]=row[6] 
+        measurements_data["tx_bytes"]=row[7] 
+        measurements_data["rx_bytes"]=row[8] 
         Meas_Data["all_data"].append(measurements_data)
         Meas_Data["name_of_nf"] = row[0]
         measurements_data={}
@@ -364,7 +365,7 @@ def UE_measurements(id):
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
 stats_thread.start()
 handover_db.drop_db()
-measurements_thread=threading.Thread(target=measurements.write, args=(client,str(datetime.datetime.now())), name="docker_measurements")
+measurements_thread=threading.Thread(target=measurements.get_measurements, args=(client,str(datetime.datetime.now())), name="docker_measurements")
 measurements_thread.start()
 
 if len(sys.argv) !=2:
