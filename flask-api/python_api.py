@@ -55,11 +55,18 @@ def ues_served(client, id):
 #################################################
 @app.route('/start_demo')
 def docker_start():
+    pwd=os.getcwd()
+    os.chdir('../free5gc-compose')
     os.system('docker-compose up -d')
+    os.chdir(pwd)
+    return "success",200
 @app.route('/restart_demo')
 def docker_restart():
+    pwd=os.getcwd()
+    os.chdir('../free5gc-compose')
     os.system('docker-compose down')
     os.system('docker-compose up -d')
+    os.chdir(pwd)
     return jsonify({"response":"success"}), 200
 ####################################################
 
