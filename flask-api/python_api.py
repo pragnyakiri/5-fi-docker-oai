@@ -155,6 +155,7 @@ def monitor_nf(id):
         return   
     state= 'active' 
     health= 'good'
+    DNN = 'internet'
     #no_PDUsessions=0
     Management_IP=''
     no_servedUEs=0
