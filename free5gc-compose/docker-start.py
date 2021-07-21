@@ -1,6 +1,6 @@
 
 import os
-from flask import Flask
+from flask import Flask, jsonify
 import sys
 
 app= Flask(__name__)
@@ -11,7 +11,7 @@ def docker_start():
 def docker_restart():
     os.system('docker-compose down')
     os.system('docker-compose up -d')
-    return "success", 200
+    return jsonify({"response":"success"}), 200
 
 if __name__=='__main__':
     app.run(host = '0.0.0.0',port=sys.argv[1])
