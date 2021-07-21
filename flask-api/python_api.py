@@ -53,6 +53,15 @@ def ues_served(client, id):
 
 
 #################################################
+@app.route('/start_demo')
+def docker_start():
+    os.system('docker-compose up -d')
+@app.route('/restart_demo')
+def docker_restart():
+    os.system('docker-compose down')
+    os.system('docker-compose up -d')
+    return jsonify({"response":"success"}), 200
+####################################################
 
 list_nfs=['nrf','amf','upf','gnb','ue','udm','udr','smf','ausf','nssf','pcf']    
 
