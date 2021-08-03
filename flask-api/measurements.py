@@ -179,6 +179,22 @@ def get_Health(shortid):
         flag=1
     return flag
 
+def get_PingLatency(client,name):
+    container=client.containers.list(filters={"name":name})
+    #print(container[0].name)
+    if len(container)==0:
+        print ("no container running with given name")
+        return
+    try:
+        run=container[0].exec_run('ping -I uesimtun0 142.250.183.206 -c 10')
+        temp=run.output.decode("utf-8")
+        temp1=temp.split('rtt ')
+        temp2=temp1[1].split('=')
+        temp3=temp2[1].split('/')
+        #print(temp3[1])
+    except: 
+        print ("Error in running Ping command")
+    return temp3[1]
 
 
 #client=docker.from_env()
@@ -192,3 +208,5 @@ def get_Health(shortid):
 #read('ue2')
 #read('ue1')
 #get_Health(client,id)
+#p=get_PingLatency(client,'ue1')
+#print(p)
