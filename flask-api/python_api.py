@@ -497,6 +497,18 @@ def UE_measurements(id):
         measurements_data={}
     return jsonify(Meas_Data),200
 
+@app.route('/PingLatency/<id>')
+def ping_Latency(id):
+    #dictionaries for json    
+    latency_values={ "Latency":''
+   }
+    container=client.containers.list(filters={"id":id})
+    if len(container)==0:
+        print ("no container running with given id")
+        return   
+    latency_values["Latency"]=measurements.get_PingLatency(client,container[0].name)
+    return jsonify(latency_values),200
+
 # start a thread to dump packet data and stats data into db
 
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
