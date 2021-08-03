@@ -180,6 +180,7 @@ def get_Health(shortid):
     return flag
 
 def get_PingLatency(client,name):
+    latency_values=[]
     container=client.containers.list(filters={"name":name})
     #print(container[0].name)
     if len(container)==0:
@@ -191,10 +192,14 @@ def get_PingLatency(client,name):
         temp1=temp.split('rtt ')
         temp2=temp1[1].split('=')
         temp3=temp2[1].split('/')
-        #print(temp3[1])
+        tmp=temp.split('time=')
+        for i in range(1,len(tmp)):
+            tmp1=tmp[i].split('ms')
+            if i != len(tmp):
+                latency_values.append(tmp1[0])
     except: 
         print ("Error in running Ping command")
-    return temp3[1]
+    return latency_values,temp3[1]
 
 
 #client=docker.from_env()
