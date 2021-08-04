@@ -1,6 +1,7 @@
 import docker
 import datetime
 import shutil
+import time
 from flask import Flask, request, jsonify
 import stats
 import measurements
@@ -524,6 +525,7 @@ def exec_act_core():
     client_lowlevel.restart(container.id)
     container=client.containers.list(filters={"name":"smf"})[0]
     client_lowlevel.restart(container.id)
+    time.sleep(1)
     container=client.containers.list(filters={"name":"ue1"})[0]
     client_lowlevel.restart(container.id)
     return jsonify({'response':'userplane change success'}),200
