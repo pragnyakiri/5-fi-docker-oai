@@ -65,6 +65,7 @@ def docker_start():
 @app.route('/restart_demo')
 def docker_restart():
     pwd=os.getcwd()
+    shutil.copy('../free5gc-compose/config/uerouting_orig.yaml','../free5gc-compose/config/uerouting.yaml')
     os.chdir('../free5gc-compose')
     os.system('docker-compose down')
     os.system('docker-compose up -d')
@@ -519,7 +520,7 @@ def sug_act_core():
 
 @app.route('/execute_sug_action')
 def exec_act_core():
-    shutil.copy('../free5gc-compose/config/uerouting_1.yaml','../free5gc-compose/config/uerouting.yaml')
+    shutil.copy('../free5gc-compose/config/uerouting_changed.yaml','../free5gc-compose/config/uerouting.yaml')
     client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
     container=client.containers.list(filters={"name":"branching-upf"})[0]
     client_lowlevel.restart(container.id)
