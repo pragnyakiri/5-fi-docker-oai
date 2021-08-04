@@ -346,6 +346,7 @@ def monitor_nf_packets(id):
 @app.route("/stop")
 def stop_loop():
     stats.kill_stats_collection()
+    measurements.kill_meas_collection()
     return "successfuly stopped the loop",200
 
 
@@ -531,10 +532,13 @@ handover_db.drop_db()
 measurements_thread=threading.Thread(target=measurements.get_measurements, args=(client,), name="docker_measurements")
 measurements_thread.start()
 
-if len(sys.argv) !=2:
+if len(sys.argv) < 2:
     print("Provide port number properly")
     stop=1
     exit()
+if len(sys.argv) >2:
+    if sys.argv[2] =='stop':
+        stop_loop()
 
 #start flask app
 if __name__=='__main__':
