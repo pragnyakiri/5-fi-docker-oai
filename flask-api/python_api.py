@@ -497,12 +497,12 @@ def UE_measurements(id):
         measurements_data={}
     return jsonify(Meas_Data),200
 
-@app.route('/PingLatency/<id>')
+@app.route('/ping/<id>')
 def ping_Latency(id):
     #dictionaries for json    
     latency_values={ "Latency":''
    }
-    container=client.containers.list(filters={"id":id})
+    container=client.containers.list(filters={"name":id})
     if len(container)==0:
         print ("no container running with given id")
         return   
