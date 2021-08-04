@@ -529,7 +529,14 @@ def exec_act_core():
     client_lowlevel.restart(container.id)
     time.sleep(1)
     container=client.containers.list(filters={"name":"ue1"})[0]
-    client_lowlevel.restart(container.id)
+    run=container.exec_run('nr-cli --dump')
+    temp1=(run.output.decode("utf-8")).split("\n")
+    ue_imsi=temp1[0]
+    temp1=container.exec_run('nr-cli ' + ue_imsi + ' -e ps-release-all')
+    time.sleep(10)
+    temp1=container.exec_run('nr-cli ' + ue_imsi + ' -e ps-establish')
+    # container=client.containers.list(filters={"name":"ue1"})[0]
+    # client_lowlevel.restart(container.id)
     measurements.pop_latency()
     return jsonify({'response':'userplane change success'}),200
 
