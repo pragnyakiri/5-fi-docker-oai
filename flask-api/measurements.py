@@ -229,7 +229,7 @@ def read_actions():
         avg_latency=actions[0][3]
         output['action_button']='yes'
         output['action_button_text']=uename+' is experiencing '+avg_latency+'ms. Switch the Userplane path'
-        sql="DELETE * FROM latency WHERE sug_action_key='"+str(action_id)+"'; "
+        sql="DELETE FROM latency WHERE sug_action_key='"+str(action_id)+"'; "
         cursor.execute(sql)
     conn.close()
     return output
