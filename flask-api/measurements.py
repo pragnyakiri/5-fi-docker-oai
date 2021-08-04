@@ -207,7 +207,7 @@ def get_PingLatency(client,name):
                 latency_values.append(tmp1[0])
         #avg_latency=int(''.join([i for i in temp3[1] if (i.isdigit() or i=='.')]))
         avg_latency=float(temp3[1].strip())
-        if avg_latency>7:
+        if avg_latency > 50:
             conn=get_db()
             cursor=conn.cursor()
             make_latency_table(cursor)
