@@ -539,6 +539,10 @@ def exec_act_core():
     # client_lowlevel.restart(container.id)
     measurements.pop_latency()
     return jsonify({'response':'userplane change success'}),200
+@app.route('/pop_sug_action')
+def pop_sug_action():
+    measurements.pop_latency()
+    return "success",200
 
 # start a thread to dump packet data and stats data into db
 
