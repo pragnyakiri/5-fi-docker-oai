@@ -69,6 +69,7 @@ def docker_restart():
     os.chdir('../free5gc-compose')
     os.system('docker-compose down')
     os.system('docker-compose up -d')
+    stop_loop()
     os.chdir(pwd)
     return jsonify({"response":"success"}), 200
 ####################################################
