@@ -1,5 +1,6 @@
 import docker
 import datetime
+import shutil
 from flask import Flask, request, jsonify
 import stats
 import measurements
@@ -498,16 +499,16 @@ def UE_measurements(id):
         measurements_data={}
     return jsonify(Meas_Data),200
 
-@app.route('/ping/<id>')
-def ping_Latency(id):
+@app.route('/ping/<name>')
+def ping_Latency(name):
     #dictionaries for json    
     latency_values={ "Latency":''
    }
-    container=client.containers.list(filters={"name":id})
+    container=client.containers.list(filters={"name":name})
     if len(container)==0:
-        print ("no container running with given id")
+        print ("no container running with given name")
         return   
-    latency_values["Latency"]=measurements.get_PingLatency(client,container[0].name)
+    latency_values["Latency"]=measurements.get_PingLatency(client,name)
     return jsonify(latency_values),200
 
 @app.route('/suggested_actions_core')
@@ -517,13 +518,15 @@ def sug_act_core():
 
 @app.route('/execute_sug_action')
 def exec_act_core():
+    shutil.copy('../free5gc-compose/config/uerouting_1.yaml','../free5gc-compose/config/uerouting.yaml')
     client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
-    container=client.containers.list(filters={"name":"branching-upf"})
-    client_lowlevel.restart(container)
-    container=client.containers.list(filters={"name":"smf"})
-    client_lowlevel.restart(container)
-    container=client.containers.list(filters={"name":"ue1"})
-    client_lowlevel.restart(container)
+    container=client.containers.list(filters={"name":"branching-upf"})[0]
+    client_lowlevel.restart(container.id)
+    container=client.containers.list(filters={"name":"smf"})[0]
+    client_lowlevel.restart(container.id)
+    container=client.containers.list(filters={"name":"ue1"})[0]
+    client_lowlevel.restart(container.id)
+    return jsonify({'response':'userplane change success'}),200
 
 # start a thread to dump packet data and stats data into db
 

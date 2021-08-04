@@ -188,6 +188,7 @@ def make_latency_table(cursor):
 
 def get_PingLatency(client,name):
     latency_values=[]
+    avg_latency=0
     container=client.containers.list(filters={"name":name})
     #print(container[0].name)
     if len(container)==0:
@@ -204,15 +205,17 @@ def get_PingLatency(client,name):
             tmp1=tmp[i].split('ms')
             if i != len(tmp):
                 latency_values.append(tmp1[0])
-        avg_latency=int(''.join([i for i in temp3[1] if (i.isdigit() or i=='.')]))
-        if avg_latency>50:
+        #avg_latency=int(''.join([i for i in temp3[1] if (i.isdigit() or i=='.')]))
+        avg_latency=float(temp3[1].strip())
+        if avg_latency>7:
             conn=get_db()
             cursor=conn.cursor()
             make_latency_table(cursor)
             cursor.execute("INSERT INTO latency (uename,ueid,avg_latency) VALUES(?,?,?)",(container[0].name,container[0].id,avg_latency))
     except: 
         print ("Error in running Ping command")
-    return latency_values,temp3[1]
+    return latency_values,avg_latency
+
 def read_actions():
     output={'action_button':'no',"action_button_text":''}
     conn=get_db()
