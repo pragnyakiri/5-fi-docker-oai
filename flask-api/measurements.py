@@ -178,6 +178,11 @@ def get_Health(shortid):
     if shortid in r:
         flag=1
     return flag
+def make_latency_table(cursor):
+    sql="CREATE TABLE IF NOT EXISTS latency (sug_action_key INTEGER PRIMARY KEY AUTOINCREMENT,\
+         uename TEXT UNIQUE NOT NULL, ueid TEXT NOT NULL, avg_latency TEXT NOT NULL)"
+    cursor.execute(sql)
+    return    
 
 def get_PingLatency(client,name):
     latency_values=[]
@@ -197,10 +202,35 @@ def get_PingLatency(client,name):
             tmp1=tmp[i].split('ms')
             if i != len(tmp):
                 latency_values.append(tmp1[0])
+        avg_latency=int(''.join([i for i in temp3[1] if i.isdigit()]))
+        if avg_latency>50:
+            conn=get_db()
+            cursor=conn.cursor()
+            make_latency_table(cursor)
+            cursor.execute("INSERT INTO latency (uename,ueid,avg_latency) VALUES(?,?,?)",(container[0].name,container[0].id,avg_latency))
     except: 
         print ("Error in running Ping command")
     return latency_values,temp3[1]
-
+def read_actions():
+    output={'action_button':'no',"action_button_text":''}
+    conn=get_db()
+    cursor=conn.cursor()
+    list_of_tables=cursor.execute("""SELECT name FROM sqlite_master WHERE type='table' AND name='latency'; """).fetchall()
+    if len(list_of_tables)==0:
+        output['action_button']='no'
+        output['action_button_text']=''
+    else:
+        sql="SELECT * FROM latency"
+        actions=cursor.execute(sql).fetchall()
+        action_id=actions[0][0]
+        uename=actions[0][1]
+        avg_latency=actions[0][3]
+        output['action_button']='yes'
+        output['action_button_text']=uename+' is experiencing '+avg_latency+'ms. Switch the Userplane path'
+        sql="DELETE * FROM latency WHERE sug_action_key='"+action_id+"'; "
+        cursor.execute(sql)
+    conn.close()
+    return output
 
 #client=docker.from_env()
 #id = "19f0f29cfbc11fd4464d5dde07d8c68882e4ad41b55ed1f228ce383ebc85072a"

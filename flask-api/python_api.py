@@ -509,6 +509,20 @@ def ping_Latency(id):
     latency_values["Latency"]=measurements.get_PingLatency(client,container[0].name)
     return jsonify(latency_values),200
 
+@app.route('/suggested_actions_core')
+def sug_act_core():
+    check=measurements.read_actions()
+    return jsonify(check),200
+
+@app.route('/execute_sug_action')
+def exec_act_core():
+    container=client.containers.list(filters={"name":"branching-upf"})
+    client.restart(container)
+    container=client.containers.list(filters={"name":"smf"})
+    client.restart(container)
+    container=client.containers.list(filters={"name":"ue1"})
+    client.restart(container)
+
 # start a thread to dump packet data and stats data into db
 
 stats_thread=threading.Thread(target=stats.get_stats, args=(client,), name="docker_stats")
