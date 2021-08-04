@@ -530,6 +530,7 @@ def exec_act_core():
     time.sleep(1)
     container=client.containers.list(filters={"name":"ue1"})[0]
     client_lowlevel.restart(container.id)
+    measurements.pop_latency()
     return jsonify({'response':'userplane change success'}),200
 
 # start a thread to dump packet data and stats data into db

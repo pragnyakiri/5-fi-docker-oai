@@ -227,15 +227,32 @@ def read_actions():
     else:
         sql="SELECT * FROM latency"
         actions=cursor.execute(sql).fetchall()
-        action_id=actions[0][0]
-        uename=actions[0][1]
-        avg_latency=actions[0][3]
-        output['action_button']='yes'
-        output['action_button_text']=uename+' is experiencing '+avg_latency+'ms. Switch the Userplane path'
-        sql="DELETE FROM latency WHERE sug_action_key='"+str(action_id)+"'; "
-        cursor.execute(sql)
+        if len(actions)==0:
+            output['action_button']='no'
+            output['action_button_text']=''
+        else:
+            uename=actions[0][1]
+            avg_latency=actions[0][3]
+            output['action_button']='yes'
+            output['action_button_text']=uename+' is experiencing '+avg_latency+'ms of latency. Switch the Userplane path'
     conn.close()
     return output
+def pop_latency():
+    conn=get_db()
+    cursor=conn.cursor()
+    list_of_tables=cursor.execute("""SELECT name FROM sqlite_master WHERE type='table' AND name='latency'; """).fetchall()
+    if len(list_of_tables)==0:
+        return
+    else:
+        sql="SELECT * FROM latency"
+        actions=cursor.execute(sql).fetchall()
+        if len(actions)==0:
+            return
+        else:
+            action_id=actions[0][0]
+            sql="DELETE FROM latency WHERE sug_action_key='"+str(action_id)+"'; "
+            cursor.execute(sql)
+            return
 
 #client=docker.from_env()
 #id = "19f0f29cfbc11fd4464d5dde07d8c68882e4ad41b55ed1f228ce383ebc85072a"
