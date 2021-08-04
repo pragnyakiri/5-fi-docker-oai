@@ -518,12 +518,13 @@ def sug_act_core():
 @app.route('/execute_sug_action')
 def exec_act_core():
     client_lowlevel = docker.APIClient(base_url='unix://var/run/docker.sock')
-    container=client.containers.list(filters={"name":"branching-upf"})
-    client_lowlevel.restart(container)
-    container=client.containers.list(filters={"name":"smf"})
-    client_lowlevel.restart(container)
-    container=client.containers.list(filters={"name":"ue1"})
-    client_lowlevel.restart(container)
+    container=client.containers.list(filters={"name":"branching-upf"})[0]
+    client_lowlevel.restart(container.id)
+    container=client.containers.list(filters={"name":"smf"})[0]
+    client_lowlevel.restart(container.id)
+    container=client.containers.list(filters={"name":"ue1"})[0]
+    client_lowlevel.restart(container.id)
+    return jsonify({'response':'userplane change success'}),200
 
 # start a thread to dump packet data and stats data into db
 
