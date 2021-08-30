@@ -1,6 +1,6 @@
 FROM debian:latest as builder
 
-ARG version=v3.2.2
+ARG version=v3.2.3
 
 ENV VERSION=$version
 
