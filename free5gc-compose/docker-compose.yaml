@@ -290,19 +290,31 @@ services:
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   gnb1:
-    image: ueransim:3.2.2
+    image: rdefosseoai/oai-gnb:develop
     container_name: gnb1
-    command: 
-      - gnb
     environment:
-      PCAP_NAME: gnb1
-      AMF_HOSTNAME: amf
-      GNB_HOSTNAME: gnb1
-      MCC: '208'
-      MNC: '93'
-      SST: 0x01
-      SD: 0x010203
-      NCI: '0x0000000100'
+      MCC: 208
+      MNC: 93
+      GNBID: 1
+      TAC: '0x00a000'
+      SST: '1'
+      SD: '010203'
+      SD_UE_PARAM: '00007b'
+      PagingDRX: 'v32'
+      RANUENGAPID: 0
+      IMEISV: '35609204079514'
+      MSIN: '0000000031'
+      RoutingIndicator: 1234
+      ProtectionScheme: 'null'
+      KEY: '0C0A34601D4F07677303652C0462535B'
+      OPc: '63bfa50ee6523365ff14c1f45f88737d'
+      DNN: 'internet'
+      URL: 'http://192.168.74.205:8000'
+      NRCellID: 1
+      USE_FQDN: 'no'
+      NGAPPeerAddr: '192.168.74.195'
+      GTPuLocalAddr: '192.168.74.198' # spgwu-tiny-upf
+      GTPuIFname: 'eth0'
     networks:
       privnet:
         aliases:
@@ -316,39 +328,10 @@ services:
       - free5gc-upf-1
       - free5gc-upf-2
       - free5gc-upf-3
-  gnb2:
-    image: ueransim:3.2.2
-    container_name: gnb2
-    command: 
-      - gnb
-    volumes: 
-      - ./config/pcap.sh:/pcap.sh
-      - ../../5-fi-packetdata:/pcapdata
-    environment:
-      PCAP_NAME: gnb2
-      AMF_HOSTNAME: amf
-      GNB_HOSTNAME: gnb2
-      MCC: '208'
-      MNC: '93'
-      SST: 0x01
-      SD: 0x010203
-      NCI: '0x0000001111'
-    networks:
-      privnet:
-        aliases:
-          - gnb
-    depends_on:
-      - free5gc-amf
-      - free5gc-smf
-      - free5gc-upf-1
-      - free5gc-upf-2
-      - free5gc-upf-3 
-      - gnb1
+
   ue1:
-    image: ueransim:3.2.2
+    image: rdefosseoai/oai-nr-ue:develop
     container_name: ue1
-    command: 
-      - ue
     cap_add:
       - all
     volumes: 
@@ -373,36 +356,6 @@ services:
           - ue
     depends_on:
       - gnb1
-  ue2:
-    image: ueransim:3.2.2
-    container_name: ue2
-    command: 
-      - ue
-    cap_add:
-      - all
-    volumes: 
-      - ./config/pcap.sh:/pcap.sh
-      - ../../5-fi-packetdata:/pcapdata
-    privileged: true
-    environment:
-      PCAP_NAME: ue2
-      GNB_HOSTNAME: gnb1
-      APN: internet
-      MSISDN: '0000000004'
-      KEY: '8baf473f2f8fd09487cccbd7097c6862'
-      OP_TYPE: OPC
-      OP: '8e27b6af0e692e750f32667a3b14605d'
-      MCC: '208'
-      MNC: '93'
-      SST: 0x01
-      SD: 0x010203
-    networks:
-      privnet:
-        aliases:
-          - ue
-    depends_on:
-      - gnb1
-      - ue1
           
 networks:
   privnet:

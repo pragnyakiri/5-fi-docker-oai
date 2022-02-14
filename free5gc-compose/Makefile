@@ -6,7 +6,7 @@ DIR ='5-fi-packetdata'
 .PHONY: base
 base:
 	docker build -t ${DOCKER_IMAGE_OWNER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ./base
-	if [ ! -d /home/${USER}/${DIR} ]; then \
-		mkdir /home/${USER}/${DIR}; \
+	if [ ! -d /home/pradnya/${DIR} ]; then \
+		mkdir /home/pradnya/${DIR}; \
 	fi
 	docker image ls ${DOCKER_IMAGE_OWNER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
