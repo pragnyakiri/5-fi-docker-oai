@@ -27,7 +27,6 @@
 
 
 FROM ubuntu:bionic AS ran-base
-ARG NEEDED_GIT_PROXY
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
 ENV BUILD_UHD_FROM_SOURCE=True
@@ -48,24 +47,20 @@ RUN apt-get update && \
        python3-pip && \
     pip3 install --ignore-installed pyyaml
 
-# In some network environments, GIT proxy is required
-RUN /bin/bash -c "if [[ -v NEEDED_GIT_PROXY ]]; then git config --global http.proxy $NEEDED_GIT_PROXY; fi"
+#RUN git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git && \
+#    cd openairinterface5g && \
+#    git checkout develop
+    #/bin/sh oaienv && \ 
+    #cd cmake_targets && \
+    #mkdir -p log && \
+    #./build_oai -I -w SIMU
+    
+#create the WORKDIR
+WORKDIR /oai-ran
+COPY openairinterface5g .
 
-RUN git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git && \
-    cd openairinterface5g && \
-    git checkout develop && \
-    /bin/sh oaienv && \ 
+#run build_oai -I to get the builder image
+RUN /bin/sh oaienv && \ 
     cd cmake_targets && \
     mkdir -p log && \
     ./build_oai -I -w SIMU
-
-
-#create the WORKDIR
-#WORKDIR /oai-ran
-#COPY . .
-
-#run build_oai -I to get the builder image
-#RUN /bin/sh oaienv && \ 
-#    cd cmake_targets && \
-#    mkdir -p log && \
-#    ./build_oai -I -w SIMU

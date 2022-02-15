@@ -27,18 +27,12 @@
 
 FROM ran-base:latest as ran-build
 
-#RUN rm -Rf /oai-ran
-#WORKDIR /oai-ran
-#COPY . .
-
-RUN pwd && \
-    echo "$PWD" && \
-    echo "$pwd" && \
-    cd openairinterface/
-
+RUN rm -Rf /oai-ran
+WORKDIR /oai-ran
+COPY openairinterface5g .
 
 # build all targets so final targets can be created afterwards
 RUN /bin/sh oaienv && \
     cd cmake_targets && \
     mkdir -p log && \
-    ./build_oai --gNB --nrUE --ninja --build-lib all -w SIMU --verbose-ci
+    ./build_oai -c -C -w SIMU --gNB --build-lib all --verbose-compile
