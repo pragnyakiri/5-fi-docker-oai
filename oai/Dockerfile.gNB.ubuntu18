@@ -29,8 +29,8 @@ FROM ran-base:latest as gnb-base
 
 FROM ran-build:latest AS gnb-build
 
-RUN python3 ./docker/scripts/generateTemplate.py ./docker/scripts/gnb_parameters.yaml && \
-    cp /oai-ran/docker/scripts/gnb_entrypoint.sh /oai-ran/docker/scripts/entrypoint.sh
+RUN cp /etc/gnb.band78.tm1.fr1.106PRB.usrpx310.conf /oai-ran/etc/gnb.band78.tm1.fr1.106PRB.usrpx310.conf
+    #cp /etc/gnb_entrypoint.sh /oai-ran/etc/entrypoint.sh
 
 #start from scratch for target executable
 FROM ubuntu:bionic as oai-gnb
@@ -63,7 +63,7 @@ RUN apt-get update && \
 WORKDIR /opt/oai-gnb/bin
 COPY --from=gnb-build \
     /oai-ran/targets/bin/nr-softmodem.Rel15 \
-    /oai-ran/docker/scripts/entrypoint.sh \
+    #/oai-ran/docker/scripts/entrypoint.sh \
     ./
 
 COPY --from=gnb-build \
@@ -103,7 +103,7 @@ RUN /bin/bash -c "ln -s /usr/local/lib/liboai_usrpdevif.so /usr/local/lib/liboai
 
 # Copy the relevant configuration files for gNB
 WORKDIR /opt/oai-gnb/etc
-COPY --from=gnb-build /oai-ran/docker/etc .
+COPY --from=gnb-build /oai-ran/etc .
 
 WORKDIR /opt/oai-gnb
 #EXPOSE 2152/udp  # S1U, GTP/UDP
