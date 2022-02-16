@@ -289,32 +289,78 @@ services:
     - 9000:9000
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
+
+    oai-gnb:
+        image: oai-gnb:develop
+        privileged: true
+        container_name: oai-gnb
+        environment: 
+            RFSIMULATOR: server
+            USE_SA_TDD_MONO: 'yes'
+            GNB_NAME: gnb-rfsim
+            TAC: 1
+            MCC: '208'
+            MNC: '93'
+            MNC_LENGTH: 2
+            NSSAI_SST: 1
+            NSSAI_SD0: 010203
+            NSSAI_SD1: 112233
+            AMF_IP_ADDRESS: amf.free5gc.org
+            #GNB_NGA_IF_NAME: eth0
+            GNB_NGA_IP_ADDRESS: gnb
+            #GNB_NGU_IF_NAME: eth0
+            GNB_NGU_IP_ADDRESS: gnb
+            USE_ADDITIONAL_OPTIONS: --sa -E --rfsim --log_config.global_log_options level,nocolor,time
+        networks:
+          privnet:
+            aliases:
+              - gnb
+        volumes: 
+          - ./config/pcap.sh:/pcap.sh
+          - ../../5-fi-packetdata:/pcapdata
+        depends_on:
+          - free5gc-amf
+          - free5gc-smf
+          - free5gc-upf-1
+          - free5gc-upf-2
+          - free5gc-upf-3
+        healthcheck:
+            test: /bin/bash -c "pgrep nr-softmodem"
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    oai-nr-ue:
+        image: oai-nr-ue:develop
+        privileged: true
+        container_name: oai-nr-ue
+        environment: 
+            RFSIMULATOR: 192.168.71.136
+            FULL_IMSI: '208990100001100'
+            FULL_KEY: 'fec86ba6eb707ed08905757b1bb44b8f'
+            OPC: 'C42449363BBAD02B66D16BC975D77CC1'
+            DNN: internet
+            NSSAI_SST: 1
+            NSSAI_SD: 010203
+            USE_ADDITIONAL_OPTIONS: -E --sa --rfsim -r 106 --numerology 1 -C 3619200000 --nokrnmod --log_config.global_log_options level,nocolor,time
+        depends_on:
+            - oai-gnb
+        networks:
+            public_net:
+        networks:
+          privnet:
+            aliases:
+              - gnb
+        healthcheck:
+            test: /bin/bash -c "pgrep nr-uesoftmodem"
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
   gnb1:
     image: rdefosseoai/oai-gnb:develop
     container_name: gnb1
-    environment:
-      MCC: 208
-      MNC: 93
-      GNBID: 1
-      TAC: '0x00a000'
-      SST: '1'
-      SD: '010203'
-      SD_UE_PARAM: '00007b'
-      PagingDRX: 'v32'
-      RANUENGAPID: 0
-      IMEISV: '35609204079514'
-      MSIN: '0000000031'
-      RoutingIndicator: 1234
-      ProtectionScheme: 'null'
-      KEY: '0C0A34601D4F07677303652C0462535B'
-      OPc: '63bfa50ee6523365ff14c1f45f88737d'
-      DNN: 'internet'
-      URL: 'http://192.168.74.205:8000'
-      NRCellID: 1
-      USE_FQDN: 'no'
-      NGAPPeerAddr: '192.168.74.195'
-      GTPuLocalAddr: '192.168.74.198' # spgwu-tiny-upf
-      GTPuIFname: 'eth0'
+    
     networks:
       privnet:
         aliases:

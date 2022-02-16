@@ -29,8 +29,8 @@ FROM ran-base:latest as gnb-base
 
 FROM ran-build:latest AS gnb-build
 
-RUN cp /etc/gnb.band78.tm1.fr1.106PRB.usrpx310.conf /oai-ran/etc/gnb.band78.tm1.fr1.106PRB.usrpx310.conf
-    #cp /etc/gnb_entrypoint.sh /oai-ran/etc/entrypoint.sh
+RUN python3 ./docker/scripts/generateTemplate.py ./docker/scripts/gnb_parameters.yaml && \
+    cp /oai-ran/docker/scripts/gnb_entrypoint.sh /oai-ran/docker/scripts/entrypoint.sh
 
 #start from scratch for target executable
 FROM ubuntu:bionic as oai-gnb
@@ -63,14 +63,14 @@ RUN apt-get update && \
 WORKDIR /opt/oai-gnb/bin
 COPY --from=gnb-build \
     /oai-ran/targets/bin/nr-softmodem.Rel15 \
-    #/oai-ran/docker/scripts/entrypoint.sh \
+    /oai-ran/docker/scripts/entrypoint.sh \
     ./
 
 COPY --from=gnb-build \
     /oai-ran/cmake_targets/ran_build/build/liboai_eth_transpro.so \
     /oai-ran/cmake_targets/ran_build/build/libtcp_bridge_oai.so \
     /oai-ran/cmake_targets/ran_build/build/librfsimulator.so \
-    /oai-ran/cmake_targets/ran_build/build/liboai_usrpdevif.so \
+    #/oai-ran/cmake_targets/ran_build/build/liboai_usrpdevif.so \
     /oai-ran/cmake_targets/ran_build/build/libcoding.so \
     /oai-ran/cmake_targets/ran_build/build/libparams_libconfig.so \
     /oai-ran/cmake_targets/ran_build/build/libdfts.so \
@@ -82,12 +82,12 @@ COPY --from=gnb-build \
     /usr/local/lib/
 
 # Now we are copying from builder-image the UHD files.
-COPY --from=gnb-base /usr/local/bin/uhd_find_devices /usr/local/bin
+#COPY --from=gnb-base /usr/local/bin/uhd_find_devices /usr/local/bin
 COPY --from=gnb-base \
      /usr/local/lib/libuhd.so.3.15.0 \
      /usr/local/lib/libprotobuf-c.so.1 \
      /usr/local/lib/
-COPY --from=gnb-base /usr/local/lib/uhd/utils/uhd_images_downloader.py /opt/oai-gnb/bin
+#COPY --from=gnb-base /usr/local/lib/uhd/utils/uhd_images_downloader.py /opt/oai-gnb/bin
 COPY --from=gnb-base \
     /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.65.1 \
     /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1 \
