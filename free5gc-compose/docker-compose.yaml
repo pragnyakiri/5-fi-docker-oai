@@ -282,6 +282,7 @@ services:
       - "5000:5000"
     depends_on:
       - db
+      
   portainer:
     image: portainer/portainer-ce
     restart: always
@@ -346,62 +347,14 @@ services:
         depends_on:
             - oai-gnb
         networks:
-            public_net:
-        networks:
           privnet:
             aliases:
-              - gnb
+              - ue
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
-
-  gnb1:
-    image: rdefosseoai/oai-gnb:develop
-    container_name: gnb1
-    
-    networks:
-      privnet:
-        aliases:
-          - gnb
-    volumes: 
-      - ./config/pcap.sh:/pcap.sh
-      - ../../5-fi-packetdata:/pcapdata
-    depends_on:
-      - free5gc-amf
-      - free5gc-smf
-      - free5gc-upf-1
-      - free5gc-upf-2
-      - free5gc-upf-3
-
-  ue1:
-    image: rdefosseoai/oai-nr-ue:develop
-    container_name: ue1
-    cap_add:
-      - all
-    volumes: 
-      - ./config/pcap.sh:/pcap.sh
-      - ../../5-fi-packetdata:/pcapdata
-    privileged: true
-    environment:
-      PCAP_NAME: ue1
-      GNB_HOSTNAME: gnb1
-      APN: internet
-      MSISDN: '0000000003'
-      KEY: '8baf473f2f8fd09487cccbd7097c6862'
-      OP_TYPE: OPC
-      OP: '8e27b6af0e692e750f32667a3b14605d'
-      MCC: '208'
-      MNC: '93'
-      SST: 0x01
-      SD: 0x010203
-    networks:
-      privnet:
-        aliases:
-          - ue
-    depends_on:
-      - gnb1
           
 networks:
   privnet:
