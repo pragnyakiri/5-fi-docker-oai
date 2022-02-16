@@ -35,4 +35,4 @@ COPY openairinterface5g .
 RUN /bin/sh oaienv && \
     cd cmake_targets && \
     mkdir -p log && \
-    ./build_oai -c -C -w SIMU --gNB --build-lib all --verbose-compile
+    ./build_oai -c -C -w SIMU --gNB --nrUE --ninja --build-lib all --verbose-compile
