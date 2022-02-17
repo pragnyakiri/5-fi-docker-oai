@@ -336,7 +336,7 @@ services:
     privileged: true
     container_name: oai-nr-ue
     environment: 
-        RFSIMULATOR: 192.168.71.136
+        RFSIMULATOR: gnb
         FULL_IMSI: '208990100001100'
         FULL_KEY: 'fec86ba6eb707ed08905757b1bb44b8f'
         OPC: 'C42449363BBAD02B66D16BC975D77CC1'
