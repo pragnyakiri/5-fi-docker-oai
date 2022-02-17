@@ -29,8 +29,8 @@ FROM ran-base:latest as gnb-base
 
 FROM ran-build:latest AS gnb-build
 
-RUN python3 ./docker/scripts/generateTemplate.py ./docker/scripts/gnb_parameters.yaml && \
-    cp /oai-ran/docker/scripts/gnb_entrypoint.sh /oai-ran/docker/scripts/entrypoint.sh
+#RUN python3 ./docker/scripts/generateTemplate.py ./docker/scripts/gnb_parameters.yaml && \
+#    cp /oai-ran/docker/scripts/gnb_entrypoint.sh /oai-ran/docker/scripts/entrypoint.sh
 
 #start from scratch for target executable
 FROM ubuntu:bionic as oai-gnb
@@ -104,6 +104,7 @@ RUN /bin/bash -c "ln -s /usr/local/lib/liboai_usrpdevif.so /usr/local/lib/liboai
 # Copy the relevant configuration files for gNB
 WORKDIR /opt/oai-gnb/etc
 COPY --from=gnb-build /oai-ran/docker/etc .
+RUN cp /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 
 WORKDIR /opt/oai-gnb
 #EXPOSE 2152/udp  # S1U, GTP/UDP
