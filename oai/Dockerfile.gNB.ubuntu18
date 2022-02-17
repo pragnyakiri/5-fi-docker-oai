@@ -114,5 +114,6 @@ WORKDIR /opt/oai-gnb
 #EXPOSE 50001/udp # IF5 / ECPRI (data)
 
 #ENTRYPOINT ["/opt/oai-gnb/bin/entrypoint.sh"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
 #CMD ["/opt/oai-gnb/bin/nr-softmodem.Rel15", "-O", "/opt/oai-gnb/etc/gnb.conf"]
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
