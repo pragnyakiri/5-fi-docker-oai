@@ -105,7 +105,8 @@ RUN /bin/bash -c "ln -s /usr/local/lib/liboai_usrpdevif.so /usr/local/lib/liboai
 # Copy the relevant configuration files for gNB
 WORKDIR /opt/oai-gnb/etc
 #COPY --from=gnb-build /oai-ran/docker/etc .
-RUN wget https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf
+RUN wget https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf && \
+    mv gnb.band78.sa.fr1.106PRB.usrpn310.conf gnb.conf
 #https://github.com/pragnyakiri/5-fi-docker-oai/blob/master/oai/etc/gnb.conf
 #COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 #COPY gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
