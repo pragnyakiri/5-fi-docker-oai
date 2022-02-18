@@ -116,5 +116,5 @@ WORKDIR /opt/oai-gnb
 
 #ENTRYPOINT ["/opt/oai-gnb/bin/entrypoint.sh"]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD ["/opt/oai-gnb/bin/nr-softmodem.Rel15", "-O", "/opt/oai-gnb/etc/gnb.conf"]
+CMD ["RFSIMULATOR=server", "/opt/oai-gnb/bin/nr-softmodem.Rel15", "--rfsim", "--sa", "-O", "/opt/oai-gnb/etc/gnb.conf"]
 #CMD ["/bin/bash"]
