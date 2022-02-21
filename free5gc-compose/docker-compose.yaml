@@ -119,8 +119,8 @@ services:
     networks:
       privnet:
         ipv4_address: 10.100.200.51
-        #aliases:
-        #  - amf.free5gc.org
+        aliases:
+          - amf.free5gc.org
     depends_on:
       - free5gc-nrf
 
