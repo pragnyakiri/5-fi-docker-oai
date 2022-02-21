@@ -109,7 +109,7 @@ WORKDIR /opt/oai-gnb/etc
 #RUN wget https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/targets/PROJECTS/GENERIC-LTE-EPC/CONF/gnb.band78.tm1.106PRB.usrpn300.conf && \
 #    mv gnb.band78.tm1.106PRB.usrpn300.conf gnb.conf
 #RUN wget https://github.com/pragnyakiri/5-fi-docker-oai/blob/master/oai/etc/gnb.conf
-COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
+#COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 #COPY gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 
 
