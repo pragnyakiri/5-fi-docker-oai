@@ -110,6 +110,9 @@ WORKDIR /opt/oai-gnb/etc
 #RUN wget https://github.com/pragnyakiri/5-fi-docker-oai/blob/master/oai/etc/gnb.conf
 COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 #COPY gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
+RUN sed 's/CI_MME_IP_ADDR/amf.free5gc.org/' /opt/oai-gnb/etc/gnb.conf && \
+    sed 's/CI_GNB_IP_ADDR/gnb.free5gc.org/' /opt/oai-gnb/etc/gnb.conf && \
+    sed 's/em1/eth0/' /opt/oai-gnb/etc/gnb.conf
 
 WORKDIR /opt/oai-gnb
 #EXPOSE 2152/udp  # S1U, GTP/UDP

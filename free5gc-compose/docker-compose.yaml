@@ -315,7 +315,7 @@ services:
     networks:
       privnet:
         aliases:
-          - gnb
+          - gnb.free5gc.org
     volumes: 
       - ./config/pcap.sh:/pcap.sh
       - ../../5-fi-packetdata:/pcapdata
@@ -336,7 +336,7 @@ services:
     privileged: true
     container_name: oai-nr-ue
     environment: 
-        RFSIMULATOR: gnb
+        RFSIMULATOR: gnb.free5gc.org
         FULL_IMSI: '208990100001100'
         FULL_KEY: 'fec86ba6eb707ed08905757b1bb44b8f'
         OPC: 'C42449363BBAD02B66D16BC975D77CC1'
