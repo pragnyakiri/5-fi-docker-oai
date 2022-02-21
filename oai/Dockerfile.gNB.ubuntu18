@@ -49,6 +49,7 @@ RUN apt-get update && \
         libatlas3-base \
         libconfig9 \
         wget \
+        dnsutils \
         openssl \
         net-tools \
         iproute2 \
