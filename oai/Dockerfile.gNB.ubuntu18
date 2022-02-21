@@ -115,6 +115,7 @@ COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.us
 
 WORKDIR /opt/oai-gnb
 COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 #EXPOSE 2152/udp  # S1U, GTP/UDP
 #EXPOSE 22100/tcp # ?
 #EXPOSE 36412/udp # S1C, SCTP/UDP
