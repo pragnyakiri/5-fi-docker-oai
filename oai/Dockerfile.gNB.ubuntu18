@@ -124,6 +124,6 @@ RUN chmod +x entrypoint.sh
 #EXPOSE 50001/udp # IF5 / ECPRI (data)
 
 ENTRYPOINT ["/opt/oai-gnb/entrypoint.sh"]
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
+CMD ["tail", "-f", "/dev/null"]
 #CMD ["/opt/oai-gnb/bin/nr-softmodem.Rel15", "--rfsim", "--sa", "-O", "/opt/oai-gnb/etc/gnb.conf"]
 #CMD ["/bin/bash"]
