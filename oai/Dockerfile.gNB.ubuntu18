@@ -111,12 +111,10 @@ WORKDIR /opt/oai-gnb/etc
 #RUN wget https://github.com/pragnyakiri/5-fi-docker-oai/blob/master/oai/etc/gnb.conf
 COPY --from=gnb-build /oai-ran/ci-scripts/conf_files/gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
 #COPY gnb.band78.sa.fr1.106PRB.usrpn310.conf /opt/oai-gnb/etc/gnb.conf
-RUN export AMF_ADDR="$(host -4 amf |awk '/has.*address/{print $NF; exit}')" && \
-    sed -i "s/CI_MME_IP_ADDR/$AMF_ADDR/" /opt/oai-gnb/etc/gnb.conf && \
-    sed -i 's/CI_GNB_IP_ADDR/10.100.200.50/' /opt/oai-gnb/etc/gnb.conf && \
-    sed -i 's/em1/eth0/' /opt/oai-gnb/etc/gnb.conf
+
 
 WORKDIR /opt/oai-gnb
+COPY entrypoint.sh .
 #EXPOSE 2152/udp  # S1U, GTP/UDP
 #EXPOSE 22100/tcp # ?
 #EXPOSE 36412/udp # S1C, SCTP/UDP
@@ -124,7 +122,7 @@ WORKDIR /opt/oai-gnb
 #EXPOSE 50000/udp # IF5 / ORI (control)
 #EXPOSE 50001/udp # IF5 / ECPRI (data)
 
-#ENTRYPOINT ["/opt/oai-gnb/bin/entrypoint.sh"]
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/opt/oai-gnb/entrypoint.sh"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
 #CMD ["/opt/oai-gnb/bin/nr-softmodem.Rel15", "--rfsim", "--sa", "-O", "/opt/oai-gnb/etc/gnb.conf"]
 #CMD ["/bin/bash"]
