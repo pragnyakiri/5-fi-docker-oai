@@ -115,8 +115,9 @@ WORKDIR /opt/oai-gnb/etc
 
 WORKDIR /opt/oai-gnb
 COPY gnb.conf .
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+#COPY entrypoint.sh .
+#RUN chmod +x entrypoint.sh
+
 #EXPOSE 2152/udp  # S1U, GTP/UDP
 #EXPOSE 22100/tcp # ?
 #EXPOSE 36412/udp # S1C, SCTP/UDP
