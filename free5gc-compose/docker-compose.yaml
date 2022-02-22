@@ -339,7 +339,7 @@ services:
     container_name: oai-nr-ue
     environment: 
         RFSIMULATOR: '10.100.200.50'
-        FULL_IMSI: '208990100001100'
+        FULL_IMSI: '208930100001100'
         FULL_KEY: 'fec86ba6eb707ed08905757b1bb44b8f'
         OPC: 'C42449363BBAD02B66D16BC975D77CC1'
         DNN: internet
