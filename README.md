@@ -3,12 +3,14 @@
 
 Clone the git
 
-`git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git`
+```
+git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git
 
-`cd openairinterface5g`
+cd openairinterface5g
 
-`git checkout develop`
+git checkout develop
 
+```
 Build images
 
 `docker build --target ran-base --tag ran-base:latest --file docker/Dockerfile.base.ubuntu18 .`
