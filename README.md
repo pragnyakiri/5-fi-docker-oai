@@ -3,9 +3,9 @@
 
 Clone the git
 
-'git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git
-cd openairinterface5g
-git checkout develop'
+'git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git'
+'cd openairinterface5g'
+'git checkout develop'
 
 Build images
 
