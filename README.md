@@ -7,7 +7,6 @@ Clone the openairinterface5g git
 git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git
 cd openairinterface5g
 git checkout develop
-
 ```
 Build images
 
@@ -16,7 +15,6 @@ docker build --target ran-base --tag ran-base:latest --file docker/Dockerfile.ba
 docker build --target ran-build --tag ran-build:latest --file docker/Dockerfile.build.ubuntu18 .
 docker build --target oai-gnb --tag oai-gnb:latest --file docker/Dockerfile.gNB.ubuntu18 .
 docker build --target oai-nr-ue --tag oai-nr-ue:latest --file docker/Dockerfile.nrUE.ubuntu18 .
-
 ```
 
 ## 2. Running docker-compose
