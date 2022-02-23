@@ -29,10 +29,10 @@ FROM ran-base:latest as ran-build
 
 RUN rm -Rf /oai-ran
 WORKDIR /oai-ran
-COPY openairinterface5g .
+COPY . .
 
 # build all targets so final targets can be created afterwards
 RUN /bin/sh oaienv && \
     cd cmake_targets && \
     mkdir -p log && \
-    ./build_oai -c -C -w SIMU --gNB --nrUE --ninja --build-lib all --verbose-compile
+    ./build_oai --eNB --gNB --RU --UE --nrUE --ninja --build-lib all -w USRP --verbose-ci
