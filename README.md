@@ -12,8 +12,11 @@ Clone the git
 Build images
 
 `docker build --target ran-base --tag ran-base:latest --file docker/Dockerfile.base.ubuntu18 .`
+
 `docker build --target ran-build --tag ran-build:latest --file docker/Dockerfile.build.ubuntu18 .`
+
 `docker build --target oai-gnb --tag oai-gnb:latest --file docker/Dockerfile.gNB.ubuntu18 .`
+
 `docker build --target oai-nr-ue --tag oai-nr-ue:latest --file docker/Dockerfile.nrUE.ubuntu18 .`
 
 ## 2. Running docker-compose
@@ -21,10 +24,15 @@ Build images
 Clone the git
 
 `cd ~`
+
 `git clone https://github.com/pragnyakiri/5-fi-docker-oai.git`
+
 `cd 5-fi-docker-oai/free5gc-compose/`
+
 `make base`
+
 `docker-compose build`
+
 `docker-compose up -d`
 
 
