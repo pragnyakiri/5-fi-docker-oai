@@ -18,7 +18,7 @@ ueRoutingInfo: # the list of UE routing information
         # The UPF's name should be consistent with smfcfg.yaml
         UPF: !!seq
           - BranchingUPF
-          - AnchorUPF2
+          - AnchorUPF1
 
   - SUPI: imsi-208930000000004 # Subscription Permanent Identifier of the UE
     AN: gnb1 # the IP address of RAN

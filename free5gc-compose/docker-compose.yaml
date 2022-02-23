@@ -339,12 +339,12 @@ services:
     container_name: oai-nr-ue
     environment: 
         RFSIMULATOR: '10.100.200.50'
-        FULL_IMSI: '208930100001100'
+        FULL_IMSI: '208930000000003'
         FULL_KEY: 'fec86ba6eb707ed08905757b1bb44b8f'
         OPC: 'C42449363BBAD02B66D16BC975D77CC1'
         DNN: internet
         NSSAI_SST: 1
-        NSSAI_SD: 010203
+        NSSAI_SD: 0x112233
         USE_ADDITIONAL_OPTIONS: -E --sa --rfsim -r 106 --numerology 1 -C 3619200000 --nokrnmod --log_config.global_log_options level,time
     depends_on:
         - oai-gnb
