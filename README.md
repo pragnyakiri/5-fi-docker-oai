@@ -16,7 +16,11 @@ docker build --target ran-build --tag ran-build:latest --file docker/Dockerfile.
 docker build --target oai-gnb --tag oai-gnb:latest --file docker/Dockerfile.gNB.ubuntu18 .
 docker build --target oai-nr-ue --tag oai-nr-ue:latest --file docker/Dockerfile.nrUE.ubuntu18 .
 ```
+Check images created
 
+```
+docker images
+```
 ## 2. Running docker-compose
 
 Clone the git
